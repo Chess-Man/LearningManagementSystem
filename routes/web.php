@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Livewire\TeacherLinks\SubjectTeacher;
-use App\Http\Livewire\AdminLinks\Accounts;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,22 +26,23 @@ Route::get('/', function () {
 
 
 
-Route::get('/subjects', SubjectTeacher::class )->name('subjects-teacher');
-Route::get('/accounts', Accounts::class )->name('accounts');
+Route::get('/subjects', App\Http\Livewire\TeacherLinks\SubjectTeacher::class )->name('subjects-teacher');
+
 
 
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/dashboard' , 'App\Http\Controllers\DashboardController@index')->name('dashboard');
-   
+    Route::get('/profile', App\Http\Livewire\Profile::class )->name('profile');
 });
 /* Admin */
-Route::group(['middleware' => ['auth' , 'role:admin']], function(){
+Route::group(['middleware' => ['auth' , 'role:admin|teacher'  ]], function(){
+     Route::get('/accounts', App\Http\Livewire\AdminLinks\Accounts::class )->name('accounts');
+ });
 
-});
 
 /* Teacher */
 Route::group(['middleware' => ['auth' , 'role:teacher']], function(){
-
+   // Route::get('/accounts', Accounts::class )->name('accounts-teacher');
 });
 
 /* Student */
@@ -79,9 +79,9 @@ Route::get('/notifications', function () {
     return view('links.notifications');
 })->name('notifications');
 
-Route::get('/profile', function () {
-    return view('links.profile');
-})->name('profile');
+// Route::get('/profile', function () {
+//     return view('links.profile');
+// })->name('profile');
 
 Route::get('/student', function () {
     return view('links.student');

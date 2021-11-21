@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 
@@ -13,7 +14,8 @@ class DashboardController extends Controller
     {
         if(Auth::user()->hasRole('admin'))
         {
-            return view('dashboard.admin-dash');
+            $count =  User::all()->count();
+            return view('dashboard.admin-dash', ['users' => $count]);
         }
         elseif(Auth::user()->hasRole('teacher'))
         {
@@ -24,4 +26,5 @@ class DashboardController extends Controller
             return view('dashboard.student-dash');
         }
     }
+ 
 }

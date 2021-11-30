@@ -19,7 +19,7 @@ class Accounts extends Component
     public $password;
     public $confirm_password;
     public $role;
-    public $display_name;
+    public $name;
 
     public $show = false ;
     public $search; 
@@ -40,7 +40,6 @@ class Accounts extends Component
             
     }
 
-   
 
     public function doShow() 
     {
@@ -60,7 +59,7 @@ class Accounts extends Component
         
         $this->validate([
                 //'email' => 'required|min:6|unique:users,email,'.$this->user->id,
-                'display_name' => 'required|min:6|unique:users,display_name',
+                'name' => 'required|min:6|unique:users,name',
                 'email' => 'required|min:6|unique:users,email',
                 'password' => 'required|min:5',
                 'confirm_password' => 'required|min:5|required_with:password|same:password',
@@ -69,8 +68,8 @@ class Accounts extends Component
         
         
         $user = new User;
-        $user = User::create([
-            'display_name' => $this->display_name,
+        $user = $user->create([
+            'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
@@ -86,7 +85,6 @@ class Accounts extends Component
     {
        $user = User::findOrFail($this->userIdBeingRemoved);
        $user->delete();
-       $detail = UserDetail::where('user_id', $user->id)->delete();
        $this->dispatchBrowserEvent('deleted', [ 'message' => 'User deleted successfully!']);
     }
  
@@ -98,10 +96,10 @@ class Accounts extends Component
 
     public function edit(User $user)
     {
-       
+
         $this->doShow();
         $this->user = $user;
-        $this->display_name = $user->display_name;
+        $this->name = $user->name;
         $this->email = $user->email;
         $this->show = 'update';
       
@@ -112,7 +110,7 @@ class Accounts extends Component
         if($this->show === 'update')
         {
            $data =  $this->validate([
-                'display_name' => 'required|min:6|unique:users,display_name,'.$this->user->id,
+                'name' => 'required|min:6|unique:users,name,'.$this->user->id,
                 'email' => 'required|min:6|unique:users,email,'.$this->user->id,
             ]);
         }

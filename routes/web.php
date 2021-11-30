@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 
 
-Route::get('/subjects', App\Http\Livewire\TeacherLinks\SubjectTeacher::class )->name('subjects-teacher');
+
 
 
 
@@ -42,12 +42,26 @@ Route::group(['middleware' => ['auth' , 'role:admin|teacher'  ]], function(){
 
 /* Teacher */
 Route::group(['middleware' => ['auth' , 'role:teacher']], function(){
-   // Route::get('/accounts', Accounts::class )->name('accounts-teacher');
+   // Route::get('/subjects', App\Http\Livewire\TeacherLinks\SubjectTeacher::class )->name('subjects-teacher');
+    Route::get('/subjects', App\Http\Livewire\TeacherLinks\ClassTeacher::class )->name('subjects-teacher');
+    
+   //Route::get('/subjects/{subject}', App\Http\Livewire\TeacherLinks\FilesTeacher::class )->name('subjects-files');
 });
+
+Route::group(['middleware' => ['auth' , 'role:teacher|student']], function(){
+   
+    Route::get('/subjects/content/{subject}', App\Http\Livewire\TeacherLinks\SubjectTeacherContent::class )->name('subjects-content');
+    Route::get('/subjects/view/file/{file}', App\Http\Livewire\TeacherLinks\FileViewTeacher::class )->name('subjects-files-view');
+    Route::get('/subjects/view/task/{task}', App\Http\Livewire\TeacherLinks\TaskViewTeacher::class )->name('subjects-task-view');
+ });
+ 
 
 /* Student */
 Route::group(['middleware' => ['auth' , 'role:student']], function(){
-    
+    Route::get('/subjects/student', App\Http\Livewire\StudentLinks\SubjectStudent::class )->name('subjects-student');
+    Route::get('/student/grade', App\Http\Livewire\StudentLinks\StudentGrades::class )->name('grade');
+    Route::get('/student/file', App\Http\Livewire\StudentLinks\StudentFiles::class )->name('files');
+    Route::get('/subjects/view/student/task/{task}', App\Http\Livewire\StudentLinks\TaskViewStudent::class )->name('subjects-task-view-student');
 });
 
 
@@ -66,6 +80,14 @@ Route::get('/task', function () {
 Route::get('/file', function () {
     return view('links.file');
 })->name('file');
+
+Route::get('/progress', function () {
+    return view('links.progress');
+})->name('progress');
+
+Route::get('/progress/content', function () {
+    return view('links.progress-content');
+})->name('progress-content');
 
 Route::get('/grades', function () {
     return view('links.grades');

@@ -2,7 +2,7 @@
 
 
 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-    Account
+  
 </h2>  
 
 @if(session()->has('message'))
@@ -30,7 +30,7 @@
         
         <tr>
           <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Display Name
+            Name
           </th>
           <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Email
@@ -47,7 +47,7 @@
         <td class="px-6 py-4 whitespace-nowrap">
             <div class="flex items-center">
                 <div class="text-sm font-medium text-gray-900 tracking-wide">
-                 {{ $user->display_name}}
+                 {{ $user->name}}
                 </div>
             </div>
           </td>
@@ -136,8 +136,8 @@
 
         <div class="grid grid-cols-1 mx-7">
         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Display Name</label>
-        <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('display_name') border-red-500 @enderror"  type="text" wire:model="display_name"/>
-        @error('display_name')
+        <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('name') border-red-500 @enderror"  type="text" wire:model="name"/>
+        @error('name')
         <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
           {{ $message }}
         </span>

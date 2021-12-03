@@ -1,10 +1,6 @@
 <div>
 <div>
 
-<header class="mt-8 mb-4 flex gap-2 item-center justify-end">   
-  <input type="search" wire:model="search" class="focus:ring-indigo-500 py-2 focus:border-indigo-500 block w-72 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Search...">
-</header>
-
 <div class="flex flex-col">
 
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -41,7 +37,7 @@
 
           <tbody class="bg-white divide-y divide-gray-200">
 
-            @foreach ($students as $student)
+            @forelse ($students as $student)
 
                 <tr>
 
@@ -67,9 +63,14 @@
                         <button  wire:click.prevent="edit({{ $student }} )" class="text-white rounded px-4 py-1 mx-1 bg-green-600 hover:bg-green-700"> Update </button>
                     </td>
 
+                    @empty
+                  <td class="px-6 py-4 bg-gray-100  text-md font-medium text-gray-700 ">
+                    No data
+                  </td>
+
                 </tr>
 
-            @endforeach
+            @endforelse
 
           </tbody>
 

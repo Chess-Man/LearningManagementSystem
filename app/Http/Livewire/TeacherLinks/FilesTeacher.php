@@ -83,7 +83,7 @@ class FilesTeacher extends Component
 
         $validatedData = $this->validate([
             'name' => 'required| max:50',
-            'instruction' => 'required| max:100',
+            'instruction' =>  'max:100',
             'file' => 'required'
         ]);
 
@@ -96,6 +96,7 @@ class FilesTeacher extends Component
         $file->classes()->associate($subject);
         $file->save();
         $this->doClose();
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'File created successfully!']);
     }
 
 

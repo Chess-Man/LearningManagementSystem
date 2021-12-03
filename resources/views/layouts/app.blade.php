@@ -62,7 +62,18 @@
                 )
             }) 
 
-            
+            window.addEventListener('showmessage', event=> {
+                Swal.fire(
+                'Good job!',
+                    event.detail.message,
+                'success'
+                )
+            }) 
+
+
+
+          
+
     </script>
   
 </html>

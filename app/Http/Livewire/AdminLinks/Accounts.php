@@ -78,7 +78,7 @@ class Accounts extends Component
         $userDetail->save();
         $user->attachRole($this->role);
         $this->doClose();
-        session()->flash('message', 'Account created successfully');
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Account created successfully!']);
     }
 
     public function deleteUser()
@@ -107,7 +107,7 @@ class Accounts extends Component
 
     public function update()
     {
-        dd($this->user->id);
+        
         if($this->show === 'update')
         {
            $data =  $this->validate([
@@ -126,7 +126,8 @@ class Accounts extends Component
         }
         $this->user->update($data);
         $this->doClose();
-        session()->flash('message', 'Account updated successfully');
+        
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Account updated successfully!']);
     }
   
 }

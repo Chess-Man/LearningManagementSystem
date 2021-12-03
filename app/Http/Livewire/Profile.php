@@ -86,7 +86,7 @@ class Profile extends Component
         
         ]);
         $this->doClose();
-        session()->flash('message', 'Profile updated successfully');
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Profile updated successfully!']);
     }
 
 }

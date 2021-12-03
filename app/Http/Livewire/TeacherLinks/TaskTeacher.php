@@ -65,7 +65,7 @@ class TaskTeacher extends Component
         $task = Task::create($validatedData);
         $task->classes()->associate($subject);
         $task->save();
-        session()->flash('message', 'Task created successfully');
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Task created successfully!']);
         $this->doClose();
 
     }
@@ -94,5 +94,6 @@ class TaskTeacher extends Component
        $file->delete();
        $this->dispatchBrowserEvent('deleted', [ 'message' => 'Task deleted successfully!']);
     }
+
 
 }

@@ -48,7 +48,7 @@
 
             <tbody class="bg-white divide-y divide-gray-200">
              
-            @foreach ($files as $file)
+            @forelse ($files as $file)
                 
               <tr>
 
@@ -81,9 +81,15 @@
 
                 </td>
 
+
+                @empty
+                  <td class="px-6 py-4 bg-gray-100  text-md font-medium text-gray-700 ">
+                    No data
+                  </td>
+  
               </tr>
 
-              @endforeach
+              @endforelse
             </tbody>
 
         </table>

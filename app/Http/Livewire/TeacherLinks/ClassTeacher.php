@@ -53,7 +53,7 @@ class ClassTeacher extends Component
         $subject->save();
 
         $this->doClose();
-        session()->flash('message', 'Subject updated successfully');
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Account addedd successfully!']);
     } 
 
     public function doShowList()

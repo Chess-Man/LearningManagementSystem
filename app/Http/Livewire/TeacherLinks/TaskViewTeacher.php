@@ -69,7 +69,7 @@ class TaskViewTeacher extends Component
         
         $this->doClose();
         
-        session()->flash('message', 'Account updated successfully');
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Task updated successfully!']);
         $this->task->refresh();
         
     }

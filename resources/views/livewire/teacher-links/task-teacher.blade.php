@@ -100,9 +100,9 @@
             </tr>
             @empty
             
-              <td class="px-6 py-4 text-sm bg-gray-100">
-                <div class="text-sm text-gray-900 ">  No data </div>
-              </td>
+                <td class="px-6 pt-4 bg-gray-100  text-md font-medium text-gray-700 ">
+                  No data
+                </td>
 
             @endforelse
           </tbody>

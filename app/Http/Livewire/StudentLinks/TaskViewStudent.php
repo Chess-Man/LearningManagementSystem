@@ -50,6 +50,7 @@ class TaskViewStudent extends Component
         $task->user()->associate($user);
         // $task->task()->associate($task);
         $task->save();
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Your work has submitted successfully!']);
 
     } 
 

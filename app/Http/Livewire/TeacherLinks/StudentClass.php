@@ -60,7 +60,7 @@ class StudentClass extends Component
          
         $this->student->update($data);
         $this->doClose();
-        session()->flash('message', 'Account updated successfully');
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Grade updated successfully!']);
     }
 
 }

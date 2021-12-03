@@ -37,7 +37,7 @@
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
-            @foreach ($tasks as $task)
+            @forelse ($tasks as $task)
                 
               <tr>
               <td class="px-6 py-4 whitespace-nowrap">
@@ -66,8 +66,14 @@
                 <button wire:click="edit({{ $task }} )" class="text-white rounded px-4 py-1 mx-1 bg-green-600 hover:bg-green-700">Edit</button>
                   <button wire:click="download({{ $task->id }} )" class="text-white rounded px-4 py-1 mx-1 bg-indigo-600 hover:bg-indigo-700">Download</button>
                 </td>
+
+                 @empty
+                  <td class="px-6 py-4 bg-gray-100  text-md font-medium text-gray-700 ">
+                    No data
+                  </td>
+
               </tr>
-              @endforeach
+              @endforelse
           </tbody>
         </table>
       </div>

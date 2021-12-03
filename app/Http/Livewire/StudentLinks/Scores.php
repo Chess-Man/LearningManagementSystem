@@ -15,8 +15,6 @@ class Scores extends Component
         $id = Auth::id();
         
         $score = StudentFile::where('user_id' , $id)->get();
-       
-
         return view('livewire.student-links.scores', ['scores' => $score]);
     }
 }

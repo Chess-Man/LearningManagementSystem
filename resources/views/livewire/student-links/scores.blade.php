@@ -19,58 +19,69 @@
         <table class="min-w-full divide-y divide-gray-200 table-auto">
           <thead class="bg-gray-50">
             <tr>
+
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Subject
               </th>
+
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Task
               </th>
+
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                File
+              </th>
+
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
                 Instructor
               </th>
+
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Points
               </th>
 
-              
-
-             
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
 
-            @foreach ($scores as $score)
+            @forelse ($scores as $score)
               
            
               <tr>
 
               <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
-                      <div class="text-sm font-medium text-gray-900">
+                      <div class="text-sm font-medium text-gray-700">
                       {{ $score->task->classes->subject }}
                       </div>
                   </div>
                 </td>
 
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                      <div class="text-sm font-medium text-gray-900">
-                      {{ $score->task->name }}
-                      </div>
-                  </div>
+                <td class="px-6 py-4 text-sm">
+                  <div class="text-sm text-gray-700">  {{ $score->task->name }}</div>
+                </td>
+               
+                <td class="px-6 py-4 text-sm">
+                  <div class="text-sm text-gray-700">  {{  $score->file_path }}</div>
                 </td>
 
                 <td class="px-6 py-4 text-sm">
-                  <div class="text-sm text-gray-900"> {{ $score->task->classes->user->name }} </div>
+                  <div class="text-sm text-gray-700"> {{ $score->task->classes->user->name }} </div>
                 </td>
                 
                 <td class="px-6 py-4 text-sm">
-                  <div class="text-sm text-gray-900 text-center"> {{ $score->points }} / {{ $score->task->points }}  </div>
+                  <div class="text-sm text-gray-700 text-center"> {{ $score->points }} / {{ $score->task->points }}  </div>
                 </td>
 
+
+                @empty
+                <td class="px-6 py-4 bg-gray-100  text-md font-medium text-gray-700 ">
+                  No data
+                </td>
+                
               </tr>
 
-            @endforeach
+            @endforelse
           </tbody>
         </table>
       </div>

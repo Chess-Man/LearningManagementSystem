@@ -92,8 +92,8 @@
           </td>
 
           @empty
-          <td class="px-6 pt-4 bg-gray-100  text-sm font-medium text-gray-500 ">
-            Nothing to show
+          <td class="px-6 py-4 bg-gray-100  text-md font-medium text-gray-700 ">
+            No data
           </td>
           
         </tr>

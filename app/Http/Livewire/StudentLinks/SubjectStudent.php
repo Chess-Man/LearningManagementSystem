@@ -62,6 +62,7 @@ class SubjectStudent extends Component
             $subject->user()->associate($user);
             $subject->save();
             $this->doClose();
+            $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Joined successfully!']);
     }
 
     public function doShowList()

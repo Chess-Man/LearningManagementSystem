@@ -61,7 +61,9 @@
             
             {{-- card --}}
          @empty
-        <div class="p-4 "> Nothing here </div>
+                <div class="px-6 py-4 bg-gray-100  text-lg font-medium text-gray-700 ">
+                  No data
+                </div>
          @endforelse
           
           
@@ -126,9 +128,12 @@
 
                         </td>
 
+                        @empty
+                        <td class="px-6 py-4 bg-gray-100  text-md font-medium text-gray-700 ">
+                        No data
+                        </td>
                     </tr>
-                    @empty
-                        <td> Empty </td>
+                  
 
                     @endforelse
 

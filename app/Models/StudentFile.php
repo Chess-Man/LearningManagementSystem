@@ -13,6 +13,7 @@ class StudentFile extends Model
         'user_id',
         'task_id',
         'file_path',
+        'points',
     ];
 
     public function user()

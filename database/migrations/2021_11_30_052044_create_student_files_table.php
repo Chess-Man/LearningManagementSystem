@@ -14,14 +14,19 @@ class CreateStudentFilesTable extends Migration
     public function up()
     {
         Schema::create('student_files', function (Blueprint $table) {
+
             $table->increments('id');
-            $table->string('file_path')->nullable()->default('N/A');
+            $table->string('file_path')->nullable()->default('Not available');
+            $table->string('points')->nullable()->default('Not available');
          
             $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            
             $table->integer('task_id')->unsigned()->nullable();
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+           
             $table->timestamps();
+            
         });
     }
 

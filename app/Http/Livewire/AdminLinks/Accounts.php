@@ -107,6 +107,7 @@ class Accounts extends Component
 
     public function update()
     {
+        dd($this->user->id);
         if($this->show === 'update')
         {
            $data =  $this->validate([

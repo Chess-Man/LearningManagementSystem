@@ -12,6 +12,7 @@ class ClassStudent extends Model
         'user_id',
         'classes_id',
         'final_grade',
+        'code',
     ];
 
 

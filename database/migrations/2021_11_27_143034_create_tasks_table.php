@@ -17,7 +17,9 @@ class CreateTasksTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('instruction')->nullable();
+            $table->string('deadline');
             $table->string('file_path');
+            $table->string('points')->nullable()->default('Not available');
             $table->integer('classes_id')->unsigned()->nullable();
             $table->foreign('classes_id')->references('id')->on('classes')->onDelete('cascade');
             $table->timestamps();

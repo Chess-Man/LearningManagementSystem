@@ -10,6 +10,15 @@
   @endif
 </header>
 
+@if(session()->has('message'))
+<div class="pt-4">
+  <div class="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3" role="alert">
+      <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+      <p>{{ session()->get('message') }}</p>
+  </div>
+</div>
+@endif
+
 <div class="flex flex-col">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -17,17 +26,32 @@
         <table class="min-w-full divide-y divide-gray-200 table-auto">
           <thead class="bg-gray-50">
             <tr>
+
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Name
               </th>
+
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
                 Instruction
               </th>
+
+              <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
+                File
+              </th> -->
+
+
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Date Uploaded
               </th>
+
+              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Due Date
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Points
+              </th>
              
-            
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <span>Action</span>
               </th>
@@ -38,24 +62,35 @@
               
             
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                    <div class="text-sm font-medium text-gray-900">
-                     {{ $task->name }}
-                    </div>
-                </div>
+
+            <td class="px-6 py-4 text-sm">
+                <div class="text-sm text-gray-900">  {{$task->name}} </div>
               </td>
+
               <td class="px-6 py-4 text-sm">
                 <div class="text-sm text-gray-900">  {{$task->instruction}} </div>
               </td>
+
+              <!-- <td class="px-6 py-4 text-sm">
+                <div class="text-sm text-gray-900">  {{$task->file_path}} </div>
+              </td>
+               -->
+
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                 {{ \Carbon\Carbon::parse($task->created_at)->format('d/m/Y')}}
+              </td>
+
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                 {{ $task->deadline }}
+              </td>
+
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                 {{ $task->points }} 
               </td>
            
               <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
               @if (Auth::user()->hasRole('teacher'))
                 <a  href="{{ url('/subjects/view/task' , ['task' => $task])}}" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700">Open</a>
-                <button wire:click="download({{ $task->id }} )" class="text-white rounded px-4 py-1 mx-1 bg-indigo-600 hover:bg-indigo-700">Download</button>
                 <button  wire:click="delete({{ $task->id }} )" class="text-white rounded px-4 py-1 mx-1  bg-red-600 hover:bg-red-700">Delete</button>
               @elseif(Auth::user()->hasRole('student'))
                 <a  href="{{ url('/subjects/view/student/task' , ['task' => $task])}}" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700">Open</a>
@@ -64,6 +99,7 @@
               </td>
             </tr>
             @empty
+            
               <td class="px-6 py-4 text-sm bg-gray-100">
                 <div class="text-sm text-gray-900 ">  No data </div>
               </td>
@@ -90,7 +126,7 @@
       class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
     >
       <p class="font-semibold text-gray-800">
-      <span> Add files </span>
+      <span> Add Tasks </span>
     </p>
       <svg
         wire:click.prevent="doClose()"
@@ -133,6 +169,26 @@
         </div>
 
         <div class="grid grid-cols-1 mt-5 mx-7">
+        <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Points</label>
+        <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('points') border-red-500 @enderror"  type="text" wire:model="points"/>
+        @error('points')
+        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+          {{ $message }}
+        </span>
+        @enderror
+        </div>
+
+        <div class="grid grid-cols-1 mt-5 mx-7">
+        <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Due Date</label>
+        <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('deadline') border-red-500 @enderror"  type="datetime-local" wire:model="deadline"/>
+        @error('deadline')
+        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+          {{ $message }}
+        </span>
+        @enderror
+        </div>
+
+        <div class="grid grid-cols-1 mt-5 mx-7">
         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">File</label>
         <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('file') border-red-500 @enderror"  type="file" wire:model="file"/>
         @error('file')
@@ -142,7 +198,8 @@
         @enderror
         </div>
 
-  
+      
+
      
     </div>
     

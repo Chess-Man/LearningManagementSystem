@@ -5,12 +5,28 @@
         </h2>
         <header class="mt-8 mb-4 flex gap-2 justify-between pr-5 item-center">  
           <input type="search"  class="focus:ring-indigo-500 py-2 focus:border-indigo-500 block w-72 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Search..."/>
-         
-          <button wire:click.defer="doShow" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-800">
-              Join
-          </button>
+            
+            <div class="flex gap-2 pr-5 ">
+                @if($showList === false)
+                    <button wire:click.defer="doShowList" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 0.8);transform: ;msFilter:;"><path d="M4 6h2v2H4zm0 5h2v2H4zm0 5h2v2H4zm16-8V6H8.023v2H18.8zM8 11h12v2H8zm0 5h12v2H8z"></path></svg> 
+                    </button>  
+                    @else
+                    <button wire:click.defer="doCloseList" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 0.8);transform: ;msFilter:;"><path d="M4 6h2v2H4zm0 5h2v2H4zm0 5h2v2H4zm16-8V6H8.023v2H18.8zM8 11h12v2H8zm0 5h12v2H8z"></path></svg> 
+                    </button>  
+                @endif
+            
+
+            <button wire:click.defer="doShow" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-800">
+                Join
+            </button>
+            
+            </div>
         
         </header>
+        @if($showList === false)
+
         @if(session()->has('message'))
             <div class="pb-4">
                 <div class="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3" role="alert">
@@ -43,9 +59,8 @@
              
               </div>
             
-           
             {{-- card --}}
-        @empty
+         @empty
         <div class="p-4 "> Nothing here </div>
          @endforelse
           
@@ -55,6 +70,83 @@
              
      {{-- end of cards --}}
 
+    @endif
+
+     {{-- show list of subjects--}}
+
+        @if($showList === true)
+        <div class="flex flex-col">
+
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+
+                <table class="min-w-full divide-y divide-gray-200 table-auto">
+
+                <thead class="bg-gray-50">
+
+                
+                    <tr>
+
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Name
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >
+                        Description
+                    </th>
+                    
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <span>Action</span>
+                    </th>
+
+                    </tr>
+
+                </thead>
+
+                    <tbody class="bg-white divide-y divide-gray-200">
+
+                    @forelse ($students as $student)
+                    <tr>
+
+                        <td class="px-6 py-4 text-sm">
+                        <div class="text-sm text-gray-900"> {{ $student->classes->subject }} </div>
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ $student->classes->description }}
+                        </td>
+                    
+                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+
+                            <a href="{{ route('subjects-content' , ['subject' => $student->classes ])}}" class=" text-gray-500 rounded px-2 py-1 mx-1  ">Open</a>
+                            <button  wire:click="delete({{ $student->id }} )" class=" text-gray-500 rounded px-2 py-1 mx-1  ">Delete</button>
+
+                        </td>
+
+                    </tr>
+                    @empty
+                        <td> Empty </td>
+
+                    @endforelse
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            </div>
+
+            </div>
+
+        </div>
+
+        </div>
+        @endif
+        {{--end show list of subjects--}}
      {{-- modal --}}
 
 <div class="bg-black bg-opacity-50 absolute inset-0 @if($show === false) hidden @endif justify-center items-center" id="subjectModal">
@@ -116,8 +208,8 @@
     {{-- end of modal--}}
     
         <style>
-                .card {
-                    --tw-shadow: 0 20px 25px -5px rgba(14, 26, 187, 0.5), 0 10px 10px -5px rgba(25, 69, 212, 0.04);
+               .card {
+                    --tw-shadow: 3px 5px 8px 1px rgba(14, 26, 187, 0.5), 0 10px 10px -5px rgba(25, 69, 212, 0.04);
                      box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
                     position: relative;
                     }

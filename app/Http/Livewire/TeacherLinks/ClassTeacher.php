@@ -11,9 +11,14 @@ use Illuminate\Support\Str;
 
 class ClassTeacher extends Component
 {
+    protected $listeners = ['deleteConfirmed' => 'deleteSubject'];
     public $show = false; 
+    public $showList = false;
 
     public $description, $subject;
+
+    public $subjectIdBeingRemoved;
+    
 
     public function render()
     {
@@ -50,5 +55,28 @@ class ClassTeacher extends Component
         $this->doClose();
         session()->flash('message', 'Subject updated successfully');
     } 
+
+    public function doShowList()
+    {
+        $this->showList = true;
+    }
+
+    public function doCloseList()
+    {
+        $this->showList = false;
+    }
+
+    public function delete($id)
+    {
+        $this->subjectIdBeingRemoved = $id;
+        $this->dispatchBrowserEvent('show-delete-confirmation');
+    }
+
+    public function deleteSubject()
+    {
+       $file = Classes::findOrFail($this->subjectIdBeingRemoved);
+       $file->delete();
+       $this->dispatchBrowserEvent('deleted', [ 'message' => 'File deleted successfully!']);
+    }
 
 }

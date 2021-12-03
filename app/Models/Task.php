@@ -14,6 +14,8 @@ class Task extends Model
         'name',
         'instruction',
         'file_path',
+        'deadline',
+        'points'
     ];
 
     public function classes()

@@ -5,9 +5,10 @@ namespace App\Http\Livewire\TeacherLinks;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
 use App\Models\Classes;
+use App\Models\StudentFile;
 
 class TaskTeacher extends Component
 {
@@ -17,19 +18,21 @@ class TaskTeacher extends Component
 
     public $subject = null;
 
-    public $name, $instruction, $file;
+    public $name, $instruction, $file, $deadline, $points;
     public $searchTerm;
     public $taskIdBeingRemoved;
 
     public function render()
     {
         $id = $this->subject->id;
-        $task = Classes::find($id)
-                         ->tasks()
-                         ->where('name' , 'like' , '%'  . $this->searchTerm.'%')
-                         ->latest()
-                         ->paginate(2);
-                
+     
+     
+            $task = Classes::find($id)
+            ->tasks()
+            ->where('name' , 'like' , '%'  . $this->searchTerm.'%')
+            ->latest()
+            ->paginate(2);
+
         return view('livewire.teacher-links.task-teacher', ['tasks' => $task]);
     }
 
@@ -47,9 +50,11 @@ class TaskTeacher extends Component
     {
 
         $validatedData = $this->validate([
-            'name' => 'required| max:50',
-            'instruction' => 'required| max:100',
-            'file' => 'required'
+            'name' => 'required| max:500',
+            'instruction' => 'required| max:1000',
+            'file' => 'required',
+            'points' => 'required|integer',
+            'deadline' => 'required'
         ]);
 
         // dd($this->file);
@@ -60,6 +65,7 @@ class TaskTeacher extends Component
         $task = Task::create($validatedData);
         $task->classes()->associate($subject);
         $task->save();
+        session()->flash('message', 'Task created successfully');
         $this->doClose();
 
     }

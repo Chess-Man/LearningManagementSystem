@@ -5,9 +5,6 @@
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
         <img src="{{ asset('images/logo.png') }}" class="absolute border-4 rounded-full border-indigo-800 h-20 w-20 -top-10 left-2/4 transform -translate-x-2/4" alt="">
 
 
@@ -19,17 +16,27 @@
             <div>
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="text" name="email" :value="old('email')" required autofocus />
+                <x-input id="email" class="block mt-1 w-full " type="text" name="email" :value="old('email')"  autofocus />
+                @error('email')
+                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                {{ $message }}
+                </span>
+                @enderror
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
 
-                <x-input id="password" class="block mt-1 w-full"
+                <x-input id="password" class="block mt-1 w-full "
                                 type="password"
                                 name="password"
-                                required autocomplete="current-password" />
+                                 autocomplete="current-password" />
+                @error('password')
+                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 ">
+                {{ $message }}
+                </span>
+                @enderror
             </div>
 
             <!-- Remember Me -->

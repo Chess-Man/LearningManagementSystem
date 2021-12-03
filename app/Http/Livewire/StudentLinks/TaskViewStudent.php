@@ -24,8 +24,8 @@ class TaskViewStudent extends Component
 
     public function render()
     {
-         $task = $this->task;
-        // $subject = User::find($id)->classes;
+         $task = $this->task->studentfile()->first();
+
         return view('livewire.student-links.task-view-student', ['tasks' => $task]);
     }
 
@@ -39,10 +39,13 @@ class TaskViewStudent extends Component
         $filename = $this->file_path->getClientOriginalName();
         $task = $this->file_path->storeAs('public/storage', $filename);
         $validatedData['file_path'] = $task;
-        $task = $this->task;
+        $taskId = $this->task->id;
+      
+        $validatedData['task_id'] = $taskId;
         $task = StudentFile::create($validatedData);
-        $task->task()->associate($task);
+        
         $task->user()->associate($user);
+        // $task->task()->associate($task);
         $task->save();
 
     } 

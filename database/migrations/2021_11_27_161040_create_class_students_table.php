@@ -16,11 +16,15 @@ class CreateClassStudentsTable extends Migration
         Schema::create('class_students', function (Blueprint $table) {
             $table->increments('id');
             $table->string('final_grade')->nullable()->default('N/A');
+            $table->string('code')->nullable()->default('N/A');
           
+
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('classes_id')->unsigned()->nullable();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('classes_id')->references('id')->on('classes')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

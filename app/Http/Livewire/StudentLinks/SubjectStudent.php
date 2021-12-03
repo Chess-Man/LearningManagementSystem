@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class SubjectStudent extends Component
 {
-
+    protected $listeners = ['deleteConfirmed' => 'deleteSubject'];
     public $show = false; 
+    public $showList = false;
+    public $subjectIdBeingRemoved;
 
-    
     public $code;
 
     public function render()
@@ -40,31 +41,48 @@ class SubjectStudent extends Component
     {
         $subject = new ClassStudent;
         $user = Auth::id();
-        
-        $code = Classes::where('code' , $this->code)->first();
-       
     
-            //$validate =  $code->code;
-            //dd($validate);
-            //validate
-            // $validatedData = Validator::make(
-            //     ['code' => $this->validate],
-            //     ['code' => 'required'],
-                
-            // )->validate();
+        $code = Classes::where('code' , $this->code)->first();
 
+
+        // 'email' => Rule::unique('users')->where(function ($query) {
+        //     return $query->where('account_id', 1);
+        // })
             $this->validate([
-                'code' => 'required|exists:classes,code',
-                
+                'code' => 'required|exists:classes,code' 
             ]);
 
-            $id = $code->id;
 
+            $id = $code->id;
+            
+            $subjectCode = $code->code;
+           
+            $subject->code = $subjectCode;
             $subject->classes()->associate($id);
             $subject->user()->associate($user);
             $subject->save();
             $this->doClose();
-        
-      
+    }
+
+    public function doShowList()
+    {
+        $this->showList = true;
+    }
+    public function doCloseList()
+    {
+        $this->showList = false;
+    }
+
+    public function delete($id)
+    {
+        $this->subjectIdBeingRemoved = $id;
+        $this->dispatchBrowserEvent('show-delete-confirmation');
+    }
+
+    public function deleteSubject()
+    {
+       $file = ClassStudent::findOrFail($this->subjectIdBeingRemoved);
+       $file->delete();
+       $this->dispatchBrowserEvent('deleted', [ 'message' => 'File deleted successfully!']);
     }
 }

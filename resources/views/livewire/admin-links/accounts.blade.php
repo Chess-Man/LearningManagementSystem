@@ -68,17 +68,27 @@
           
           @endforeach
           <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+
           @if(Auth::user()->hasRole('teacher'))
-            @if ($role->name !== 'admin')
+
+            @if ($role->name !== 'admin'  )
+
             <a href="#" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700 " wire:click.prevent="edit({{ $user }} )" >Update</a>
-            @elseif ($role->name === 'admin')
-            <button class="text-white rounded px-4 py-1 mx-1  bg-gray-600 hover:bg-gray-700 " >Update</button>
-            @endif
             <a href="#" class="text-white rounded px-4 py-1 mx-1  bg-red-600 hover:bg-red-700 " wire:click.prevent="confirmUserRemoval({{ $user->id }} )">Remove</a>
+            
+            @elseif ($role->name === 'admin' )
+
+            <button class="text-white rounded px-4 py-1 mx-1  bg-gray-600 hover:bg-gray-700 " >Update</button>
+            <button class="text-white rounded px-4 py-1 mx-1  bg-gray-600 hover:bg-gray-700 " >Remove</button>
+            @endif
+
+           
           @else
+
             <a href="#" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700 " wire:click.prevent="edit({{ $user }} )" >Update</a>
             <a href="#" class="text-white rounded px-4 py-1 mx-1  bg-red-600 hover:bg-red-700 " wire:click.prevent="confirmUserRemoval({{ $user->id }} )">Remove</a>
           @endif
+
           </td>
 
           @empty

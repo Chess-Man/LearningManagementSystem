@@ -11,10 +11,10 @@
                     <label class="block text-lg  text-gray-700">
                         Task Name
                       </label>
-                      <div class="mt-1 flex rounded-md shadow-sm">
+                      <div class="mt-1 flex rounded-md ">
                         
                       <span class=" focus:ring-indigo-500 focus:border-indigo-500 flex-1  block w-full  rounded-none rounded-r-md sm:text-sm lg:text-base border-gray-300 py-1  ">
-                        {{ $tasks->task->name }}
+                        {{ $tasks->name }}
                         
                         </span>
                       </div>
@@ -28,9 +28,9 @@
                       <label class="block text-lg text-gray-700" >
                           Instruction
                       </label>
-                      <div class="mt-1 flex rounded-md shadow-sm">
+                      <div class="mt-1 flex rounded-md ">
                         <span class=" focus:ring-indigo-500 focus:border-indigo-500 flex-1  block w-full rounded-none rounded-r-md sm:text-sm lg:text-base border-gray-300 py-1 " >
-                      {{ $tasks->task->instruction }}
+                      {{ $tasks->instruction }}
                       </span>
                     </div>
                   </div>
@@ -42,7 +42,7 @@
                     <label class="block text-lg text-gray-700">
                       Date Uploaded:
                     </label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
+                    <div class="mt-1 flex rounded-md ">
                       <span
                         class="
                           focus:ring-indigo-500 focus:border-indigo-500
@@ -56,7 +56,7 @@
                           py-1
                         "
                       >
-                        {{ \Carbon\Carbon::parse($tasks->task->created_at)->format('d/m/Y')}} 
+                        {{ \Carbon\Carbon::parse($tasks->created_at)->format('d/m/Y')}} 
                       </span>
                     </div>
                   </div>
@@ -69,7 +69,7 @@
                     >
                       Due Date:
                     </label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
+                    <div class="mt-1 flex rounded-md ">
                       <span
                         class="
                           focus:ring-indigo-500 focus:border-indigo-500
@@ -83,7 +83,7 @@
                           py-1
                         "
                       >
-                      {{ $tasks->task->deadline }}
+                      {{ $tasks->deadline }}
                       </span>
                     </div>
                   </div>
@@ -96,7 +96,7 @@
                     >
                       Points:
                     </label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
+                    <div class="mt-1 flex rounded-md ">
                       <span
                         class="
                           focus:ring-indigo-500 focus:border-indigo-500
@@ -110,7 +110,7 @@
                           py-1
                         "
                       >  
-                        {{ $tasks->points }} /  {{ $tasks->task->points }} 
+                        {{-- {{ $tasks->studentfile->points }}  --}} {{ $tasks->points }} 
                       </span>
                     </div>
                   </div>
@@ -140,14 +140,15 @@
                 @enderror
            
 
-                <div class="grid grid-cols-3 gap-6">
+                <!-- <div class="grid grid-cols-3 gap-6">
                   <div class="col-span-3 sm:col-span-2">
                     <label
                       class="block text-lg text-gray-700"
                     >
                       You Works:
                     </label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
+                    <div class="mt-1 flex rounded-md ">
+                     
                       <span
                         class="
                           focus:ring-indigo-500 focus:border-indigo-500
@@ -161,11 +162,12 @@
                           py-1
                         "
                       >  
-                        {{ $tasks->file_path }} / 
+                       file path 
                       </span>
+                      
                     </div>
                   </div>
-                </div> 
+                </div>  -->
 
 
               <div class="py-3 sm:py-4">
@@ -190,7 +192,7 @@
                     focus:ring-indigo-500
                   "
                 >
-                  Save
+                  Submit
                 </button>
               </div>
             </div>

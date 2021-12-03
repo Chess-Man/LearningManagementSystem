@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth' , 'role:teacher|student']], function(){
 Route::group(['middleware' => ['auth' , 'role:student']], function(){
     Route::get('/subjects/student', App\Http\Livewire\StudentLinks\SubjectStudent::class )->name('subjects-student');
     Route::get('/student/grade', App\Http\Livewire\StudentLinks\StudentGrades::class )->name('grade');
-    Route::get('/student/file', App\Http\Livewire\StudentLinks\StudentFiles::class )->name('files');
+    Route::get('/student/scores', App\Http\Livewire\StudentLinks\Scores::class )->name('scores');
     Route::get('/subjects/view/student/task/{task}', App\Http\Livewire\StudentLinks\TaskViewStudent::class )->name('subjects-task-view-student');
 });
 

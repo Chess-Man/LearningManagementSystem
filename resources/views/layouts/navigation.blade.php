@@ -17,6 +17,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform: ;msFilter:;"><path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path></svg>
                             {{ __('Dashboard ') }}
                         </x-nav-link>
+
                         @if(Auth::user()->hasRole('teacher'))
                         <x-nav-link :href="route('subjects-teacher')" :active="request()->routeIs('subjects-teacher')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform: ;msFilter:;"><path d="M20 2H10a2 2 0 0 0-2 2v2h8a2 2 0 0 1 2 2v8h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path><path d="M4 22h10c1.103 0 2-.897 2-2V10c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2zm2-10h6v2H6v-2zm0 4h6v2H6v-2z"></path></svg>
@@ -34,6 +35,11 @@
                         <x-nav-link :href="route('subjects-student')" :active="request()->routeIs('subjects-student')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform: ;msFilter:;"><path d="M20 2H10a2 2 0 0 0-2 2v2h8a2 2 0 0 1 2 2v8h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path><path d="M4 22h10c1.103 0 2-.897 2-2V10c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2zm2-10h6v2H6v-2zm0 4h6v2H6v-2z"></path></svg>
                             {{ __('Subject ') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('scores')" :active="request()->routeIs('scores')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform: ;msFilter:;"><path d="M21 3h-7a2.98 2.98 0 0 0-2 .78A2.98 2.98 0 0 0 10 3H3a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h5.758c.526 0 1.042.214 1.414.586l1.121 1.121c.009.009.021.012.03.021.086.079.182.149.294.196h.002a.996.996 0 0 0 .762 0h.002c.112-.047.208-.117.294-.196.009-.009.021-.012.03-.021l1.121-1.121A2.015 2.015 0 0 1 15.242 20H21a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.758 18H4V5h6c.552 0 1 .449 1 1v12.689A4.032 4.032 0 0 0 8.758 18zM20 18h-4.758c-.799 0-1.584.246-2.242.689V6c0-.551.448-1 1-1h6v13z"></path></svg>
+                            {{ __('Scores') }}
                         </x-nav-link>
                         
                         <x-nav-link :href="route('grade')" :active="request()->routeIs('grade')">
@@ -129,26 +135,36 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('subject')" :active="request()->routeIs('subject')">
+
+            @if(Auth::user()->hasRole('teacher'))
+            <x-responsive-nav-link :href="route('subjects-teacher')" :active="request()->routeIs('subjects-teacher')">
                 {{ __('Subject ') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('task')" :active="request()->routeIs('task')">
-                {{ __('Task ') }}
+            <x-responsive-nav-link :href="route('progress')" :active="request()->routeIs('progress')">
+                {{ __('Progress ') }}
+            </x-responsive-nav-link>
+            @endif
+
+            @if(Auth::user()->hasRole('student'))
+            <x-responsive-nav-link :href="route('subjects-student')" :active="request()->routeIs('subjects-student')">
+                {{ __('Subject ') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('file')" :active="request()->routeIs('file')">
-                {{ __('File ') }}
-            </x-responsive-nav-link>
-
-            <x-responsive-nav-link :href="route('grades')" :active="request()->routeIs('grades')">
+            <x-responsive-nav-link :href="route('grade')" :active="request()->routeIs('grade')">
                 {{ __('Grades') }}
             </x-responsive-nav-link>
 
+            <x-responsive-nav-link :href="route('progress')" :active="request()->routeIs('progress')">
+                {{ __('Progress') }}
+            </x-responsive-nav-link>
+            @endif
+
+            @if(Auth::user()->hasRole('teacher|admin'))
             <x-responsive-nav-link :href="route('accounts')" :active="request()->routeIs('accounts')">
                 {{ __('Accounts') }}
             </x-responsive-nav-link>
-
+            @endif
             <x-responsive-nav-link :href="route('notifications')" :active="request()->routeIs('notifications')">
                 {{ __('Notifications') }}
             </x-responsive-nav-link>
@@ -161,10 +177,10 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">John Michael</div>
-                <div class="font-medium text-sm text-gray-500">johnmichael@gmail.com</div> 
-               {{--  <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div> --}}
+            {{-- <div class="font-medium text-base  text-gray-800">John Michael</div>
+                <div class="font-medium text-sm text-gray-500">johnmichael@gmail.com</div> --}}
+               <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div> 
             </div>
 
             <div class="mt-3 space-y-1">

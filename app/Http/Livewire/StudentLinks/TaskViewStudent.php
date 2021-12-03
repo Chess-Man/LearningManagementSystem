@@ -13,7 +13,7 @@ use Livewire\WithFileUploads;
 
 class TaskViewStudent extends Component
 {
-    public Task $task;
+    public $task;
     public $file_path;
     use WithFileUploads;
 
@@ -24,8 +24,11 @@ class TaskViewStudent extends Component
 
     public function render()
     {
-         $task = $this->task->studentfile()->first();
-
+        
+         $taskId = $this->task;
+         
+         $task = Task::where('id', $taskId)->first();
+         
         return view('livewire.student-links.task-view-student', ['tasks' => $task]);
     }
 
@@ -37,9 +40,9 @@ class TaskViewStudent extends Component
         $user = Auth::id();
         // dd($this->file);
         $filename = $this->file_path->getClientOriginalName();
-        $task = $this->file_path->storeAs('public/storage', $filename);
+        $task = $this->file_path->storeAs('/', $filename);
         $validatedData['file_path'] = $task;
-        $taskId = $this->task->id;
+        $taskId = $this->task;
       
         $validatedData['task_id'] = $taskId;
         $task = StudentFile::create($validatedData);

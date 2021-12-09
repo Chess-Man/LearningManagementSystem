@@ -32,6 +32,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/dashboard' , 'App\Http\Controllers\DashboardController@index')->name('dashboard');
+    Route::post('/dashboard/action' , 'App\Http\Controllers\DashboardController@action');
     Route::get('/profile', App\Http\Livewire\Profile::class )->name('profile');
 });
 /* Admin */
@@ -62,6 +63,7 @@ Route::group(['middleware' => ['auth' , 'role:student']], function(){
     Route::get('/student/grade', App\Http\Livewire\StudentLinks\StudentGrades::class )->name('grade');
     Route::get('/student/scores', App\Http\Livewire\StudentLinks\Scores::class )->name('scores');
     Route::get('/subjects/view/student/task/{task}', App\Http\Livewire\StudentLinks\TaskViewStudent::class )->name('subjects-task-view-student');
+    Route::get('/student/progress', App\Http\Livewire\StudentLinks\StudentProgressContent::class )->name('student-progress');
 });
 
 

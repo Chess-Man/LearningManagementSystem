@@ -39,10 +39,11 @@ class SubjectStudent extends Component
 
     public function join()
     {
+        // return 'test';
         $subject = new ClassStudent;
-        $user = Auth::id();
+        $user_id = Auth::id();
     
-        $code = Classes::where('code' , $this->code)->first();
+        $class = Classes::where('code' , $this->code)->first();
 
 
         // 'email' => Rule::unique('users')->where(function ($query) {
@@ -52,17 +53,29 @@ class SubjectStudent extends Component
                 'code' => 'required|exists:classes,code' 
             ]);
 
+            $class_id = $class->id;
+            $subject_code = $class->code;
 
-            $id = $code->id;
-            
-            $subjectCode = $code->code;
+            //dito ivavalidate kung meron nang presence nung class_id at user_id
+            $count_existence = ClassStudent::where('user_id', $user_id)
+            ->where('classes_id', $class_id)
+            ->count();
+
+            if ($count_existence > 0) {
+                // return 'User already belongs to this class';
+                $this->doClose();
+                $this->dispatchBrowserEvent('message', [ 'message' => "You've already joined this subject !"]);
+            }
+            else {
+                 //dito na yung continuation nung code 
+                $subject->code = $subject_code;
+                $subject->classes()->associate($class_id);
+                $subject->user()->associate($user_id);
+                $subject->save();
+                $this->doClose();
+                $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Joined successfully!']);
+            }
            
-            $subject->code = $subjectCode;
-            $subject->classes()->associate($id);
-            $subject->user()->associate($user);
-            $subject->save();
-            $this->doClose();
-            $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Joined successfully!']);
     }
 
     public function doShowList()

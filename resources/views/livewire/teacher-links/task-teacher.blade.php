@@ -100,7 +100,7 @@
             </tr>
             @empty
             
-                <td class="px-6 pt-4 bg-gray-100  text-md font-medium text-gray-700 ">
+                <td class="px-6 pt-4 text-md font-medium text-gray-700 ">
                   No data
                 </td>
 

@@ -61,7 +61,7 @@
             
             {{-- card --}}
          @empty
-                <div class="px-6 py-4 bg-gray-100  text-lg font-medium text-gray-700 ">
+                <div class="px-6 py-4 text-lg font-medium text-gray-700 ">
                   No data
                 </div>
          @endforelse

@@ -60,7 +60,8 @@
                     </td>
                 
                     <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                        <button  wire:click.prevent="edit({{ $student }} )" class="text-white rounded px-4 py-1 mx-1 bg-green-600 hover:bg-green-700"> Update </button>
+                        <button  wire:click.prevent="edit({{ $student }} )" class="text-white rounded px-4 py-1 mx-1 bg-green-600 hover:bg-green-700"> Grade </button>
+                        <a  href="{{ url('/progress' , ['student' => $student->user_id])}}" class="text-white rounded px-4 py-1 mx-1  bg-indigo-600 hover:bg-indigo-700">Progress</a>
                     </td>
 
                     @empty

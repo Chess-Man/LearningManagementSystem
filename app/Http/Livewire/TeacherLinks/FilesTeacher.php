@@ -23,6 +23,7 @@ class FilesTeacher extends Component
     public $name, $instruction, $file;
     public $searchTerm;
     public $fileIdBeingRemoved;
+    
     public function render()
     {
         $id = $this->subject->id;
@@ -30,7 +31,7 @@ class FilesTeacher extends Component
                         ->files()
                         ->where('name' , 'like' , '%'  . $this->searchTerm.'%')
                         ->latest()
-                        ->paginate(2);
+                        ->paginate(10);
         return view('livewire.teacher-links.files-teacher', ['files' => $file]);
 
         // $id = $this->subject->id;
@@ -84,7 +85,7 @@ class FilesTeacher extends Component
         $validatedData = $this->validate([
             'name' => 'required| max:50',
             'instruction' =>  'max:100',
-            'file' => 'required'
+            'file' => 'required|mimes:jpeg,png,docx,pdf'
         ]);
 
         // dd($this->file);

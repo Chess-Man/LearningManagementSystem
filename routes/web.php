@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/dashboard' , 'App\Http\Controllers\DashboardController@index')->name('dashboard');
     Route::post('/dashboard/action' , 'App\Http\Controllers\DashboardController@action');
     Route::get('/profile', App\Http\Livewire\Profile::class )->name('profile');
+    Route::get('/notification', App\Http\Livewire\Notification::class )->name('notification');
 });
 /* Admin */
 Route::group(['middleware' => ['auth' , 'role:admin|teacher'  ]], function(){
@@ -54,6 +55,7 @@ Route::group(['middleware' => ['auth' , 'role:teacher|student']], function(){
     Route::get('/subjects/content/{subject}', App\Http\Livewire\TeacherLinks\SubjectTeacherContent::class )->name('subjects-content');
     Route::get('/subjects/view/file/{file}', App\Http\Livewire\TeacherLinks\FileViewTeacher::class )->name('subjects-files-view');
     Route::get('/subjects/view/task/{task}', App\Http\Livewire\TeacherLinks\TaskViewTeacher::class )->name('subjects-task-view');
+    Route::get('/progress/{student}', App\Http\Livewire\TeacherLinks\StudentProgress::class )->name('student-learning-progress');
  });
  
 

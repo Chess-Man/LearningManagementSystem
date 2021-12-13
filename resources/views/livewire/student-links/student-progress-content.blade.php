@@ -7,7 +7,7 @@
     <!-- <div id="columnchart_material" style="width: 900px; height: 500px; " class="pt-2 "></div> -->
 
     <script type="text/javascript">
-    
+   
     var obj = <?php echo $obj; ?>
    
 

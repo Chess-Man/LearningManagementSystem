@@ -15,7 +15,7 @@
 @endif
 
 <header class="mt-8 mb-4 flex gap-2 item-center">   
-<input type="search" wire:model="search" class="focus:ring-indigo-500 py-2 focus:border-indigo-500 block w-72 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Search...">
+<input type="search" wire:model.debounce.500ms="search" class="focus:ring-indigo-500 py-2 focus:border-indigo-500 block w-72 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Search...">
 <button wire:click.prevent="doShow" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-800">
  Create Account 
 </button>
@@ -92,7 +92,7 @@
           </td>
 
           @empty
-          <td class="px-6 py-4 bg-gray-100  text-md font-medium text-gray-700 ">
+          <td class="px-6 py-4 text-md font-medium text-gray-700 ">
             No data
           </td>
           

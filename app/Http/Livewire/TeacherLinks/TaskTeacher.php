@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
 use App\Models\Classes;
 use App\Models\StudentFile;
+use App\Models\User;
+use App\Notifications\teacher\TaskCreateNotification;
+use Illuminate\Support\Facades\Notification;
 
 class TaskTeacher extends Component
 {
@@ -18,20 +21,20 @@ class TaskTeacher extends Component
 
     public $subject = null;
 
-    public $name, $instruction, $file, $deadline, $points;
+    public $name, $instruction, $file, $deadline, $points, $notifMessage;
     public $searchTerm;
     public $taskIdBeingRemoved;
+    public $task;
 
     public function render()
     {
         $id = $this->subject->id;
-     
-     
+
             $task = Classes::find($id)
             ->tasks()
             ->where('name' , 'like' , '%'  . $this->searchTerm.'%')
             ->latest()
-            ->paginate(2);
+            ->paginate(10);
 
         return view('livewire.teacher-links.task-teacher', ['tasks' => $task]);
     }
@@ -48,11 +51,12 @@ class TaskTeacher extends Component
 
     public function create()
     {
+        
 
         $validatedData = $this->validate([
             'name' => 'required| max:500',
             'instruction' => 'required| max:1000',
-            'file' => 'required',
+            'file' => 'required|mimes:jpeg,png,docx,pdf',
             'points' => 'required|integer',
             'deadline' => 'required'
         ]);
@@ -65,6 +69,12 @@ class TaskTeacher extends Component
         $task = Task::create($validatedData);
         $task->classes()->associate($subject);
         $task->save();
+
+        //Notification
+        $user = User::all();
+        $this->notifMessage=  'Task added';
+        Notification::send($user, new TaskCreateNotification($this->notifMessage));
+
         $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Task created successfully!']);
         $this->doClose();
 
@@ -94,6 +104,53 @@ class TaskTeacher extends Component
        $file->delete();
        $this->dispatchBrowserEvent('deleted', [ 'message' => 'Task deleted successfully!']);
     }
+
+    public function edit(Task $task)
+    {
+       
+        $this->doShow();
+        $this->task = $task;
+        $this->name = $task->name;
+        $this->instruction = $task->instruction;
+        $this->points = $task->points;
+        $this->file = $task->file_path;
+        $this->deadline = $task->deadline;
+        $this->show = 'update';
+       
+    }
+
+    public function update()
+    {
+        // if($this->show === 'update')
+        // {
+        //    $data =  $this->validate([
+        //         'name' => 'required|min:6|unique:users,name,'.$this->user->id,
+        //         'email' => 'required|min:6|unique:users,email,'.$this->user->id,
+        //     ]);
+        // }
+    
+        // if(!empty($this->password))
+        // {
+        //     $data =  $this->validate([
+        //         'password' => 'required|min:5',
+        //         'confirm_password' => 'required|min:5|required_with:password|same:password',
+        //     ]);
+        //     $data['password'] = $this->password =  Hash::make($this->password);
+        // }
+
+        $validatedData = $this->validate([
+            'name' => 'required| max:500',
+            'instruction' => 'required| max:1000',
+            'file' => 'required|mimes:jpeg,png,docx,pdf',
+            'points' => 'required|integer',
+            'deadline' => 'required'
+        ]);
+        $this->task->update($validatedData);
+        $this->doClose();
+        
+        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Account updated successfully!']);
+    }
+
 
 
 }

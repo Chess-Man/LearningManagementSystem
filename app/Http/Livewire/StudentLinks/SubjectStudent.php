@@ -22,8 +22,15 @@ class SubjectStudent extends Component
     {
         $id = Auth::id();
 
-        $student = User::find($id)->classstudent;
-        return view('livewire.student-links.subject-student', ['students' => $student]);
+        $shown_subjects = User::find($id)->classstudent()->where('shown' , 1)->get();
+        $all_subjects = User::find($id)->classstudent;
+        $student_subjects = (object)[
+            'all_subjects' => [],
+            'shown_subjects' => []
+            ];
+        $student_subjects->shown_subjects = $shown_subjects;
+        $student_subjects->all_subjects = $all_subjects;
+        return view('livewire.student-links.subject-student', ['student_subjects' => $student_subjects]);
     }
 
     public function doShow()
@@ -98,5 +105,12 @@ class SubjectStudent extends Component
        $file = ClassStudent::findOrFail($this->subjectIdBeingRemoved);
        $file->delete();
        $this->dispatchBrowserEvent('deleted', [ 'message' => 'File deleted successfully!']);
+    }
+
+    public function hideShow($value, $subject_id)
+    {
+        $subject = ClassStudent::where('id', $subject_id)->first();
+        $subject->shown = $value; 
+        $subject->save();
     }
 }

@@ -40,9 +40,9 @@ class StudentProgressContent extends Component
 
             return view('livewire.student-links.student-progress-content')->with('obj', json_encode($obj));
         }
-
-        $obj->wrong = null ;
-       
-        return view('livewire.student-links.student-progress-content')->with('score', json_encode($obj));
+            $obj->wrong = null ;
+            $obj->correct = null ;
+            return view('livewire.student-links.student-progress-content')->with('obj', json_encode($obj));
+        
     }
 }

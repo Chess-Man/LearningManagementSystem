@@ -29,15 +29,13 @@ class Accounts extends Component
 
     public function render()
     {
-        
         return view('livewire.admin-links.accounts',[
             'users' =>  User::query()
                         ->where('email','like','%'. $this->search.'%')
+                        ->orWhere('name','like','%'. $this->search.'%')
                         ->latest()
                         ->paginate(10)
-        ]);
-
-            
+        ]); 
     }
 
 

@@ -26,8 +26,7 @@ class TaskViewTeacher extends Component
     public function render()
     {
         $task = $this->task->studentfile()->get();
-        
-        
+
         return view('livewire.teacher-links.task-view-teacher', ['tasks' => $task]);
     }
 
@@ -39,10 +38,7 @@ class TaskViewTeacher extends Component
 
     public function doClose()
     {
-       
-
         $this->show = false;
-        
     }
 
     public function edit(StudentFile $task)
@@ -51,9 +47,6 @@ class TaskViewTeacher extends Component
         $this->show = true;
         $this->editTask = $task;
         $this->points = $task->points;
-        
-        
-     
     }
 
     public function update()

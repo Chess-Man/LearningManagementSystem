@@ -27,9 +27,10 @@
         <!-- Google Chart -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    <body class="antialiased font-serif">
         <div class="min-h-screen">
             @include('layouts.navigation')
 
@@ -40,11 +41,17 @@
 
         </div>
         @livewireScripts
+    
     </body>
+
+
+
     {{--sweet alert--}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
+
     <script>
+
             /** Delete Confirmation */
             window.addEventListener('show-delete-confirmation', event =>{
                 Swal.fire({
@@ -223,6 +230,5 @@
 
             });
     </script>
-   
-            
+     
 </html>

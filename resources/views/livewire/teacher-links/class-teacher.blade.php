@@ -2,10 +2,8 @@
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         Subject 
     </h2>
-    <header class="mt-8 mb-4 flex gap-2 justify-between pr-5 item-center">  
+    <header class="mt-8 mb-4 flex gap-2 justify-end pr-5 item-center">  
         
-        <input type="search"  class="focus:ring-indigo-500 py-2 focus:border-indigo-500 block w-72 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Search..."/>
-          
         <div class="flex gap-2 justify-between pr-5 ">
         @if($showList === false)
         <button wire:click.defer="doShowList" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-800">
@@ -29,7 +27,8 @@
     <div class="flex flex-wrap gap-4 items-center">
                    
                
-    @forelse ($subjects as $subject)
+    @forelse ( $teacher_subjects ->shown_subjects as $subject)
+
         {{-- card --}}
             <div class="p-4 w-full card rounded-lg md:w-1/2">
                 <a href="{{ route('subjects-content' , ['subject' => $subject])}}" >
@@ -38,9 +37,9 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M2 8v11.529S6.621 19.357 12 22c5.379-2.643 10-2.471 10-2.471V8s-5.454 0-10 2.471C7.454 8 2 8 2 8z"></path><circle cx="12" cy="5" r="3"></circle></svg>
                     </div>
                     
-                    <h2 class="text-lg font-semibold title-font mb-2">{{ $subject->subject }}</h2>
+                    <h2 class="text-lg font-semibold title-font mb-2 text-3xl leading-relaxed">{{ $subject->subject }}</h2>
                     
-                    <p class="leading-relaxed text-3xl font-bold">
+                    <p class="leading-relaxed font-semibold">
                         {{ $subject->description }}
                     </p> 
                 </a>  
@@ -48,7 +47,7 @@
             </div>
          @empty
 
-                <div class="px-6 py-4 bg-gray-100  text-lg font-medium text-gray-900 ">
+                <div class="px-6 py-4  text-lg font-medium text-gray-900 ">
                   No data
                 </div>
 
@@ -93,7 +92,7 @@
 
                 <tbody class="bg-white divide-y divide-gray-200">
 
-                @forelse ($subjects as $subject)
+                @forelse ($teacher_subjects ->all_subjects as $subject)
                 <tr>
 
                     <td class="px-6 py-4 text-sm">
@@ -104,11 +103,18 @@
                      {{ $subject->description }}
                     </td>
                 
-                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-red-800">
 
                         <a href="{{ route('subjects-content' , ['subject' => $subject])}}" class=" text-gray-500 rounded px-2 py-1 mx-1  ">Open</a>
                         <button  wire:click="delete({{ $subject->id }} )" class=" text-gray-500 rounded px-2 py-1 mx-1  ">Delete</button>
-
+                       
+                       
+                        @if($subject->shown === 0)
+                        <button  wire:click="hideShow(1 , {{ $subject->id }} )" class=" text-gray-500 rounded px-2 py-1 mx-1  "> <span> Show </span>  </button>
+                        @else
+                        <button  wire:click="hideShow(0, {{ $subject->id }} )" class=" text-gray-500 rounded px-2 py-1 mx-1  "> <span> Hide </span>  </button>
+                        @endif    
+                       
                     </td>
 
                     @empty

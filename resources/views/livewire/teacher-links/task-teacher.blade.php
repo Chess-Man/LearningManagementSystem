@@ -51,6 +51,12 @@
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Points
               </th>
+              @if(Auth::user()->hasRole('student'))
+              <!-- <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th> -->
+              @endif
+             
              
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <span>Action</span>
@@ -67,7 +73,7 @@
                 <div class="text-sm text-gray-900">  {{$task->name}} </div>
               </td>
 
-              <td class="px-6 py-4 text-sm">
+              <td class="px-6 py-4 text-sm text-sm text-gray-500 text-center">
                 <div class="text-sm text-gray-900">  {{$task->instruction}} </div>
               </td>
 
@@ -81,17 +87,24 @@
               </td>
 
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                 {{ $task->deadline }}
+                   {{ \Carbon\Carbon::parse($task->deadline)->format('d/m/Y H:i')}}
               </td>
 
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                  {{ $task->points }} 
               </td>
+
+              @if(Auth::user()->hasRole('student'))
+              <!-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                 Status
+              </td> -->
+              @endif
            
               <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
               @if (Auth::user()->hasRole('teacher'))
                 <a  href="{{ url('/subjects/view/task' , ['task' => $task])}}" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700">Open</a>
                 <button  wire:click="delete({{ $task->id }} )" class="text-white rounded px-4 py-1 mx-1  bg-red-600 hover:bg-red-700">Delete</button>
+                <button wire:click="edit({{ $task }} )" class="text-white rounded px-4 py-1 mx-1 bg-indigo-600 hover:bg-indigo-700">Update</button>
               @elseif(Auth::user()->hasRole('student'))
                 <a  href="{{ url('/subjects/view/student/task' , ['task' => $task])}}" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700">Open</a>
                 <button wire:click="download({{ $task->id }} )" class="text-white rounded px-4 py-1 mx-1 bg-indigo-600 hover:bg-indigo-700">Download</button>
@@ -126,7 +139,12 @@
       class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
     >
       <p class="font-semibold text-gray-800">
-      <span> Add Tasks </span>
+        @if ($show === true)
+        <span> Add Tasks </span>
+        @else
+        <span> Update </span>
+        @endif
+      
     </p>
       <svg
         wire:click.prevent="doClose()"
@@ -145,7 +163,7 @@
       </svg>
     </div>
     {{-- Create Account Form --}}
-    <form action="" wire:submit.prevent="create">
+    <form action="" wire:submit.prevent="@if($show === true ) create @else update @endif">
     <div class="flex flex-col px-6 py-5 bg-gray-50">
 
         <div class="grid grid-cols-1 mx-7">
@@ -188,16 +206,27 @@
         @enderror
         </div>
 
-        <div class="grid grid-cols-1 mt-5 mx-7">
-        <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">File</label>
-        <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('file') border-red-500 @enderror"  type="file" wire:model="file"/>
+        <div class="grid grid-cols-1 mt-5 mx-7" 
+            x-data="{ isUploading: false, progress: 0 }" 
+            x-on:livewire-upload-start="isUploading = true"
+            x-on:livewire-upload-finish="isUploading = false" 
+            x-on:livewire-upload-error="isUploading = false"
+            x-on:livewire-upload-progress="progress = $event.detail.progress">
+            
+            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">File</label>
+        
+            <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('file') border-red-500 @enderror"  type="file" id="file" wire:model="file" />
+        
+            <div class="mt-2 " x-show="isUploading">
+                <progress max="100" x-bind:value="progress"></progress>
+            </div>
         @error('file')
         <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
           {{ $message }}
         </span>
         @enderror
         </div>
-
+        
       
 
      

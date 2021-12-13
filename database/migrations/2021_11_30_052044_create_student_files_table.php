@@ -16,8 +16,8 @@ class CreateStudentFilesTable extends Migration
         Schema::create('student_files', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->string('file_path')->nullable()->default('Not available');
-            $table->string('points')->nullable()->default('Not available');
+            $table->string('file_path')->nullable()->default('NA');
+            $table->string('points')->nullable()->default('NA');
          
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -64,18 +64,18 @@
                   <div class="text-sm text-gray-900">  {{$file->instruction}}</div>
                 </td>
 
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                 {{ \Carbon\Carbon::parse($file->created_at)->format('d/m/Y')}}
                 </td>
             
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
 
                   @if (Auth::user()->hasRole('teacher'))
-                    <a  href="{{ url('/subjects/view' , ['file' => $file])}}" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700">Open</a>
+                    <!-- <a  href="{{ url('/subjects/view' , ['file' => $file])}}" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700">Open</a> -->
                     <button wire:click="download({{ $file->id }} )" class="text-white rounded px-4 py-1 mx-1 bg-indigo-600 hover:bg-indigo-700">Download</button>
                     <button  wire:click="delete({{ $file->id }} )" class="text-white rounded px-4 py-1 mx-1  bg-red-600 hover:bg-red-700">Delete</button>
                   @elseif(Auth::user()->hasRole('student'))
-                    <a  href="{{ url('/subjects/view' , ['file' => $file])}}" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700">Open</a>
+                    <!-- <a  href="{{ url('/subjects/view' , ['file' => $file])}}" class="text-white rounded px-4 py-1 mx-1  bg-green-600 hover:bg-green-700">Open</a> -->
                     <button wire:click="download({{ $file->id }} )" class="text-white rounded px-4 py-1 mx-1 bg-indigo-600 hover:bg-indigo-700">Download</button>
                   @endif
 
@@ -163,16 +163,25 @@
           @enderror
         </div>
 
-        <div class="grid grid-cols-1 mt-5 mx-7">
-         
-          <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">File</label>
-          <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('file') border-red-500 @enderror"  type="file" wire:model="file"/>
-         
-          @error('file')
-          <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-            {{ $message }}
-          </span>
-          @enderror
+        <div class="grid grid-cols-1 mt-5 mx-7" 
+            x-data="{ isUploading: false, progress: 0 }" 
+            x-on:livewire-upload-start="isUploading = true"
+            x-on:livewire-upload-finish="isUploading = false" 
+            x-on:livewire-upload-error="isUploading = false"
+            x-on:livewire-upload-progress="progress = $event.detail.progress">
+            
+            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">File</label>
+        
+            <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('file') border-red-500 @enderror"  type="file" id="file" wire:model="file"/>
+        
+            <div class="mt-2 " x-show="isUploading">
+                <progress max="100" x-bind:value="progress"></progress>
+            </div>
+        @error('file')
+        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+          {{ $message }}
+        </span>
+        @enderror
         </div>
     </div>
     

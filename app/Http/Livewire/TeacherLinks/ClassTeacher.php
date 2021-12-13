@@ -18,14 +18,26 @@ class ClassTeacher extends Component
     public $description, $subject;
 
     public $subjectIdBeingRemoved;
+
+    public $showSubject = false; 
     
 
     public function render()
     {
         $id  = Auth::id();
         // $subject = Subject::where('teacher_id' , $id)->get();
-        $subject = User::find($id)->classes;
-        return view('livewire.teacher-links.class-teacher', ['subjects' => $subject]);
+        $shown_subjects = User::find($id)->classes()->where('shown' , 1)->get();
+        // dd($subject);
+        $all_subjects = User::find($id)->classes;
+        $teacher_subjects = (object)[
+        'all_subjects' => [],
+        'shown_subjects' => []
+        ];
+
+        $teacher_subjects ->shown_subjects = $shown_subjects;
+        $teacher_subjects ->all_subjects = $all_subjects;
+
+        return view('livewire.teacher-links.class-teacher', ['teacher_subjects' => $teacher_subjects ]);
     }
 
     public function doShow()
@@ -41,19 +53,37 @@ class ClassTeacher extends Component
     public function create()
     {
         // dd($this->description);
-        $user = Auth::id();
-        $subject = new Classes;
-        $code = Str::random(6);
-        $subject = Classes::create([
-            'subject' => $this->subject,
-            'description' => $this->description,
-            'code' => $code ,
-        ]);
-        $subject->user()->associate($user);
-        $subject->save();
+        $user_id = Auth::id();
+        //dito paste
 
-        $this->doClose();
-        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Account addedd successfully!']);
+            //dito ivavalidate kung meron nang presence nung class_id at user_id
+            $count_existence = Classes::where('user_id', $user_id)
+            ->where('subject', $this->subject)
+            ->where('description', $this->description)
+            ->count();
+
+            if ($count_existence > 0) {
+                // return 'User already belongs to this class';
+                $this->doClose();
+                $this->dispatchBrowserEvent('message', [ 'message' => "Class Already Exist!"]);
+            }
+            else {
+                //dito na yung continuation nung code 
+                $subject = new Classes;
+                $code = Str::random(6);
+                $subject = Classes::create([
+                    'subject' => $this->subject,
+                    'description' => $this->description,
+                    'code' => $code ,
+                ]);
+                $subject->user()->associate($user_id);
+                $subject->save();
+        
+                $this->doClose();
+                $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Class addedd successfully!']);
+            }
+        //end
+       
     } 
 
     public function doShowList()
@@ -77,6 +107,13 @@ class ClassTeacher extends Component
        $file = Classes::findOrFail($this->subjectIdBeingRemoved);
        $file->delete();
        $this->dispatchBrowserEvent('deleted', [ 'message' => 'File deleted successfully!']);
+    }
+
+    public function hideShow($value, $subject_id)
+    {
+        $subject = Classes::where('id', $subject_id)->first();
+        $subject->shown = $value; 
+        $subject->save();
     }
 
 }

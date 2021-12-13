@@ -2,200 +2,93 @@
         <h2 class="font-semibold text-xl mb-8 text-gray-800 leading-tight">
             {{ __('Task') }}
         </h2>
-<div class="text-gray-500">
-        <form action="#" wire:submit.prevent="create">
-            <div class="sm:rounded-md sm:overflow-hidden">         
-                <div class="grid grid-cols-3 gap-6">
-                    <div class="col-span-3 sm:col-span-2">
-                      
-                    <label class="block text-lg  text-gray-700">
-                        Task Name
-                      </label>
-                      <div class="mt-1 flex rounded-md ">
+
+    <!-- Start -->
+    <div class=" sm:mt-0 font-serif">
+            <div class="md:grid md:grid-cols-2 md:gap-4">
+                <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-2xl font-black leading-6 text-gray-900 font-serif"> {{  $task_student->task->name }}  </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        Due {{ \Carbon\Carbon::parse($task_student->task->deadline )->format('d/m/Y H:i')}} 
+                    </p>
+
+                    <p class="mt-1 text-md text-gray-900 pt-3 font-serif">
+                        Instructions
+                    </p>
+
+                    <p class="mt-1 text-sm text-gray-800 pt-2">
+                        {{ $task_student->task->instruction }}
+                    </p>
+
+                    <p class="mt-1 text-md text-gray-900 pt-3 font-serif">
+                        Points
+                    </p>
+
+                    <p class="mt-1 text-sm text-gray-800 ">
+                    {{ optional($task_student->files_submited)->points}} / {{ $task_student->task->points }}
+                    </p>
+
+                </div>
+                </div>
+                <form action="#" wire:submit.prevent="create">
+                  <div class="mt-5 md:mt-0 md:col-span-1 ">
+                      <div class="overflow-hidden sm:rounded-md">
+                      <div class="px-4 py-5 bg-white sm:p-6">
+                  
+                          <div class="grid grid-cols-6 gap-4">
+
+                          <div class="col-span-8 sm:col-span-3 "  
+                                x-data="{ isUploading: false, progress: 0 }" 
+                                x-on:livewire-upload-start="isUploading = true"
+                                x-on:livewire-upload-finish="isUploading = false" 
+                                x-on:livewire-upload-error="isUploading = false"
+                                x-on:livewire-upload-progress="progress = $event.detail.progress">
+
+                            <label class="text-sm font-medium text-gray-900 block mb-2" for="user_avatar">Upload Your Work</label>
+                            <input class="block w-full cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-transparent text-sm rounded-lg @error('file_path') border-red-500 @enderror" id="user_avatar" type="file"  wire:model="file_path">
+                              <div class="mt-2 " x-show="isUploading">
+                                  <progress max="100" x-bind:value="progress"></progress>
+                              </div>
+                            @error('file_path')
+                            <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                              {{ $message }}
+                            </span>
+                            @enderror
+                          </div>
+
                         
-                      <span class=" focus:ring-indigo-500 focus:border-indigo-500 flex-1  block w-full  rounded-none rounded-r-md sm:text-sm lg:text-base border-gray-300 py-1  ">
-                        {{ $tasks->name }}
+
                         
-                        </span>
+                      <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 ">
+                          <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
+                              @if($task_student->task->deadline < now())
+                                <span>Submit Late</span>
+                              @else
+                                <span>Submit </span>
+                              @endif
+                        </button>
                       </div>
-                    </div>
-                </div>
 
-                <div class=" py-5 space-y-6 sm:py-6">
+                      <div class="col-span-8 sm:col-span-6">
+                      <div class="text-sm font-medium text-gray-900 block mb-2  ">Your Work</div>
+                       
+                        <div class="mt-1 text-sm text-gray-800 ">  
+                          {{ optional($task_student->files_submited)->file_path }}
+                          @if($file_count === true)
+                          <p wire:click="remove({{$task_student->files_submited->id}})" class="block text-sm text-red-800 cursor-pointer ">Remove</p>
+                          @else
+                           None
+                          @endif
+                          <div>
+      
+                      </div>
 
-                  <div class="grid grid-cols-3 gap-6">
-                    <div class="col-span-3 sm:col-span-2">
-                      <label class="block text-lg text-gray-700" >
-                          Instruction
-                      </label>
-                      <div class="mt-1 flex rounded-md ">
-                        <span class=" focus:ring-indigo-500 focus:border-indigo-500 flex-1  block w-full rounded-none rounded-r-md sm:text-sm lg:text-base border-gray-300 py-1 " >
-                      {{ $tasks->instruction }}
-                      </span>
-                    </div>
+                      </div>
                   </div>
-                </div>
-
-              <div class=" py-5 space-y-6 sm:py-6">
-                <div class="grid grid-cols-3 gap-6">
-                  <div class="col-span-3 sm:col-span-2">
-                    <label class="block text-lg text-gray-700">
-                      Date Uploaded:
-                    </label>
-                    <div class="mt-1 flex rounded-md ">
-                      <span
-                        class="
-                          focus:ring-indigo-500 focus:border-indigo-500
-                          flex-1
-                          block
-                          w-full
-                          rounded-none rounded-r-md
-                          sm:text-sm
-                          lg:text-base
-                          border-gray-300
-                          py-1
-                        "
-                      >
-                        {{ \Carbon\Carbon::parse($tasks->created_at)->format('d/m/Y')}} 
-                      </span>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="grid grid-cols-3 gap-6">
-                  <div class="col-span-3 sm:col-span-2">
-                    <label
-                      class="block text-lg  text-gray-700"
-                    >
-                      Due Date:
-                    </label>
-                    <div class="mt-1 flex rounded-md ">
-                      <span
-                        class="
-                          focus:ring-indigo-500 focus:border-indigo-500
-                          flex-1
-                          block
-                          w-full
-                          rounded-none rounded-r-md
-                          sm:text-sm
-                          lg:text-base
-                          border-gray-300
-                          py-1
-                        "
-                      >
-                      {{ $tasks->deadline }}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="grid grid-cols-3 gap-6">
-                  <div class="col-span-3 sm:col-span-2">
-                    <label
-                      class="block text-lg text-gray-700"
-                    >
-                      Points:
-                    </label>
-                    <div class="mt-1 flex rounded-md ">
-                      <span
-                        class="
-                          focus:ring-indigo-500 focus:border-indigo-500
-                          flex-1
-                          block
-                          w-full
-                          rounded-none rounded-r-md
-                          sm:text-sm
-                          lg:text-base
-                          border-gray-300
-                          py-1
-                        "
-                      >  
-                        {{-- {{ $tasks->studentfile->points }}  --}} {{ $tasks->points }} 
-                      </span>
-                    </div>
-                  </div>
-                </div>  
-             
-                <label class="inline-block mb-2 text-lg text-gray-700">File Upload</label>
-                <div class="flex items-center justify-center w-full">
-                    <label
-                        class="flex flex-col w-full h-32 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                        <div class="flex flex-col items-center justify-center pt-7">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 group-hover:text-gray-600"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                            </svg>
-                            <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                                Attach a file</p>
-                        </div>
-                        <input type="file" class="opacity-0"  wire:model="file_path"/>
-                    </label>
-
-                </div>
-                @error('file_path')
-                  <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                      {{ $message }}
-                  </span>
-                @enderror
-           
-
-                <!-- <div class="grid grid-cols-3 gap-6">
-                  <div class="col-span-3 sm:col-span-2">
-                    <label
-                      class="block text-lg text-gray-700"
-                    >
-                      You Works:
-                    </label>
-                    <div class="mt-1 flex rounded-md ">
-                     
-                      <span
-                        class="
-                          focus:ring-indigo-500 focus:border-indigo-500
-                          flex-1
-                          block
-                          w-full
-                          rounded-none rounded-r-md
-                          sm:text-sm
-                          lg:text-base
-                          border-gray-300
-                          py-1
-                        "
-                      >  
-                       file path 
-                      </span>
-                      
-                    </div>
-                  </div>
-                </div>  -->
-
-
-              <div class="py-3 sm:py-4">
-                <button
-                  type="submit"
-                  class="
-                    inline-flex
-                    justify-center
-                    py-2
-                    px-4
-                    border border-transparent
-                    shadow-sm
-                    text-sm
-                    font-medium
-                    rounded-md
-                    text-white
-                    bg-indigo-600
-                    hover:bg-indigo-700
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-indigo-500
-                  "
-                >
-                  Submit
-                </button>
-              </div>
+                </form>
             </div>
-          </form>
-    </div>
+        </div>
+
+    <!-- End -->
 </div>

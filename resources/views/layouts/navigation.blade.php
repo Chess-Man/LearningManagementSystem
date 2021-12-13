@@ -23,11 +23,6 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform: ;msFilter:;"><path d="M20 2H10a2 2 0 0 0-2 2v2h8a2 2 0 0 1 2 2v8h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path><path d="M4 22h10c1.103 0 2-.897 2-2V10c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2zm2-10h6v2H6v-2zm0 4h6v2H6v-2z"></path></svg>
                             {{ __('Subject ') }}
                         </x-nav-link>
-
-                        <x-nav-link :href="route('progress')" :active="request()->routeIs('progress')">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"style="transform: ;msFilter:;"><path d="M3 3v17a1 1 0 0 0 1 1h17v-2H5V3H3z"></path><path d="M15.293 14.707a.999.999 0 0 0 1.414 0l5-5-1.414-1.414L16 12.586l-2.293-2.293a.999.999 0 0 0-1.414 0l-5 5 1.414 1.414L13 12.414l2.293 2.293z"></path></svg>
-                            {{ __('Progress') }}
-                        </x-nav-link>
                         @endif
 
                         @if(Auth::user()->hasRole('student'))
@@ -70,7 +65,7 @@
                         </x-nav-link>
                         @endif
                         
-                        <x-nav-link :href="route('notifications')" :active="request()->routeIs('notifications')">
+                        <x-nav-link :href="route('notification')" :active="request()->routeIs('notification')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform: ;msFilter:;"><circle cx="18" cy="6" r="3"></circle><path d="M13 6c0-.712.153-1.387.422-2H6c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7.422A4.962 4.962 0 0 1 18 11a5 5 0 0 1-5-5z"></path></svg>
                             {{ __('Notifications') }}
                         </x-nav-link>
@@ -141,9 +136,7 @@
                 {{ __('Subject ') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('student-progress')" :active="request()->routeIs('student-progress')">
-                {{ __('Progress ') }}
-            </x-responsive-nav-link>
+           
             @endif
 
             @if(Auth::user()->hasRole('student'))
@@ -165,7 +158,7 @@
                 {{ __('Accounts') }}
             </x-responsive-nav-link>
             @endif
-            <x-responsive-nav-link :href="route('notifications')" :active="request()->routeIs('notifications')">
+            <x-responsive-nav-link :href="route('notification')" :active="request()->routeIs('notification')">
                 {{ __('Notifications') }}
             </x-responsive-nav-link>
 

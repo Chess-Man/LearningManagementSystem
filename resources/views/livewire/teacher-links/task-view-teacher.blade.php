@@ -22,7 +22,7 @@
 
            
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">
-                Date Uploaded
+                Submitted at
               </th>
 
               <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">
@@ -33,7 +33,14 @@
                 Points
               </th>
 
-             
+              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">
+                Status
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">
+                Action
+              </th>
+
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -55,7 +62,7 @@
                 </td>
 
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                  {{ $task->task->deadline }} 
+                  {{ \Carbon\Carbon::parse($task->task->deadline )->format('d/m/Y H:i')}}
                 </td>
 
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
@@ -63,7 +70,11 @@
                 </td>
 
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                <button wire:click="edit({{ $task }} )" class="text-white rounded px-4 py-1 mx-1 bg-green-600 hover:bg-green-700">Edit</button>
+                 {{ $task->status }} 
+                </td>
+
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                  <button wire:click="edit({{ $task }} )" class="text-white rounded px-4 py-1 mx-1 bg-green-600 hover:bg-green-700">Score</button>
                   <button wire:click="download({{ $task->id }} )" class="text-white rounded px-4 py-1 mx-1 bg-indigo-600 hover:bg-indigo-700">Download</button>
                 </td>
 

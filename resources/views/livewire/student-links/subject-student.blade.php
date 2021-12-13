@@ -3,8 +3,8 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Subject 
         </h2>
-        <header class="mt-8 mb-4 flex gap-2 justify-between pr-5 item-center">  
-          <input type="search"  class="focus:ring-indigo-500 py-2 focus:border-indigo-500 block w-72 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Search..."/>
+        <header class="mt-8 mb-4 flex gap-2 justify-end pr-5 item-center">  
+          <!-- <input type="search"  class="focus:ring-indigo-500 py-2 focus:border-indigo-500 block w-72 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Search..."/> -->
             
             <div class="flex gap-2 pr-5 ">
                 @if($showList === false)
@@ -39,7 +39,7 @@
            <div class="flex flex-wrap gap-4 items-center">
                    
           
-         @forelse ($students as $student)
+         @forelse ($student_subjects->shown_subjects as $student)
          {{-- card --}}
           
               <div class="p-4 w-full card rounded-lg md:w-1/2">
@@ -48,8 +48,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M2 8v11.529S6.621 19.357 12 22c5.379-2.643 10-2.471 10-2.471V8s-5.454 0-10 2.471C7.454 8 2 8 2 8z"></path><circle cx="12" cy="5" r="3"></circle></svg>
                 </div>
                  
-                 <h2 class="text-lg font-semibold title-font mb-2"> {{ $student->classes->subject }} </h2>
-                 <p class="leading-relaxed text-3xl font-bold">
+                 <h2 class="text-lg font-semibold title-font mb-2 text-3xl leading-relaxed"> {{ $student->classes->subject }} </h2>
+                 <p class="leading-relaxed font-bold">
                  {{ $student->classes->description }}
                  </p> 
 
@@ -110,7 +110,7 @@
 
                     <tbody class="bg-white divide-y divide-gray-200">
 
-                    @forelse ($students as $student)
+                    @forelse ($student_subjects->all_subjects as $student)
                     <tr>
 
                         <td class="px-6 py-4 text-sm">
@@ -125,7 +125,12 @@
 
                             <a href="{{ route('subjects-content' , ['subject' => $student->classes ])}}" class=" text-gray-500 rounded px-2 py-1 mx-1  ">Open</a>
                             <button  wire:click="delete({{ $student->id }} )" class=" text-gray-500 rounded px-2 py-1 mx-1  ">Delete</button>
-
+                           
+                            @if($student->shown === 0)
+                            <button  wire:click="hideShow(1 , {{ $student->id }} )" class=" text-gray-500 rounded px-2 py-1 mx-1  "> <span> Show </span>  </button>
+                            @else
+                            <button  wire:click="hideShow(0, {{ $student->id }} )" class=" text-gray-500 rounded px-2 py-1 mx-1  "> <span> Hide </span>  </button>
+                            @endif    
                         </td>
 
                         @empty

@@ -7,7 +7,11 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\File;
 use App\Models\Classes;
-
+use App\Models\ClassStudent;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\teacher\TaskCreateNotification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class FilesTeacher extends Component
@@ -96,6 +100,29 @@ class FilesTeacher extends Component
         $file = File::create($validatedData);
         $file->classes()->associate($subject);
         $file->save();
+        
+          //Notification for ?
+          $code =  $this->subject->code;
+        
+          $student = ClassStudent::where('code' , $code)->get();
+         
+          $students_id = []; 
+          foreach($student as $id){
+              $students_id[]= $id->user_id;
+          }
+      
+          $user = User::findOrFail($students_id)->all(); 
+         
+         //  message content
+          $users = Auth::user();
+          $user_name = $users->name;
+          $subject_description = $this->subject->description;
+          $subject_subject = $this->subject->subject;
+          
+          // $this->notify_at = ;
+          $this->notifMessage=  $user_name .' uploaded a new file  '.$this->name. ' in '  .$subject_subject . $subject_description  ;
+          Notification::send($user , new TaskCreateNotification($this->notifMessage));
+
         $this->doClose();
         $this->dispatchBrowserEvent('showmessage', [ 'message' => 'File created successfully!']);
     }

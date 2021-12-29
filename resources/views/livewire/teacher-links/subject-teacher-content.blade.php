@@ -10,7 +10,7 @@
 
     <button wire:click.defer="task" class="font-bold text-gray-600 pb-2 text-md @if ($show === 'task')border-b-2 @endif border-indigo-700" >Task</buton>
     <button wire:click.defer="file" class="font-bold text-gray-600 pb-2 text-md @if ($show === 'file')border-b-2 @endif border-indigo-700" >File</button>
-    
+    <button wire:click.defer="quiz" class="font-bold text-gray-600 pb-2 text-md @if ($show === 'quiz')border-b-2 @endif border-indigo-700" >Quiz</button>
     @if(Auth::user()->hasRole('teacher'))
     <button wire:click.defer="student" class="font-bold text-gray-600 pb-2 text-md @if ($show === 'student')border-b-2 @endif border-indigo-700" >Student</button>
     @endif
@@ -21,6 +21,8 @@
     <livewire:teacher-links.files-teacher :subject="$subject"/>
     @elseif ($show === 'task')
     <livewire:teacher-links.task-teacher :subject="$subject"/>
+    @elseif ($show === 'quiz')
+    <livewire:teacher-links.quiz-teacher :subject="$subject"/>
     @elseif ($show === 'student')
     <livewire:teacher-links.student-class :subject="$subject"/>
     @endif

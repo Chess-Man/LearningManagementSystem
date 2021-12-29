@@ -9,6 +9,11 @@ use App\Models\UserDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Storage;
+use App\Notifications\teacher\TaskCreateNotification;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\DB;
+
 
 class Accounts extends Component
 {
@@ -25,6 +30,8 @@ class Accounts extends Component
     public $search; 
     public $userIdBeingRemoved = null; 
     public $user;
+    public $notifMessage;
+    
    
 
     public function render()
@@ -53,12 +60,11 @@ class Accounts extends Component
 
     public function create()
     {
-     
         
         $this->validate([
                 //'email' => 'required|min:6|unique:users,email,'.$this->user->id,
-                'name' => 'required|min:6|unique:users,name',
-                'email' => 'required|min:6|unique:users,email',
+                'name' => 'required|unique:users,name',
+                'email' => 'required|unique:users,email',
                 'password' => 'required|min:5',
                 'confirm_password' => 'required|min:5|required_with:password|same:password',
                 'role' => 'required'
@@ -75,6 +81,21 @@ class Accounts extends Component
         $userDetail->user()->associate($user);
         $userDetail->save();
         $user->attachRole($this->role);
+
+        // Notification
+        if(Auth::user()->hasRole('teacher'))
+        {
+            //Notification for ?
+            $user = User::whereRoleIs('admin')->get();
+            
+            //  message content
+            $users = Auth::user();
+            $user_name = $users->name;
+        
+            $this->notifMessage =  $user_name .' have created an account  '.$this->email;
+            Notification::send($user , new TaskCreateNotification($this->notifMessage));
+        }    
+
         $this->doClose();
         $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Account created successfully!']);
     }
@@ -82,7 +103,24 @@ class Accounts extends Component
     public function deleteUser()
     {
        $user = User::findOrFail($this->userIdBeingRemoved);
+       $user_email = $user->email;
+       
+       
        $user->delete();
+
+       if(Auth::user()->hasRole('teacher'))
+       {
+           //Notification for ?
+           $user = User::whereRoleIs('admin')->get();
+           
+           //  message content
+           $users = Auth::user();
+           $user_name = $users->name;
+       
+           $this->notifMessage =  $user_name .' has deleted an account  '.$user_email;
+           Notification::send($user , new TaskCreateNotification($this->notifMessage));
+       }
+
        $this->dispatchBrowserEvent('deleted', [ 'message' => 'User deleted successfully!']);
     }
  
@@ -109,8 +147,8 @@ class Accounts extends Component
         if($this->show === 'update')
         {
            $data =  $this->validate([
-                'name' => 'required|min:6|unique:users,name,'.$this->user->id,
-                'email' => 'required|min:6|unique:users,email,'.$this->user->id,
+                'name' => 'required|unique:users,name,'.$this->user->id,
+                'email' => 'required|unique:users,email,'.$this->user->id,
             ]);
         }
     
@@ -123,6 +161,23 @@ class Accounts extends Component
             $data['password'] = $this->password =  Hash::make($this->password);
         }
         $this->user->update($data);
+
+        
+       //Update Notification
+        if(Auth::user()->hasRole('teacher'))
+        {
+            //Notification for ?
+            $user = User::whereRoleIs('admin')->get();
+            
+            //  message content
+            $users = Auth::user();
+            $user_name = $users->name;
+            $user_email = $this->user->email;
+            
+            $this->notifMessage =  $user_name .' update an account  '.$user_email;
+            Notification::send($user , new TaskCreateNotification($this->notifMessage));
+        }
+
         $this->doClose();
         
         $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Account updated successfully!']);

@@ -17,17 +17,19 @@ use Illuminate\Database\Eloquent\Builder;
 class DashboardController extends Controller
 {
     public function index(Request $request)
-    {   
+    { 
+        
+        
         if($request->ajax())
         {
             $user_id = Auth::id();
-            $data = Event::where('user_id', $user_id)
-            ->whereDate('start', '>=', $request->start)
-            ->whereDate('end',   '<=', $request->end)
-            ->get(['id', 'title', 'start', 'end']);
-             return response()->json($data);
+            $data = Event::whereDate('start', '>=', $request->start)
+                        ->whereDate('end',   '<=', $request->end)
+                        ->get(['id', 'title', 'start', 'end']);
+            return response()->json($data);
         }
-
+        
+       
         if(Auth::user()->hasRole('admin'))
         {
             $count =  User::all()->count();
@@ -68,39 +70,47 @@ class DashboardController extends Controller
 
     public function action(Request $request)
     {
-    	if($request->ajax())
-    	{
-    		if($request->type == 'add')
-    		{
-                $user_id = Auth::id();
-    			$event = Event::create([
-    				'title'		=>	$request->title,
-    				'start'		=>	$request->start,
-    				'end'		=>	$request->end,
-                    'user_id'   => $user_id,
-    			]);
+        // if auth is user
+        if(Auth::user()->hasRole('admin'))
+        {
 
-    			return response()->json($event);
-    		}
+            if($request->ajax())
+            {
+                if($request->type == 'add')
+                {
+                    $user_id = Auth::id();
+                    $event = Event::create([
+                        'title'		=>	$request->title,
+                        'start'		=>	$request->start,
+                        'end'		=>	$request->end,
+                        'user_id'   => $user_id,
+                    ]);
+    
+                    return response()->json($event);
+                }
+    
+                if($request->type == 'update')
+                {
+                    $event = Event::find($request->id)->update([
+                        'title'		=>	$request->title,
+                        'start'		=>	$request->start,
+                        'end'		=>	$request->end
+                    ]);
+    
+                    return response()->json($event);
+                }
+    
+                if($request->type == 'delete')
+                {
+                    $event = Event::find($request->id)->delete();
+    
+                    return response()->json($event);
+                }
+            }
 
-    		if($request->type == 'update')
-    		{
-    			$event = Event::find($request->id)->update([
-    				'title'		=>	$request->title,
-    				'start'		=>	$request->start,
-    				'end'		=>	$request->end
-    			]);
-
-    			return response()->json($event);
-    		}
-
-    		if($request->type == 'delete')
-    		{
-    			$event = Event::find($request->id)->delete();
-
-    			return response()->json($event);
-    		}
-    	}
+        }
+        // if auth is user end
+    
     }
 
 }

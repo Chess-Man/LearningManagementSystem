@@ -8,7 +8,8 @@ use App\Models\Classes;
 use App\Models\StudentFile;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
-
+use App\Notifications\teacher\TaskCreateNotification;
+use Illuminate\Support\Facades\Notification;
 use Livewire\WithFileUploads;
 
 class TaskViewStudent extends Component
@@ -18,6 +19,7 @@ class TaskViewStudent extends Component
     public $task;
     public $file_path;
     public $file_count;
+    public $file_name;
     public $count;
     public $student_file_being_removed;
     use WithFileUploads;
@@ -77,6 +79,7 @@ class TaskViewStudent extends Component
             $user = Auth::id();
             // dd($this->file);
             $filename = $this->file_path->getClientOriginalName();
+            $this->file_name = $filename;
             $task = $this->file_path->storeAs('/', $filename);
             $validatedData['file_path'] = $task;
             $taskId = $this->task;
@@ -101,7 +104,28 @@ class TaskViewStudent extends Component
             $task->user()->associate($user);
             // $task->task()->associate($task);
             $task->save();
+
+             //Notification for ?
+            $taskId = $this->task;
+            $task = Task::where('id' , $taskId)->first();
+            $classes_id = $task->classes_id;
+            $classes = Classes::where('id' , $classes_id)->first();
+            $teacher_id = $classes->user_id;
+            
         
+            $user = User::where('id' , $teacher_id)->get(); 
+            
+            //  message content
+            $users = Auth::user();
+            $user_name = $users->name;
+            $tasks_name = $task->name;
+            $subject_description = $classes->description;
+            $subject_subject = $classes->subject;
+            
+            // $this->notify_at = ;
+            $this->notifMessage=  $user_name .' submitted an assignment '.  $this->file_name . ' at '.$tasks_name. ' in '  .$subject_subject . $subject_description  ;
+            Notification::send($user , new TaskCreateNotification($this->notifMessage));
+
             $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Your work has submitted successfully!']);
         }
        
@@ -111,6 +135,28 @@ class TaskViewStudent extends Component
     public function remove($id)
     {
         $this->student_file_being_removed = $id;
+
+          //Notification for ?
+          $taskId = $this->task;
+          $task = Task::where('id' , $taskId)->first();
+          $classes_id = $task->classes_id;
+          $classes = Classes::where('id' , $classes_id)->first();
+          $teacher_id = $classes->user_id;
+          
+      
+          $user = User::where('id' , $teacher_id)->get(); 
+          
+          //  message content
+          $users = Auth::user();
+          $user_name = $users->name;
+          $tasks_name = $task->name;
+          $subject_description = $classes->description;
+          $subject_subject = $classes->subject;
+          
+          // $this->notify_at = ;
+          $this->notifMessage=  $user_name .' removed an assignment at '.$tasks_name. ' in '  .$subject_subject . $subject_description  ;
+          Notification::send($user , new TaskCreateNotification($this->notifMessage));
+
         $this->dispatchBrowserEvent('show-delete-confirmation');
        
     }

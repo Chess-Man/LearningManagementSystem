@@ -8,6 +8,9 @@ use App\Models\ClassStudent;
 use App\Models\Classes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\teacher\TaskCreateNotification;
+use Illuminate\Support\Facades\Notification;
+use Livewire\WithFileUploads;
 
 class SubjectStudent extends Component
 {
@@ -17,6 +20,7 @@ class SubjectStudent extends Component
     public $subjectIdBeingRemoved;
 
     public $code;
+    public $notifMessage;
 
     public function render()
     {
@@ -52,10 +56,6 @@ class SubjectStudent extends Component
     
         $class = Classes::where('code' , $this->code)->first();
 
-
-        // 'email' => Rule::unique('users')->where(function ($query) {
-        //     return $query->where('account_id', 1);
-        // })
             $this->validate([
                 'code' => 'required|exists:classes,code' 
             ]);
@@ -74,11 +74,29 @@ class SubjectStudent extends Component
                 $this->dispatchBrowserEvent('message', [ 'message' => "You've already joined this subject !"]);
             }
             else {
-                 //dito na yung continuation nung code 
                 $subject->code = $subject_code;
                 $subject->classes()->associate($class_id);
                 $subject->user()->associate($user_id);
                 $subject->save();
+
+                 //Notification for ?
+                $classes =  Classes::where('code' , $this->code)->first();
+                $teacher_id = $classes->user_id;
+                
+            
+                $user = User::where('id' , $teacher_id)->get(); 
+                
+                //  message content
+                $users = Auth::user();
+                $user_name = $users->name;
+
+                $subject_description = $classes->description;
+                $subject_subject = $classes->subject;
+                
+                // $this->notify_at = ;
+                $this->notifMessage=  $user_name .' has joined in '  .$subject_subject . $subject_description  ;
+                Notification::send($user , new TaskCreateNotification($this->notifMessage));
+               
                 $this->doClose();
                 $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Joined successfully!']);
             }

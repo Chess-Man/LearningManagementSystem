@@ -31,7 +31,7 @@
         @livewireStyles
     </head>
     <body class="antialiased font-serif">
-        <div class="min-h-screen">
+        <div class="min-h-screen ">
             @include('layouts.navigation')
 
             <!-- Page Content -->
@@ -96,7 +96,7 @@
 
 
             // Full Calendar 
-
+            
             $(document).ready(function () {
 
             $.ajaxSetup({
@@ -106,18 +106,21 @@
             });
 
             var calendar = $('#calendar').fullCalendar({
-                editable:true,
-                header:{
-                    left:'prev,next today',
-                    center:'title',
-                    right:'month,agendaWeek,agendaDay'
-                },
+                editable:false,
+                // header:{
+                //     left:'prev,next today',
+                //     center:'title',
+                //     right:'month,agendaWeek,agendaDay'
+                // },
                 events:'/dashboard',
                 selectable:true,
                 selectHelper: true,
+
+                @if(Auth::user()->hasRole('admin'))
                 select:function(start, end, allDay)
                 {
-                    var title = prompt('Event Title:');
+                    
+                    var title = prompt('title Title:');
 
                     if(title)
                     {
@@ -204,9 +207,18 @@
 
                 eventClick:function(event)
                 {
-                    if(confirm("Are you sure you want to remove it?"))
-                    {
-                        var id = event.id;
+
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    var id = event.id;
                         $.ajax({
                             url:"/dashboard/action",
                             type:"POST",
@@ -224,8 +236,11 @@
                                 )
                             }
                         })
-                    }
                 }
+                })
+                    
+                }
+                @endif
             });
 
             });

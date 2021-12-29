@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
 use App\Models\Classes;
+use App\Models\ClassStudent;
 use App\Models\StudentFile;
 use App\Models\User;
 use App\Notifications\teacher\TaskCreateNotification;
@@ -21,7 +22,7 @@ class TaskTeacher extends Component
 
     public $subject = null;
 
-    public $name, $instruction, $file, $deadline, $points, $notifMessage;
+    public $name, $instruction, $file, $deadline, $points, $notifMessage , $notify_at;
     public $searchTerm;
     public $taskIdBeingRemoved;
     public $task;
@@ -51,7 +52,6 @@ class TaskTeacher extends Component
 
     public function create()
     {
-        
 
         $validatedData = $this->validate([
             'name' => 'required| max:500',
@@ -70,14 +70,33 @@ class TaskTeacher extends Component
         $task->classes()->associate($subject);
         $task->save();
 
-        //Notification
-        $user = User::all();
-        $this->notifMessage=  'Task added';
-        Notification::send($user, new TaskCreateNotification($this->notifMessage));
+        //Notification for ?
+        $code =  $this->subject->code;
+        
+        $student = ClassStudent::where('code' , $code)->get();
+       
+        $students_id = []; 
+        foreach($student as $id){
+            $students_id[]= $id->user_id;
+        }
+    
+        $user = User::findOrFail($students_id)->all(); 
+       
+       //  message content
+        $users = Auth::user();
+        $user_name = $users->name;
+        $subject_description = $this->subject->description;
+        $subject_subject = $this->subject->subject;
+        
+
+        // $this->notify_at = ;
+        $this->notifMessage=  $user_name .' added an task  '.$this->name. ' at '  .$subject_subject . $subject_description  ;
+        Notification::send($user , new TaskCreateNotification($this->notifMessage));
+       
 
         $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Task created successfully!']);
         $this->doClose();
-
+       
     }
 
     public function download($id)
@@ -102,6 +121,30 @@ class TaskTeacher extends Component
     {
        $file = Task::findOrFail($this->taskIdBeingRemoved);
        $file->delete();
+
+          //Notification for ?
+        //   $code =  $this->subject->code;
+        
+        //   $student = ClassStudent::where('code' , $code)->get();
+         
+        //   $students_id = []; 
+        //   foreach($student as $id){
+        //       $students_id[]= $id->user_id;
+        //   }
+      
+        //   $user = User::findOrFail($students_id)->all(); 
+         
+        //  //  message content
+        //   $users = Auth::user();
+        //   $user_name = $users->name;
+        //   $subject_description = $this->subject->description;
+        //   $subject_subject = $this->subject->subject;
+        //   $task_name = $file->name;
+  
+        //   // $this->notify_at = ;
+        //   $this->notifMessage=  $user_name .' deleted an task '.$task_name. ' at '  .$subject_subject . $subject_description  ;
+        //   Notification::send($user , new TaskCreateNotification($this->notifMessage));
+
        $this->dispatchBrowserEvent('deleted', [ 'message' => 'Task deleted successfully!']);
     }
 
@@ -121,34 +164,40 @@ class TaskTeacher extends Component
 
     public function update()
     {
-        // if($this->show === 'update')
-        // {
-        //    $data =  $this->validate([
-        //         'name' => 'required|min:6|unique:users,name,'.$this->user->id,
-        //         'email' => 'required|min:6|unique:users,email,'.$this->user->id,
-        //     ]);
-        // }
-    
-        // if(!empty($this->password))
-        // {
-        //     $data =  $this->validate([
-        //         'password' => 'required|min:5',
-        //         'confirm_password' => 'required|min:5|required_with:password|same:password',
-        //     ]);
-        //     $data['password'] = $this->password =  Hash::make($this->password);
-        // }
+            $validatedData = $this->validate([
+                'name' => 'required| max:500',
+                'instruction' => 'required| max:1000',
+                'file' => 'required|mimes:jpeg,png,docx,pdf',
+                'points' => 'required|integer',
+                'deadline' => 'required'
+            ]);
+            $this->task->update($validatedData);
 
-        $validatedData = $this->validate([
-            'name' => 'required| max:500',
-            'instruction' => 'required| max:1000',
-            'file' => 'required|mimes:jpeg,png,docx,pdf',
-            'points' => 'required|integer',
-            'deadline' => 'required'
-        ]);
-        $this->task->update($validatedData);
-        $this->doClose();
+             //Notification for ?
+             $code =  $this->subject->code;
         
-        $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Account updated successfully!']);
+             $student = ClassStudent::where('code' , $code)->get();
+            
+             $students_id = []; 
+             foreach($student as $id){
+                 $students_id[]= $id->user_id;
+             }
+         
+             $user = User::findOrFail($students_id)->all(); 
+            
+            //  message content
+             $users = Auth::user();
+             $user_name = $users->name;
+             $subject_description = $this->subject->description;
+             $subject_subject = $this->subject->subject;
+             
+             // $this->notify_at = ;
+             $this->notifMessage=  $user_name .' update an task  '.$this->name. ' at '  .$subject_subject . $subject_description  ;
+             Notification::send($user , new TaskCreateNotification($this->notifMessage));
+            
+            $this->doClose();
+            
+            $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Account updated successfully!']);
     }
 
 

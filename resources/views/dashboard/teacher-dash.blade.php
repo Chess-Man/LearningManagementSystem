@@ -1,10 +1,10 @@
 <x-app-layout>
-        <h2 class="font-semibold text-xl mb-8 text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl mb-8 text-gray-800 leading-tight ">
             {{ __('Teacher Dashboard') }}
         </h2>
 
             {{-- cards --}}
-           <div class="flex flex-wrap gap-4 items-center justify-center">
+           <div class="flex flex-wrap gap-4 items-center justify-center ">
 
                {{-- card --}}
              <div class="w-full p-4 card rounded-lg md:w-1/2">
@@ -29,13 +29,13 @@
                     </p>   
                 </div>-->
 
-
+                {{-- end of cards --}}
+                 <div id='calendar' class="pt-8"></div>
              </div> 
 
  
 
-     {{-- end of cards --}}
-     <div id='calendar' class="pt-8"></div>
+     
 
             <style>
                 .card {

@@ -5,7 +5,12 @@ namespace App\Http\Livewire\TeacherLinks;
 use Livewire\Component;
 use App\Models\ClassStudent;
 use App\Models\Classes;
+use App\Models\User;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Notifications\teacher\TaskCreateNotification;
+use Illuminate\Support\Facades\Notification;
 
 class StudentClass extends Component
 {
@@ -54,11 +59,34 @@ class StudentClass extends Component
 
     public function update()
     {
+        
+
         $data =  $this->validate([
             'final_grade' => 'required|numeric|between:1,100',
         ]);
          
         $this->student->update($data);
+
+        //Notification for ?
+       
+        $student = $this->student;
+
+        $student_id = $student->user_id;
+        
+        $user = User::where('id' , $student_id)->get(); 
+       
+    
+       //  message content
+        $users = Auth::user();
+        $user_name = $users->name;
+        $subject_description = $this->subject->description;
+        $subject_subject = $this->subject->subject;
+        
+
+        // $this->notify_at = ;
+        $this->notifMessage=  $user_name .' return your grades at '  .$subject_subject .' '. $subject_description  ;
+        Notification::send($user , new TaskCreateNotification($this->notifMessage));
+
         $this->doClose();
         $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Grade updated successfully!']);
     }

@@ -46,7 +46,8 @@ Route::group(['middleware' => ['auth' , 'role:admin|teacher'  ]], function(){
 Route::group(['middleware' => ['auth' , 'role:teacher']], function(){
    // Route::get('/subjects', App\Http\Livewire\TeacherLinks\SubjectTeacher::class )->name('subjects-teacher');
     Route::get('/subjects', App\Http\Livewire\TeacherLinks\ClassTeacher::class )->name('subjects-teacher');
-    
+    Route::get('/quiz', App\Http\Livewire\TeacherLinks\ClassTeacher::class )->name('quiz-teacher');
+    Route::get('/question', App\Http\Livewire\TeacherLinks\QuestionTeacher::class )->name('question-teacher');
    //Route::get('/subjects/{subject}', App\Http\Livewire\TeacherLinks\FilesTeacher::class )->name('subjects-files');
 });
 

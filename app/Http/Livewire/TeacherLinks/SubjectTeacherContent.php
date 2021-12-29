@@ -38,10 +38,16 @@ class SubjectTeacherContent extends Component
         $this->show = 'file';
     }
 
+    public function quiz()
+    {
+        $this->show = 'quiz';
+    }
+
     public function student()
     {
         $this->show = 'student';
     }
+
 
     
 }

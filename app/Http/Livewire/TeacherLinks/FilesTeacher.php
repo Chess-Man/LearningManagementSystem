@@ -38,14 +38,6 @@ class FilesTeacher extends Component
                         ->paginate(10);
         return view('livewire.teacher-links.files-teacher', ['files' => $file]);
 
-        // $id = $this->subject->id;
-        // $task = Classes::find($id)
-        //                  ->tasks()
-        //                  ->where('name' , 'like' , '%'  . $this->searchTerm.'%')
-        //                  ->latest()
-        //                  ->paginate(2);
-                
-        // return view('livewire.teacher-links.task-teacher', ['tasks' => $task]);
     }
 
     public function download($id)

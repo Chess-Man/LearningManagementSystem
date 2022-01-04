@@ -36,6 +36,11 @@ class Classes extends Model
         return $this->hasOne(ClassStudent::class);
     }
 
+    public function tests()
+    {
+        return $this->hasMany(Test::class);
+    }
+
    
     // public function StudentSubject()
     // {

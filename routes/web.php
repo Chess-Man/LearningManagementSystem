@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TeacherQuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,10 +44,13 @@ Route::group(['middleware' => ['auth' , 'role:admin|teacher'  ]], function(){
 
 /* Teacher */
 Route::group(['middleware' => ['auth' , 'role:teacher']], function(){
-   // Route::get('/subjects', App\Http\Livewire\TeacherLinks\SubjectTeacher::class )->name('subjects-teacher');
+
+    Route::get('/teacher/question/{test}', 'App\Http\Controllers\TeacherQuizController@index')->name('question-teacher');
+    Route::post('/teacher/question/store', 'App\Http\Controllers\TeacherQuizController@store')->name('add-question-teacher');
+  
     Route::get('/subjects', App\Http\Livewire\TeacherLinks\ClassTeacher::class )->name('subjects-teacher');
     Route::get('/quiz', App\Http\Livewire\TeacherLinks\ClassTeacher::class )->name('quiz-teacher');
-    Route::get('/question', App\Http\Livewire\TeacherLinks\QuestionTeacher::class )->name('question-teacher');
+    // Route::get('/question/{test}', App\Http\Livewire\TeacherLinks\QuestionTeacher::class )->name('question-teacher');
    //Route::get('/subjects/{subject}', App\Http\Livewire\TeacherLinks\FilesTeacher::class )->name('subjects-files');
 });
 
@@ -68,51 +71,6 @@ Route::group(['middleware' => ['auth' , 'role:student']], function(){
     Route::get('/subjects/view/student/task/{task}', App\Http\Livewire\StudentLinks\TaskViewStudent::class )->name('subjects-task-view-student');
     Route::get('/student/progress', App\Http\Livewire\StudentLinks\StudentProgressContent::class )->name('student-progress');
 });
-
-
-
-Route::get('/subject', function () {
-    return view('links.subject');
-})->name('subject');
-Route::get('/subject/task', function () {
-   return view('links.subject-content-task');
-})->name('subject-content-task');
-
-Route::get('/task', function () {
-    return view('links.task');
-})->name('task');
-
-Route::get('/file', function () {
-    return view('links.file');
-})->name('file');
-
-Route::get('/progress', function () {
-    return view('links.progress');
-})->name('progress');
-
-Route::get('/progress/content', function () {
-    return view('links.progress-content');
-})->name('progress-content');
-
-Route::get('/grades', function () {
-    return view('links.grades');
-})->name('grades');
-
-Route::get('/account', function () {
-    return view('links.account');
-})->name('account');
-
-Route::get('/notifications', function () {
-    return view('links.notifications');
-})->name('notifications');
-
-// Route::get('/profile', function () {
-//     return view('links.profile');
-// })->name('profile');
-
-Route::get('/student', function () {
-    return view('links.student');
-})->name('student');
 
 
 require __DIR__.'/auth.php';

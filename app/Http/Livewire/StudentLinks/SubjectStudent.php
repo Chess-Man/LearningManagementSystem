@@ -94,7 +94,7 @@ class SubjectStudent extends Component
                 $subject_subject = $classes->subject;
                 
                 // $this->notify_at = ;
-                $this->notifMessage=  $user_name .' has joined in '  .$subject_subject . $subject_description  ;
+                $this->notifMessage=  $user_name .' has joined in '  .$subject_subject. ' ' . $subject_description  ;
                 Notification::send($user , new TaskCreateNotification($this->notifMessage));
                
                 $this->doClose();

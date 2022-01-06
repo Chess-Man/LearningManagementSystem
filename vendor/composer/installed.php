@@ -1,16 +1,25 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-main',
-    'version' => 'dev-main',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => 'cab5573699b6b860b0e5a066c9434aa946dff99e',
+    'reference' => 'd0640717347f2ed587f680b0f8507e737b6803ab',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
   array (
+    'asantibanez/livewire-charts' => 
+    array (
+      'pretty_version' => 'v2.3.0',
+      'version' => '2.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '582ad340ddf0d138df67319073886f9314cccd0a',
+    ),
     'asm89/stack-cors' => 
     array (
       'pretty_version' => 'v2.0.3',
@@ -449,12 +458,12 @@
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => 'cab5573699b6b860b0e5a066c9434aa946dff99e',
+      'reference' => 'd0640717347f2ed587f680b0f8507e737b6803ab',
     ),
     'laravel/sail' => 
     array (

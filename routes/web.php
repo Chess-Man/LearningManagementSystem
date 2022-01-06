@@ -37,11 +37,12 @@ Route::group(['middleware' => ['auth']], function(){
 
 Route::group(['middleware' => ['auth' , 'role:teacher']], function(){
 
+    Route::get('/subjects', App\Http\Livewire\FrontEnd\Teacher\ClassTeacher::class )->name('subjects-teacher');
+    Route::get('/quiz', App\Http\Livewire\FrontEnd\TeacherAndStudent\SubjectQuiz::class )->name('quiz-teacher');
+
     Route::get('/teacher/question/{test}', 'App\Http\Controllers\TeacherQuizController@index')->name('question-teacher');
     Route::post('/teacher/question/store', 'App\Http\Controllers\TeacherQuizController@store')->name('add-question-teacher');
   
-    Route::get('/subjects', App\Http\Livewire\FrontEnd\Teacher\ClassTeacher::class )->name('subjects-teacher');
-    Route::get('/quiz', App\Http\Livewire\TeacherLinks\ClassTeacher::class )->name('quiz-teacher');
     // Route::get('/question/{test}', App\Http\Livewire\TeacherLinks\QuestionTeacher::class )->name('question-teacher');
    //Route::get('/subjects/{subject}', App\Http\Livewire\TeacherLinks\FilesTeacher::class )->name('subjects-files');
 });

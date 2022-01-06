@@ -11,7 +11,7 @@ class SubjectContent extends Component
 {
 
     use WithFileUploads;
-    public $show = 'task';
+    public $show = 'quiz';
 
     public $file_name, $instruction, $file;
 

@@ -9,6 +9,12 @@ class Response extends Model
 {
     use HasFactory;
     protected $table = 'responses';
+    protected $fillable = [
+        'answer',
+        'user_id',
+        'test_id',
+        
+    ];
     public function tests()
     {
         return $this->belongsTo(Test::class);

@@ -42,13 +42,13 @@ Route::group(['middleware' => ['auth' , 'role:teacher']], function(){
 
     Route::get('/teacher/question/{test}', 'App\Http\Controllers\TeacherQuizController@index')->name('question-teacher');
     Route::post('/teacher/question/store', 'App\Http\Controllers\TeacherQuizController@store')->name('add-question-teacher');
-  
+    Route::post('/teacher/question/{id}/destroy', 'App\Http\Controllers\TeacherQuizController@destroy')->name('delete-question-teacher');
     // Route::get('/question/{test}', App\Http\Livewire\TeacherLinks\QuestionTeacher::class )->name('question-teacher');
    //Route::get('/subjects/{subject}', App\Http\Livewire\TeacherLinks\FilesTeacher::class )->name('subjects-files');
 });
 
 Route::group(['middleware' => ['auth' , 'role:teacher|student']], function(){
-   
+    
     Route::get('/subjects/{subject}/content', App\Http\Livewire\FrontEnd\TeacherAndStudent\SubjectContent::class )->name('subjects-content');
     // Route::get('/subjects/view/file/{file}', App\Http\Livewire\FrontEnd\TeacherAndStudent\SubjectFiles::class )->name('subjects-files-view');
     Route::get('/subjects/view/task/{task}', App\Http\Livewire\FrontEnd\TeacherAndStudent\SubjectTaskView::class )->name('subjects-task-view');
@@ -62,7 +62,8 @@ Route::group(['middleware' => ['auth' , 'role:teacher|student']], function(){
     Route::get('/subjects/view/student/task/{task}', App\Http\Livewire\FrontEnd\Student\ClassTaskView::class )->name('subjects-task-view-student');
     Route::get('/student/scores', App\Http\Livewire\FrontEnd\Student\ClassTaskScore::class )->name('scores');
     Route::get('/student/grade', App\Http\Livewire\FrontEnd\Student\ClassTaskGrade::class )->name('grade');
-   
+
+    Route::get('/subjects/quiz/{test}', App\Http\Livewire\FrontEnd\Student\StudentQuiz::class )->name('student-quiz');
     Route::get('/student/progress', App\Http\Livewire\FrontEnd\Student\ClassTaskProgress::class )->name('student-progress');
 });
 //  front end

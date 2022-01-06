@@ -78,7 +78,7 @@
                     <livewire:front-end.teacher-and-student.subject-student :subject="$subject"/>
                 @elseif ($show === 'quiz')
                     <livewire:front-end.teacher-and-student.subject-quiz :subject="$subject"/>
-                @endif
+               @endif
                 
               </div>
             </div>

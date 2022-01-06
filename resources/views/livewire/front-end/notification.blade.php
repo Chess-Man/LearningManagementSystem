@@ -40,13 +40,13 @@
                
                @forelse ($notifications as $notification)
    
-                       <div class="w-full p-2 mt-4 bg-green-100 rounded flex items-center">
-                           <div tabindex="0" aria-label="success icon" role="img" class="focus:outline-none w-8 h-8 border rounded-full border-green-200 flex flex-shrink-0 items-center justify-center">
+                       <div class="w-full p-2 mt-4  rounded flex items-center  @if($notification->read_at === null) bg-green-100 @else bg-gray-200  @endif">
+                           <div tabindex="0" aria-label="success icon" role="img" class="focus:outline-none w-8 h-8 border rounded-full border-blue-200 flex flex-shrink-0 items-center justify-center">
                                <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/notification_1-svg11.svg"  alt="icon"/>
                            </div>
                            <div class="pl-3 w-full">
                                <div class="flex items-center justify-between capitalize">
-                                   <p tabindex="0" class="focus:outline-none text-sm leading-none text-green-700">{{ $notification->data['name']}} </p>
+                                   <p tabindex="0" class="focus:outline-none text-sm leading-none  @if($notification->read_at === null) text-blue-700 @else text-gray-700  @endif ">{{ $notification->data['name']}} </p>
                                    @if($notification->read_at === null)
                                    <p wire:click.defer="read({{ $notification  }})" tabindex="0" class="focus:outline-none focus:text-indigo-600 text-xs leading-3 underline cursor-pointer text-green-700">Mark as Read</p>
                                    @else

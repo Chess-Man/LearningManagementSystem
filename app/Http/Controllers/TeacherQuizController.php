@@ -9,36 +9,14 @@ use App\Models\Question;
 class TeacherQuizController extends Controller
 {
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'question' => 'required',
-            'option' => 'required',
-            'correct_answer' => 'required',
-        ]);
-
-        $test_id = request('test_id');
-        
-        $test = Test::where('id' , $test_id)->first();
-        $question = new Question;
-           
-        $question->question =  request('question');
-        $question->choices = request('option');
-        $question->correct_answer = request('correct_answer');
-        
-        $question->test()->associate($test);
-       
-        $question->save();
-
-        return redirect()->back()->with('message', 'You have successfully added an question');
-    }
-
     public function index(Test $test)
     {
         $test_id = $test->id;
-
+       
         $tests = Question::where('test_id', $test_id)->get();
        
+        $test_name = $test->quiz_name;
+        
 
         // $data = array(
         //     'title'=>'My App',
@@ -46,9 +24,35 @@ class TeacherQuizController extends Controller
         //     'author'=>'foo'
         //     );
         
-        return view('links.question-teacher', compact('test_id' , 'tests'));
+        return view('front-end.teacher.quiz-questions', compact('test_id' , 'tests', 'test_name'));
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'question' => 'required|max:3000',
+            
+        ]);
+
+        $test_id = request('test_id');
+        
+        $test = Test::where('id' , $test_id)->first();
+        $question = new Question;
+        
+        $question->question =  request('question');
+        $question->choices = request('option');
+        
+        $question->test()->associate($test);
+       
+        $question->save();
+       
+        return redirect()->back()->with('message', 'You have successfully added an question');
+    }
+
+    public function destroy(Question $question)
+    {
+        $question->delete();
+    }
    
 
 }

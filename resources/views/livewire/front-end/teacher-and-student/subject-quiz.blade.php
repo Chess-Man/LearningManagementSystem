@@ -51,7 +51,8 @@
                                     
                                    </div>
                                    @if (Auth::user()->hasRole('teacher'))
-                                   <a  href="{{ route('question-teacher',  $test )}}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600"> Open    </a>
+                                   
+                                   <a  href="{{ route('question-teacher',  $test ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600"> Questions    </a>
                                    <button wire:click="edit  ({{ $test }}) "  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
                                         Edit 
                                     </button>
@@ -59,8 +60,10 @@
                                         Delete 
                                     </button>
                                     @elseif (Auth::user()->hasRole('student'))
-                                    <a   href=""  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600"> Open    </a>
+                                    <a   href="{{ route('student-quiz' , ['test' =>$test] ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600"> Open    </a>
                                     @endif
+                                
+                                   
                                </div>
                            </div>
                            <div class="px-2">
@@ -109,13 +112,7 @@
                         @else
                         <p class="text-base font-semibold">Add Quiz</p>
                         @endif
-                            
-                           
-                            
-                         
-                          
-                         
-                           
+                                                       
                             <button role="button" aria-label="close label" wire:click="hideForm" class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-600 focus:outline-none">
                                 <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/add_user-svg1.svg" alt="icon"/>
                                

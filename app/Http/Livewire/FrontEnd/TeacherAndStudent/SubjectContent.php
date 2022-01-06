@@ -48,4 +48,5 @@ class SubjectContent extends Component
     {
         $this->show = 'student';
     }
+
 }

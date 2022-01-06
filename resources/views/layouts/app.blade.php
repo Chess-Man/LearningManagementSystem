@@ -35,7 +35,7 @@
         <!-- apex chart -->
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-        <title>Dashboard | Notus JS by Creative Tim</title>
+        <title>LMS | GPC </title>
         <style>
             .sk-chase {
             width: 25px;

@@ -98,6 +98,7 @@ class FilesTeacher extends Component
         
           $student = ClassStudent::where('code' , $code)->get();
          
+      
           $students_id = []; 
           foreach($student as $id){
               $students_id[]= $id->user_id;

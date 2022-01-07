@@ -44,7 +44,7 @@
                   <div class="flex flex-wrap items-center">
                     
                     <div
-                      class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
+                      class="md:flex hidden flex-row flex-wrap items-center "
                     >
                     
                       <div class="relative flex w-full flex-wrap items-stretch">
@@ -56,7 +56,7 @@
                 </div>
                 <!-- end -->
                 <!-- Adding Question -->
-                <div aria-label="group of cards" tabindex="0" style="width: 800px " class="focus:outline-none pt-4 w-full rounded-t mb-0  border-0 bg-white shadow">
+                <div aria-label="group of cards" tabindex="0" style="width: 800px " class=" focus:outline-none pt-4 w-full rounded-t mb-0  border-0 bg-white shadow">
                     <!-- start -->
                     <div class="rounded-t mb-0  border-0 bg-white">
                         <div class="flex flex-wrap items-center">
@@ -90,16 +90,25 @@
                 <!-- end -->
                </div>
              <!-- End -->
-             @forelse($question as $question)
-                <div aria-label="group of cards" tabindex="0" style="width: 800px " class="focus:outline-none pt-4 w-full rounded-t mb-0 px-4 py-3 border-0 bg-white shadow">
+             
+            
+             <div class="pt-4 pl-5 flex ">
+ 
+               <p class="flex">Question {{$next+1}} - {{$count}}</p>
+           
+             </div>
+             <!-- card -->
+                <div aria-label="group of cards" tabindex="0" style="width: 800px " class="focus:outline-none pt-2 w-full rounded-t mb-0 px-4 py-3 border-0 bg-white shadow">
                    
                    <div class="lg:flex items-center justify-center w-full"  style="width: 800px ">
                   
                        <div tabindex="0" aria-label="card 1" style="width: 800px " class="bg-blue-200 focus:outline-none lg:w-12/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow-md border-t-1  rounded">
                            <div class="flex items-center border-b border-gray-200 pb-6 ">
                                <div class="flex items-start justify-between w-full ">
+                             
                                    <div class="pl-3 w-full pr-2">
-                                       <p tabindex="0" class="focus:outline-none text-md font-small leading-3 text-gray-800 ">{{ $loop->iteration }}. {{ $question->question}} </p>
+                                   
+                                       <p tabindex="0" class="focus:outline-none text-md font-small leading-3 text-gray-800 ">{{ $next_question->question }} </p>
 
                                    </div>
                                   <!-- button  -->
@@ -117,12 +126,13 @@
                                </div>
                            </div>
                            <div class="px-2">
-
-                          <form wire:submit.defer="submit">
+                          <form wire:submit.prevent="submit">
                            <div class="flex flex-col grid-cols-12">
-                               @foreach ($question->choices as $choices)
+
+                                @foreach($next_question->choices as $choices)
                                 <label class="inline-flex items-center mt-3 w-full">
                                
+                             
                                   <input checked wire:model.defer="answer" type="radio" class=" h-5 w-5"  value=" {{ $choices }} ">
                                     <span class="ml-2 text-gray-700"> 
 
@@ -132,9 +142,10 @@
                                  
                                 </label>
                                 @endforeach
+
                             </div>   
                             <button type="submit" class="mr-2 mt-4 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
-                                Submit 
+                                Done 
                             </button>
                           </form>
                          
@@ -145,9 +156,11 @@
                    </div>
 
                </div>
-               @empty
                
-                    <div aria-label="group of cards" tabindex="0" class="focus:outline-none pt-4 w-full rounded-t mb-0 px-4 py-3 border-0 bg-white">
+               <!-- /card -->
+               
+               <!-- empty -->
+                    <!-- <div aria-label="group of cards" tabindex="0" class="focus:outline-none pt-4 w-full rounded-t mb-0 px-4 py-3 border-0 bg-white">
                             
                             <div class="lg:flex items-center justify-center w-full">
 
@@ -163,9 +176,9 @@
 
                         </div>
 
-                </div>
-              @endforelse
-                
+                </div> -->
+              <!-- End for else  -->
+            
               </div>
             </div>
           

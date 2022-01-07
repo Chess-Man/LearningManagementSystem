@@ -31,7 +31,7 @@
                    
                     </div>
                     @if (Auth::user()->hasRole('teacher'))
-                    <button wire:click="showForm" class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded  mx-2 my-2 px-8 py-4">Add</button>
+                    <button wire:click="showForm" class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded  mx-2 my-2 px-8 py-4">Add</button>
                     @endif
                 </div>
                 </div>
@@ -43,7 +43,7 @@
                    
                    <div class="lg:flex items-center justify-center w-full"  style="width: 800px ">
 
-                       <div tabindex="0" aria-label="card 1" style="width: 800px " class="bg-pink-200 focus:outline-none lg:w-12/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow-md border-t-1  rounded">
+                       <div tabindex="0" aria-label="card 1" style="width: 800px " class="bg-blue-300 focus:outline-none lg:w-12/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow-md border-t-1  rounded">
                            <div class="flex items-center border-b border-gray-200 pb-6 ">
                                <div class="flex items-start justify-between w-full ">
                                    <div class="pl-3 w-full">

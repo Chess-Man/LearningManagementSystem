@@ -3,7 +3,7 @@
         
         <!-- Header -->
         
-        <div class="relative bg-pink-600 md:pt-32 pb-32 pt-12">
+        <div class="relative bg-blue-900 md:pt-32 pb-32 pt-12">
           <div class="px-4 md:px-10 mx-auto w-full">
             <div>
              
@@ -40,7 +40,7 @@
                       @enderror
                       </div>
                       <button
-                        class="  bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4  rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                        class="  bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4  rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                         type="submit"
                       >
                         Join
@@ -49,7 +49,7 @@
                     @if($showList === false)
                     <button
                       wire:click="doShowList"
-                      class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="button"
                     >                        
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 0.8);transform: ;msFilter:;"><path d="M4 6h2v2H4zm0 5h2v2H4zm0 5h2v2H4zm16-8V6H8.023v2H18.8zM8 11h12v2H8zm0 5h12v2H8z"></path></svg> 
@@ -57,7 +57,7 @@
                     @else
                     <button
                       wire:click="doCloseList"
-                      class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="button"
                     >                        
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 0.8);transform: ;msFilter:;"><path d="M4 6h2v2H4zm0 5h2v2H4zm0 5h2v2H4zm16-8V6H8.023v2H18.8zM8 11h12v2H8zm0 5h12v2H8z"></path></svg> 

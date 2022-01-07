@@ -3,7 +3,7 @@
         
         <!-- Header -->
         
-        <div class="relative bg-pink-600 md:pt-32 pb-32 pt-12">
+        <div class="relative bg-blue-900 md:pt-32 pb-32 pt-12">
           <div class="px-4 md:px-10 mx-auto w-full">
             <div>
              
@@ -36,7 +36,7 @@
                       class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
                     >
                     
-                    <p class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-600">
+                    <p class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-600">
                     {{ $subjects->code }}
                     </p>
                     

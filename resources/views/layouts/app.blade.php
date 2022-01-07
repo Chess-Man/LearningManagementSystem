@@ -196,7 +196,7 @@
                 select:function(start, end, allDay)
                 {
                     
-                    var title = prompt('title Title:');
+                    var title = prompt('Title:');
 
                     if(title)
                     {

@@ -1,6 +1,6 @@
 <div>
     
-        <div class="relative bg-pink-600 md:pt-32 pb-32 pt-16">
+        <div class="relative bg-blue-900 md:pt-32 pb-32 pt-16">
           <div class="px-4 md:px-10 mx-auto w-full">
             <div>
               
@@ -48,7 +48,7 @@
                       </div>
                     </div>
                     
-                    <button wire:click="showForm" class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded  mx-2 my-2 px-8 py-4">Add</button>
+                    <button wire:click="showForm" class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded  mx-2 my-2 px-8 py-4">Add</button>
                   </div>
                 </div>
                 <div class="block w-full overflow-x-auto">

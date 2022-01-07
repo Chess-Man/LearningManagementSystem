@@ -30,7 +30,7 @@
                    
                     </div>
                     @if (Auth::user()->hasRole('teacher'))
-                    <button wire:click="showForm" class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded  mx-2 my-2 px-8 py-4">Add</button>
+                    <button wire:click="showForm" class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded  mx-2 my-2 px-8 py-4">Add</button>
                     @endif
                 </div>
                 </div>
@@ -40,7 +40,7 @@
                    
                    <div class="lg:flex items-center justify-center w-full"  style="width: 800px ">
 
-                       <div tabindex="0" aria-label="card 1" style="width: 800px " class="focus:outline-none lg:w-12/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow-md border-t-1  rounded">
+                       <div tabindex="0" aria-label="card 1" style="width: 800px " class="focus:outline-none lg:w-12/12 lg:mr-7 lg:mb-0 mb-7 bg-blue-300 p-6 shadow-md border-t-1  rounded">
                            <div class="flex items-center border-b border-gray-200 pb-6">
                                <div class="flex items-start justify-between w-full">
                                    <div class="pl-3 w-full">
@@ -57,7 +57,7 @@
                            <div class="px-2">
                                <p class="focus:outline-none text-sm leading-5 pt-4 text-gray-600">Instruction</p>
                                <p tabindex="0" class="focus:outline-none text-sm leading-5 pt-4 text-gray-600">{{ $file->instruction }}</p>
-                               <p wire:click="download({{ $file->id }} )" tabindex="0" class="focus:outline-none text-sm leading-5 pt-4 mt-4 cursor-pointer text-gray-600 shadow border pl-2 pb-4 bg-gray-100">{{ $file->file_path }}</p>
+                               <p wire:click="download({{ $file->id }} )" tabindex="0" class="focus:outline-none text-sm leading-5 pt-4 mt-4 cursor-pointer text-gray-600 shadow border pl-2 pb-4 bg-gray-200">{{ $file->file_path }}</p>
                              
                            </div>
                        </div>
@@ -134,7 +134,7 @@
                             
                             <div class="flex items-center justify-between mt-9">
                                 <button wire:click="hideForm" role="button" aria-label="close button" onclick="popuphandler(false)" class="focus:ring-2 focus:ring-offset-2 focus:bg-gray-600 focus:ring-gray-600 focus:outline-none px-6 py-3 bg-gray-600 hover:bg-gray-500 shadow rounded text-sm text-white">Cancel</button>
-                                <button aria-label="add user" type="submit" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800 focus:outline-none px-6 py-3 bg-indigo-700 hover:bg-opacity-80 shadow rounded text-sm text-white">Add User</button>
+                                <button aria-label="add user" type="submit" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800 focus:outline-none px-6 py-3 bg-indigo-700 hover:bg-opacity-80 shadow rounded text-sm text-white">Save</button>
                             </div>
                             </form>
                         </div>

@@ -16,7 +16,7 @@
            <img src="{{ asset('images/dash-logo.gif') }}" class="h-12 w-12 flex" alt="">
           <a
             class="flex md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            href="../../index.html"
+            href="/"
           >
             
             LMS | GPC

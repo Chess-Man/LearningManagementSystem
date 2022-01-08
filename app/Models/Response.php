@@ -12,12 +12,14 @@ class Response extends Model
     protected $fillable = [
         'answer',
         'user_id',
-        'test_id',
+        'question_id',
+        'question_number',
+        
         
     ];
-    public function tests()
+    public function question()
     {
-        return $this->belongsTo(Test::class);
+        return $this->belongsTo(Question::class);
     }
 
     public function users()

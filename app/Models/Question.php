@@ -13,8 +13,7 @@ class Question extends Model
     protected $fillable = [
         'question',
         'type',
-        'test_id',
-        
+        'question_id',
     ];
 
     protected $casts = [
@@ -26,8 +25,8 @@ class Question extends Model
         return $this->belongsTo(Test::class);
     }
 
-    public function  options()
+    public function  response()
     {
-        return $this->hasMany(Option::class);
+        return $this->hasMany(Response::class);
     }
 }

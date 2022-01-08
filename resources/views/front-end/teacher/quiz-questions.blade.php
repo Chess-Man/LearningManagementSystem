@@ -121,7 +121,7 @@
                    </form>
                </div>
              <!-- End -->
-                @forelse ($tests as $test)
+                @foreach ($tests as $test)
                 <div aria-label="group of cards" tabindex="0" style="width: 800px " class="focus:outline-none pt-4 w-full rounded-t mb-0 px-4 py-3 border-0 bg-white shadow">
                    
                    <div class="lg:flex items-center justify-center w-full"  style="width: 800px ">
@@ -182,25 +182,8 @@
 
                </div>
              
-               @empty
-                    <div aria-label="group of cards" tabindex="0" class="focus:outline-none pt-4 w-full rounded-t mb-0 px-4 py-3 border-0 bg-white">
-                            
-                            <div class="lg:flex items-center justify-center w-full">
-
-                                <div tabindex="0" aria-label="card 1" style="width: 800px " class="focus:outline-none lg:w-12/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow-md border-t-1  rounded">
-                                    <div class="flex items-center text-center border-gray-200 pb-6 ">
-                               <div class="flex items-start justify-between w-full">
-                                   <div class="pl-3 w-full">
-                                       <p tabindex="0" class="focus:outline-none text-xl font-medium leading-5 text-gray-800">No data found</p>
-                                   </div>
-                              </div>
-                     </div>
-                           
-
-                        </div>
-
-                </div>
-                @endforelse
+              
+                @endforeach
 
                 
               </div>

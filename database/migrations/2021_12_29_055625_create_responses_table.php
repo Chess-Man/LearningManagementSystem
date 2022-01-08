@@ -16,13 +16,13 @@ class CreateResponsesTable extends Migration
         Schema::create('responses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('answer')->nullable()->default('empty');
-        
+          
 
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->integer('test_id')->unsigned()->nullable();
-            $table->foreign('test_id')->references('id')->on('tests')->onDelete('cascade');
+            $table->integer('question_id')->unsigned()->nullable();
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->timestamps();
         });
     }

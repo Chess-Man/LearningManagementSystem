@@ -51,8 +51,8 @@
                                     
                                    </div>
                                    @if (Auth::user()->hasRole('teacher'))
-                                   
-                                   <a  href="{{ route('question-teacher',  $test ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600"> Questions    </a>
+                                   <a  href="{{ route('student-responses',  $test ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-600">Responses</a>
+                                   <a  href="{{ route('question-teacher',  $test ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600">Questions</a>
                                    <button wire:click="edit  ({{ $test }}) "  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
                                         Edit 
                                     </button>

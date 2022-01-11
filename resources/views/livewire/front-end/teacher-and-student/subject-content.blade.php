@@ -46,9 +46,9 @@
                 <!-- Tab -->
                 
                 <div class="sm:hidden relative w-11/12 mx-auto bg-white rounded">
-                        <div class="absolute inset-0 m-auto mr-4 z-0 w-6 h-6">
+                        <!-- <div class="absolute inset-0 m-auto mr-4 z-0 w-6 h-6">
                            <img class="icon icon-tabler icon-tabler-selector" src="../svgs/white-bg-active-gray-svg1.svg" alt="selectors" />
-                        </div>
+                        </div> -->
                        
                     </div>
                     <div class="justify-between flex-wrap hidden sm:block bg-white shadow rounded">

@@ -13,7 +13,7 @@ class TeacherQuizController extends Controller
     {
         $test_id = $test->id;
        
-        $tests = Question::where('test_id', $test_id)->get();
+        $questions = Question::where('test_id', $test_id)->get();
        
         $test_name = $test->quiz_name;
         
@@ -24,7 +24,7 @@ class TeacherQuizController extends Controller
         //     'author'=>'foo'
         //     );
         
-        return view('front-end.teacher.quiz-questions', compact('test_id' , 'tests', 'test_name'));
+        return view('front-end.teacher.quiz-questions', compact('test_id' , 'questions', 'test_name'));
     }
 
     public function store(Request $request)

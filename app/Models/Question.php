@@ -14,6 +14,7 @@ class Question extends Model
         'question',
         'type',
         'question_id',
+        'correct_answer',
     ];
 
     protected $casts = [

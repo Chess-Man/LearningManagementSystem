@@ -109,9 +109,9 @@ class SubjectFiles extends Component
           foreach($student as $id){
               $students_id[]= $id->user_id;
           }
+          
       
           $user = User::findOrFail($students_id)->all(); 
-         
          //  message content
           $users = Auth::user();
           $user_name = $users->name;

@@ -49,9 +49,9 @@ class ClassTaskProgress extends Component
         }
                 $pieChartModel = 
                 (new pieChartModel())
-                    ->setTitle($user_name)
-                    ->addSlice('correct', 100, '#f6ad55')
-                    ->addSlice('wrong', 0, '#27cf54')
+                    ->setTitle('My Learning Progress')
+                    ->addSlice('No data found ', 100 , '#f6ad55')
+                    
                 
                 ;
             return view('livewire.front-end.student.class-task-progress' , compact('pieChartModel'));

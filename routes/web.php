@@ -36,13 +36,15 @@ Route::group(['middleware' => ['auth']], function(){
 });
 
 Route::group(['middleware' => ['auth' , 'role:teacher']], function(){
-
+ 
     Route::get('/subjects', App\Http\Livewire\FrontEnd\Teacher\ClassTeacher::class )->name('subjects-teacher');
     Route::get('/quiz', App\Http\Livewire\FrontEnd\TeacherAndStudent\SubjectQuiz::class )->name('quiz-teacher');
+    Route::get('/subjects-quiz-responses/{result}/log', App\Http\Livewire\FrontEnd\TeacherAndStudent\QuizResponsesLog::class )->name('subjects-quiz-responses-log');
 
     Route::get('/teacher/question/{test}', 'App\Http\Controllers\TeacherQuizController@index')->name('question-teacher');
     Route::post('/teacher/question/store', 'App\Http\Controllers\TeacherQuizController@store')->name('add-question-teacher');
-    Route::post('/teacher/question/{id}/destroy', 'App\Http\Controllers\TeacherQuizController@destroy')->name('delete-question-teacher');
+    Route::get('/student-responses/{test}', App\Http\Livewire\FrontEnd\TeacherAndStudent\QuizResponses::class )->name('student-responses');
+
     // Route::get('/question/{test}', App\Http\Livewire\TeacherLinks\QuestionTeacher::class )->name('question-teacher');
    //Route::get('/subjects/{subject}', App\Http\Livewire\TeacherLinks\FilesTeacher::class )->name('subjects-files');
 });

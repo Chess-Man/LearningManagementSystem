@@ -92,5 +92,6 @@ class SubjectQuiz extends Component
        $this->dispatchBrowserEvent('deleted', [ 'message' => 'File deleted successfully!']);
     }
 
+
 }
 

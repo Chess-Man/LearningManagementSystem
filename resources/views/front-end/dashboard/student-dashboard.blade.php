@@ -12,7 +12,7 @@
           <div class="flex flex-wrap mt-4">
             <div class="w-full mb-12 px-4">
               <div
-                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white"
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-full"
               >
                  <div id='calendar' class=" m-4"></div>
               </div>

@@ -8,7 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="shortcut icon" href="{{ asset('front-end/assets/img/favicon.ico') }}" />
         <link rel="apple-touch-icon"  sizes="76x76" href="{{ asset('front-end/assets/img/apple-icon.png') }} "/>
-        <link rel="stylesheet" href="{{ asset('front-end://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css') }}"/>
+        <!-- <link rel="stylesheet" href="{{ asset('front-end://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css') }}"/> -->
         <link rel="stylesheet" href="{{ asset('front-end/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }} " />
         <link rel="stylesheet" href="{{ asset('front-end/assets/styles/tailwind.css') }} " />
         <!-- Fonts -->
@@ -353,5 +353,5 @@
         document.getElementById(dropdownID).classList.toggle("block");
       }
     </script>
-     
+  
 </html>

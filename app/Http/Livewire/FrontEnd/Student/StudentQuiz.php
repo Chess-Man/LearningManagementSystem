@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Test;
 use App\Models\Question;
 use App\Models\Response; 
+use App\Models\TestResult;
 use Illuminate\Support\Facades\Auth;
 
 class StudentQuiz extends Component
@@ -17,18 +18,27 @@ class StudentQuiz extends Component
     public $next = 0 ;
     public $count ;
     public $result = false ; 
-    public function mount(Test $test)
+    public $score = 0  ;
+    public $data ;
+    
+
+    public function mount(Test $test )
     {
         $this->test = $test ;
+       
     }
-
     public function render() {
+        
         $test = $this->test ;
         $test_id = $test->id; 
         $this->test_id = $test_id; 
     
         $user_id = Auth::id();
-    
+        
+        // result 
+        $test_result = TestResult::where('user_id' , $user_id)->where('test_id' , $test_id)->first();
+
+
         $questions = Question::where('test_id' , $test_id)
         ->with([
             'response' => function ($q) use ($user_id) {
@@ -36,64 +46,52 @@ class StudentQuiz extends Component
             }
          ])
         ->get();
-    
-        // test
-        $next_value = 0;
-    
+
+        
         // test
     
         $count = count($questions); //bibilangin nito yung array ng $questions variable
-        $this->count = $count ;
         
-        foreach($questions as $key => $question) {
-            if (count(($question->response)) > 0) {
-                if (count($questions) >= $next_value) {
-                    $next_value = count($questions) - 1;
-                }
-                else {
-                    $next_value = $key + 1;
-                }
-    
-                $this->next = $next_value;
-               
-                if($count > 0)
-                {
-                    $next_question = $questions[$this->next];
-                }
-    
-                else 
-                {
-                    $next_question = 'empty';
-                }
-                 
-                return view('livewire.front-end.student.student-quiz', ['next_question' => $next_question, 'question' => $questions,  'test' =>$test , 'count' => $count ]);
+        $this->count = $count ;
+
+        $answered_questions = [];
+
+        foreach ($questions as $key => $question) {
+            if (count($question->response) > 0) {
+                array_push($answered_questions, $question);                
+            }
+        }
+        // result 
+       
+
+        // result end
+
+        //count yung answered questions
+        $count_answered_questions = count($answered_questions);
+        if( $count > 0)
+        {
+            if ($count_answered_questions == 0) {
+                $this->next = 0;
+                $current_question = $questions[$this->next];
+            }
+            else if ($count_answered_questions >= $count) {
+                $this->result = true; 
+                $this->next = $count - 1;
+                $current_question = $questions[$this->next];
+                $this->next_question = 'empty';
+                $this->current_question = $current_question;
             }
             else {
-                if (count($questions) >= $next_value) {
-                    $next_value = count($questions) - 1;
-                }
-                else {
-                    $next_value = $key + 1;
-                }
-                
-                $this->next = $next_value;
-    
-                // test
-               
-                if($count > 0)
-                {
-                    $next_question = $questions[$this->next];
-                }
-    
-                else 
-                {
-                    $next_question = 'empty';
-                }
-                 
-                return view('livewire.front-end.student.student-quiz', ['next_question' => $next_question, 'question' => $questions,  'test' =>$test , 'count' => $count ]);
+                $this->next = $count_answered_questions;
+                $current_question = $questions[$this->next];
             }
-            
-        } 
+        }
+        else 
+        {
+            $current_question = false ;
+        }
+
+        return view('livewire.front-end.student.student-quiz', ['test_result'=> $test_result , 'question' => $current_question,  'test' => $test , 'count' => $count, 'result' => $this->result, 'next' => $this->next, 'questions' => $questions, 'answered_questions' => $answered_questions ]);
     }
 
     public function submit($question_id)
@@ -111,8 +109,12 @@ class StudentQuiz extends Component
         else
         {
             $this->store();
-            $this->result = true  ; 
-           
+            $this->result = true; 
+        }
+
+        if($this->result == true)
+        {
+            $this->result();
         }
     
     }
@@ -143,6 +145,16 @@ class StudentQuiz extends Component
                 'answer' => 'required',
             ]);
 
+            $question = Question::where('id' , $this->question_id)->first();
+            $correct_answer = $question->correct_answer;
+
+            // dd($this->answer);
+            // dd($correct_answer);
+            if($this->answer == $correct_answer)
+            {
+                $this->score++;
+            }
+
             $response = Response::where('user_id' , $user);
             
             $response = new Response; 
@@ -153,11 +165,17 @@ class StudentQuiz extends Component
                 'question_id' => $this->question_id ,
             ]);
             $response->save();
-            
-            // question_number
-            $question_number = $this->next; 
-            $question2 = Question::where('id' , $this->question_id)->first(); 
-            $question = $question2->update(['question_number' => $this->next]);
+    }
+
+    public function result()
+    {
+        $user_id = Auth::id();
+        $test_result = new TestResult; 
+        $test_result = $test_result->create([
+            'result' => $this->score,
+            'user_id' => $user_id,
+            'test_id' => $this->test_id
+        ]);
     }
     
 }

@@ -24,17 +24,13 @@ class Notification extends Component
     public function read( $notif)
     {
         $notif_id = $notif['id'];
-        
         DB::table('notifications')->where('id', $notif_id)->update(['read_at'=>Carbon::now()]);
-
     }
 
     public function unread( $notif)
     {
         $notif_id = $notif['id'];
-        
         DB::table('notifications')->where('id', $notif_id)->update(['read_at'=> null]);
-
     }
 
     public function MarkAllAsRead()

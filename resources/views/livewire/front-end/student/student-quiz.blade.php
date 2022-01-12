@@ -90,9 +90,10 @@
              <!-- End -->
              
             
-             <div class="pt-4 pl-5 flex ">
+             <div class="pt-4 pl-5 flex justify-between mr-8">
              @if( $question && !$result )
                <p class="flex font-semibold text-sm text-blueGray-70">Question {{$next+1}} of  {{$count}}</p>
+               <p class="flex font-semibold text-sm text-blueGray-70">Deadline: {{ Carbon\carbon::parse($test_deadline)->format('d/m/Y g:i A') }}</p>
              @endif
              </div>
              <!-- card -->
@@ -225,7 +226,6 @@
                       // const getDateTime = document.getElementById("date_time").value = dateTime;                   
                       //  console.log(dateTime);
                        @this.number_of_times_hidden = number
-                       num++ ; 
                 });
            
             });

@@ -69,7 +69,7 @@
                     href="{{ route('dashboard') }}"
                   class="{{ request()->routeIs('dashboard') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }}text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
-                  <i class="fas fa-tv mr-2 text-sm text-blueGray-300"></i>
+                  <i class="fas fa-tv mr-2 text-sm text-blueGray-800"></i>
                   Dashboard
                 </a>
               </li>
@@ -79,7 +79,7 @@
                   href="{{ route('subjects-teacher' )}}"
                   class="{{ request()->routeIs('subjects-teacher') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block"
                 >
-                  <i class="fas fa-tools mr-2 text-sm opacity-75"></i>
+                  <i class="fas fa-book mr-2 text-sm text-blueGray-800"></i>
                   Subject
                 </a>
               </li>
@@ -91,7 +91,7 @@
                   href="{{ route('subjects-student') }}"
                   class="{{ request()->routeIs('subjects-student') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
-                  <i class="fas fa-table mr-2 text-sm text-blueGray-300"></i>
+                <i class="fas fa-book mr-2 text-sm text-blueGray-800"></i>
                   Subject
                 </a>
               </li>
@@ -100,7 +100,8 @@
                   href="{{ route('scores') }}"
                   class="{{ request()->routeIs('scores') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
-                  <i class="fas fa-table mr-2 text-sm text-blueGray-300"></i>
+                  <i class="fas fa-star mr-2 text-sm text-blueGray-800"></i>
+                  
                   Scores
                 </a>
               </li>
@@ -109,7 +110,7 @@
                   href="{{ route('grade') }}"
                   class="{{ request()->routeIs('grade') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
-                  <i class="fas fa-table mr-2 text-sm text-blueGray-300"></i>
+                  <i class="fas fa-clipboard mr-2 text-sm text-blueGray-800"></i>
                   Grade
                 </a>
               </li>
@@ -119,7 +120,7 @@
                   href="{{ route('student-progress') }}"
                   class="{{ request()->routeIs('student-progress') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
-                  <i class="fas fa-table mr-2 text-sm text-blueGray-300"></i>
+                  <i class="fas fa-spinner mr-2 text-sm text-blueGray-800"></i>
                   Progress
                 </a>
               </li>
@@ -131,7 +132,7 @@
                   class="{{ request()->routeIs('accounts') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
                   <i
-                    class="fas fa-map-marked mr-2 text-sm text-blueGray-300"
+                    class="fas fa-map-marked mr-2 text-sm text-blueGray-800"
                   ></i>
                   Accounts
                 </a>
@@ -159,8 +160,9 @@
                   class="{{ request()->routeIs('profile') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                 >
                   <i
-                    class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"
+                    class="fas fa-user-circle text-blueGray-800 mr-2 text-sm"
                   ></i>
+                 
                   Profile
                 </a>
               </li>
@@ -171,20 +173,22 @@
                   class="{{ request()->routeIs('notification') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
                   <i
-                    class="fas fa-map-marked mr-2 text-sm text-blueGray-300"
+                    class="fas fa-bell mr-2 text-sm text-blueGray-800"
                   ></i>
+                  
                   Notifications
                 </a>
               </li>
 
               <li class="items-center">
                 <a
-                  href="../auth/login.html"
-                  class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  href="{{ route('change-password') }}"
+                  class="{{ request()->routeIs('change-password') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                 >
                   <i
-                    class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"
+                    class="fas fa-lock text-blueGray-800 mr-2 text-sm"
                   ></i>
+
                   Change Password
                 </a>
               </li>
@@ -195,8 +199,9 @@
                   class="text-red-700 hover:text-red-500 text-xs uppercase py-3 font-bold block"
                 >
                   <i
-                    class="fas fa-fingerprint text-red-300 mr-2 text-sm"
+                    class="fas fa-sign-out-alt text-red-300 mr-2 text-sm"
                   ></i>
+                  
                   Logout
                 </a>
               </li>

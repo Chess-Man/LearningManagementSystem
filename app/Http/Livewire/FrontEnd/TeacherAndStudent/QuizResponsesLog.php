@@ -33,7 +33,11 @@ class QuizResponsesLog extends Component
          ])
         ->get();
 
+        $testResult = TestResult::where('user_id' , $user_id)
+        ->where('test_id' , $test_id)
+        ->first();
+
         $count = count($questions);
-        return view('livewire.front-end.teacher-and-student.quiz-responses-log' , ['questions' => $questions, 'user' => $user, 'result' => $result , 'count' => $count]);
+        return view('livewire.front-end.teacher-and-student.quiz-responses-log' , ['questions' => $questions, 'user' => $user, 'result' => $result , 'count' => $count , 'testResult' => $testResult]);
     }
 }

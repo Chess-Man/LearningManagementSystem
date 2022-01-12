@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/dashboard/action' , 'App\Http\Controllers\DashboardController@action');
     Route::get('/profile', App\Http\Livewire\FrontEnd\Profile::class )->name('profile');
     Route::get('/notification', App\Http\Livewire\FrontEnd\Notification::class )->name('notification');
+    Route::get('/change-password', App\Http\Livewire\FrontEnd\ChangePassword::class )->name('change-password');
 });
 
 Route::group(['middleware' => ['auth' , 'role:teacher']], function(){

@@ -25,7 +25,7 @@ class StudentQuiz extends Component
     public $number_of_times_hidden;
     
 
-    public function mount(Test $test )
+    public function mount(Test $test)
     {
         $this->test = $test ;
     }
@@ -33,6 +33,8 @@ class StudentQuiz extends Component
         
         $test = $this->test ;
         $test_id = $test->id; 
+        $test_deadline = $test->deadline ;
+
         $this->test_id = $test_id; 
     
         $user_id = Auth::id();
@@ -93,12 +95,13 @@ class StudentQuiz extends Component
             $current_question = false ;
         }
 
-        return view('livewire.front-end.student.student-quiz', ['test_result'=> $test_result , 'question' => $current_question,  'test' => $test , 'count' => $count, 'result' => $this->result, 'next' => $this->next, 'questions' => $questions, 'answered_questions' => $answered_questions ]);
+        return view('livewire.front-end.student.student-quiz', ['test_result'=> $test_result , 'question' => $current_question,  'test' => $test , 'count' => $count, 'result' => $this->result, 'next' => $this->next, 'questions' => $questions, 'answered_questions' => $answered_questions , 'test_deadline' => $test_deadline]);
     }
 
     public function submit($question_id )
     {
         // input
+    
         $next = $this->next+1;
        
         $this->question_id = $question_id;
@@ -124,6 +127,7 @@ class StudentQuiz extends Component
 
     public function store()
     {
+        
         $user = Auth::user();
         $user_id = $user->id;
         
@@ -166,20 +170,21 @@ class StudentQuiz extends Component
                 'answer' => $this->answer ,
                 'user_id' => $user_id ,
                 'question_id' => $this->question_id ,
-                'log' => $this->number_of_times_hidden,
+               
             ]);
             $response->save();
-            $this->reset('number_of_times_hidden');
     }
 
     public function result()
     {
+      
         $user_id = Auth::id();
         $test_result = new TestResult; 
         $test_result = $test_result->create([
             'result' => $this->score,
             'user_id' => $user_id,
-            'test_id' => $this->test_id
+            'test_id' => $this->test_id,
+            'log' => $this->number_of_times_hidden,
         ]);
     }
 

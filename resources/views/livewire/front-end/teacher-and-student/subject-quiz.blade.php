@@ -47,20 +47,23 @@
                            <div class="flex items-center border-b border-gray-200 pb-6 ">
                                <div class="flex items-start justify-between w-full ">
                                    <div class="pl-3 w-full">
-                                       <p tabindex="0" class="focus:outline-none text-xl font-medium leading-5 text-gray-800">{{ $test->quiz_name}} </p>
-                                    
+                                       <p tabindex="0" class="focus:outline-none text-xl font-medium leading-5 text-gray-800">{{ $test->quiz_name}}</p>
+                                       <p tabindex="0" class="pt-1 focus:outline-none text-sm font-medium @if($test->deadline < $current_date) text-red-600 @else text-blueGray-600 @endif">Deadline: {{ \Carbon\Carbon::parse($test->deadline )->format('d/m/Y g:i A')}}</p>
                                    </div>
                                    @if (Auth::user()->hasRole('teacher'))
                                    <a  href="{{ route('student-responses',  $test ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-600">Responses</a>
                                    <a  href="{{ route('question-teacher',  $test ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600">Questions</a>
-                                   <button wire:click="edit  ({{ $test }}) "  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
+                                   <!-- <button wire:click="edit  ({{ $test }}) "  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
                                         Edit 
-                                    </button>
+                                    </button> -->
                                     <button wire:click="delete ({{ $test->id }})" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-600">
                                         Delete 
                                     </button>
+                                   
                                     @elseif (Auth::user()->hasRole('student'))
-                                    <a   href="{{ route('student-quiz' , ['test' =>$test] ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600"> Open    </a>
+                                      @if($test->deadline > $current_date)
+                                      <a   href="{{ route('student-quiz' , ['test' =>$test] ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600"> Open    </a>
+                                      @endif
                                     @endif
                                 
                                    
@@ -97,8 +100,6 @@
                 </div>
                 @endforelse
 
-     
-            
             <!-- modal -->
             <div id="popup" class="hidden z-50 fixed w-full flex justify-center inset-0" wire:ignore.self >
             <div onclick="popuphandler(false)" class="w-full h-full bg-gray-200 z-0 absolute inset-0"></div>
@@ -121,6 +122,7 @@
                         <div class="px-4 md:px-10 pt-6 md:pt-12 md:pb-4 pb-7">
                             
                             <form class="" action="" wire:submit.prevent=" @if($show === 'update')update @else create @endif">
+                             
                               <div class="grid grid-cols-1 mx-7">
                               <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Quiz Name</label>
                               <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('quiz_name') border-red-500 @enderror"  type="text" wire:model="quiz_name"/>
@@ -134,23 +136,12 @@
                               <div class="grid grid-cols-1 mt-5 mx-7">
                               <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Instruction</label>
                                <textarea class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('instruction') border-red-500 @enderror name=" id="" cols="30" rows="3"   wire:model="instruction"></textarea>
-                             
                               </div>
 
                               <div class="grid grid-cols-1 mx-7 mt-5">
-                              <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Duration </label>
-                              <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('duration') border-red-500 @enderror"  type="text" wire:model="duration"/>
-                              @error('duration')
-                              <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                                {{ $message }}
-                              </span>
-                              @enderror
-                              </div>
-
-                              <div class="grid grid-cols-1 mx-7 mt-5">
-                              <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Number of Questions</label>
-                              <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('number_of_questions') border-red-500 @enderror"  type="text" wire:model="number_of_questions"/>
-                              @error('number_of_questions')
+                              <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Deadline</label>
+                              <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('deadline') border-red-500 @enderror"  type="datetime-local" wire:model="deadline"/>
+                              @error('deadline')
                               <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                                 {{ $message }}
                               </span>

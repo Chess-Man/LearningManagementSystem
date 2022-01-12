@@ -27,7 +27,7 @@
                       Profile
                     </h6>
                     <button
-                      class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="submit"
                     >
                       Save Changes
@@ -104,7 +104,8 @@
                           </label>
                           <select wire:model.defer="sex" class="mt-1 block w-full py-2 px-3 capitalize border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="{{ auth()->user()->userdetail->sex}}">{{ auth()->user()->userdetail->sex}}</option>
-                        
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
                           </select>
                         </div>
                       </div>
@@ -134,7 +135,7 @@
                           </label>
                           <input
                           wire:model.defer="date_of_birth"
-                            type="text"
+                            type="date"
                             class="border-0 px-3 py-3 placeholder-blueGray-600 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                             
                           />

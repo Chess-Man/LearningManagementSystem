@@ -572,6 +572,8 @@ class ComposerStaticInitcd1dc7f03e20726ccf193514c0a8d988
         'App\\Http\\Livewire\\FrontEnd\\Student\\ClassTaskView' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/Student/ClassTaskView.php',
         'App\\Http\\Livewire\\FrontEnd\\Student\\ClassesStudent' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/Student/ClassesStudent.php',
         'App\\Http\\Livewire\\FrontEnd\\Student\\StudentQuiz' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/Student/StudentQuiz.php',
+        'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\QuizResponses' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/QuizResponses.php',
+        'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\QuizResponsesLog' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/QuizResponsesLog.php',
         'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\StudentProgress' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/StudentProgress.php',
         'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\SubjectContent' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/SubjectContent.php',
         'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\SubjectFiles' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/SubjectFiles.php',

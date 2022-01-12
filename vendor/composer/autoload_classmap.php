@@ -31,6 +31,8 @@ return array(
     'App\\Http\\Livewire\\FrontEnd\\Student\\ClassTaskView' => $baseDir . '/app/Http/Livewire/FrontEnd/Student/ClassTaskView.php',
     'App\\Http\\Livewire\\FrontEnd\\Student\\ClassesStudent' => $baseDir . '/app/Http/Livewire/FrontEnd/Student/ClassesStudent.php',
     'App\\Http\\Livewire\\FrontEnd\\Student\\StudentQuiz' => $baseDir . '/app/Http/Livewire/FrontEnd/Student/StudentQuiz.php',
+    'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\QuizResponses' => $baseDir . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/QuizResponses.php',
+    'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\QuizResponsesLog' => $baseDir . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/QuizResponsesLog.php',
     'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\StudentProgress' => $baseDir . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/StudentProgress.php',
     'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\SubjectContent' => $baseDir . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/SubjectContent.php',
     'App\\Http\\Livewire\\FrontEnd\\TeacherAndStudent\\SubjectFiles' => $baseDir . '/app/Http/Livewire/FrontEnd/TeacherAndStudent/SubjectFiles.php',

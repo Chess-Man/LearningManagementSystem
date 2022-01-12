@@ -74,6 +74,7 @@
                     @endif  -->
                 </div>
                 </div>
+                </div>
                 <!-- end -->
                 <!-- Adding Question -->
                 <div aria-label="group of cards" tabindex="0" style="width: 800px " class="focus:outline-none pt-4 w-full rounded-t mb-0 px-4 py-3 border-0 bg-white shadow">

@@ -17,8 +17,8 @@ class CreateTestsTable extends Migration
             $table->increments('id');
             $table->string('quiz_name');
             $table->string('instruction')->nullable()->default('none');
-            $table->string('duration');
-            $table->string('number_of_questions');
+            $table->string('deadline');
+            
 
             $table->integer('classes_id')->unsigned()->nullable();
             $table->foreign('classes_id')->references('id')->on('classes')->onDelete('cascade');

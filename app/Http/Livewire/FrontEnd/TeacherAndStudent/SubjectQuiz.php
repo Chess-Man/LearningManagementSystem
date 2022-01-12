@@ -6,11 +6,16 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\Test;
 use App\Models\Classes;
+use App\Models\ClassStudent;
+use App\Notifications\teacher\TaskCreateNotification;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Auth;
+use \Carbon\Carbon;
 
 class SubjectQuiz extends Component
 {
     protected $listeners = ['deleteConfirmed' => 'deleteQuiz'];
-    public $quiz_name , $instruction , $duration , $number_of_questions ; 
+    public $quiz_name , $instruction , $deadline ; 
 
     public $show = false ;
     public $subject = null; 
@@ -24,15 +29,18 @@ class SubjectQuiz extends Component
                         ->tests()
                         ->where('quiz_name' , 'like' , '%'  . $this->search.'%')
                         ->latest()
-                        ->paginate(10);           
-
-        return view('livewire.front-end.teacher-and-student.subject-quiz', ['tests' => $tests]);
+                        ->paginate(10);   
+      
+        $current_date = Carbon::now();
+     
+        // $elapsed = $date->diffForHumans($current_date);
+        return view('livewire.front-end.teacher-and-student.subject-quiz', ['tests' => $tests , 'current_date' => $current_date]);
     }
 
     public function showForm()
     {
         $this->dispatchBrowserEvent('showForm');
-        $this->reset(['quiz_name' , 'duration' , 'number_of_questions', 'instruction' ,'show']);
+        $this->reset(['instruction' ,'show' , 'deadline']);
         
     }
 
@@ -44,10 +52,11 @@ class SubjectQuiz extends Component
 
     public function create()
     {
+        $code = $this->subject->code;
+        
         $validatedData = $this->validate([
             'quiz_name' => 'required',
-            'duration' => 'required|numeric',
-            'number_of_questions' => 'required|numeric'
+            'deadline' => 'required',
         ]);
 
         $validatedData['instruction'] = $this->instruction;
@@ -57,6 +66,29 @@ class SubjectQuiz extends Component
         $file = Test::create($validatedData);
         $file->classes()->associate($subject);
         $file->save();
+
+        // Notification
+         
+          $student = ClassStudent::where('code' , $code)->get();
+         
+          $students_id = []; 
+          foreach($student as $id){
+              $students_id[]= $id->user_id;
+          }
+          
+          $user = User::findOrFail($students_id)->all(); 
+         //  message content
+          $users = Auth::user();
+          $user_name = $users->name;
+          $subject_description = $this->subject->description;
+          $subject_subject = $this->subject->subject;
+          
+          // $this->notify_at = ;
+          $this->notifMessage=  $user_name .' posted a quiz  '.$this->quiz_name. ' in '  .$subject_subject . $subject_description  ;
+          Notification::send($user , new TaskCreateNotification($this->notifMessage));
+
+        // Notification
+
         $this->hideForm();
         $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Quiz added successfully!']);
     }
@@ -67,9 +99,6 @@ class SubjectQuiz extends Component
         $this->dispatchBrowserEvent('showForm');
         $this->quiz_name = $quiz->quiz_name;
         $this->instruction = $quiz->instruction;
-        $this->duration = $quiz->duration;
-        $this->number_of_questions = $quiz->number_of_questions;
-        $this->instructions = $quiz->instruction;
         $this->show = 'update';
     }
 

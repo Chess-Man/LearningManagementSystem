@@ -11,8 +11,8 @@ class Test extends Model
     protected $fillable = [
         'quiz_name',
         'instruction',
-        'duration',
-        'number_of_questions',
+        'duration' ,
+        'deadline',
     ];
 
     public function classes()

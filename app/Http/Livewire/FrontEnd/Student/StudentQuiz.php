@@ -8,6 +8,8 @@ use App\Models\Question;
 use App\Models\Response; 
 use App\Models\TestResult;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use \Illuminate\Session\SessionManager;
 
 class StudentQuiz extends Component
 {
@@ -20,12 +22,12 @@ class StudentQuiz extends Component
     public $result = false ; 
     public $score = 0  ;
     public $data ;
+    public $number_of_times_hidden;
     
 
     public function mount(Test $test )
     {
         $this->test = $test ;
-       
     }
     public function render() {
         
@@ -94,17 +96,18 @@ class StudentQuiz extends Component
         return view('livewire.front-end.student.student-quiz', ['test_result'=> $test_result , 'question' => $current_question,  'test' => $test , 'count' => $count, 'result' => $this->result, 'next' => $this->next, 'questions' => $questions, 'answered_questions' => $answered_questions ]);
     }
 
-    public function submit($question_id)
+    public function submit($question_id )
     {
-        // inputs
-       
+        // input
         $next = $this->next+1;
+       
         $this->question_id = $question_id;
         if($next < $this->count)
         {
             
             $this->store();
             $this->next++;
+            
         }
         else
         {
@@ -140,7 +143,7 @@ class StudentQuiz extends Component
         // {
         //     $answer = $choice->answer;
         // }           
-      
+
             $validatedData = $this->validate([
                 'answer' => 'required',
             ]);
@@ -163,8 +166,10 @@ class StudentQuiz extends Component
                 'answer' => $this->answer ,
                 'user_id' => $user_id ,
                 'question_id' => $this->question_id ,
+                'log' => $this->number_of_times_hidden,
             ]);
             $response->save();
+            $this->reset('number_of_times_hidden');
     }
 
     public function result()
@@ -177,5 +182,5 @@ class StudentQuiz extends Component
             'test_id' => $this->test_id
         ]);
     }
-    
+
 }

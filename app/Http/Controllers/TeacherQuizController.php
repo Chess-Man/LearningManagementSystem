@@ -53,6 +53,7 @@ class TeacherQuizController extends Controller
     {
         $question->delete();
     }
+
    
 
 }

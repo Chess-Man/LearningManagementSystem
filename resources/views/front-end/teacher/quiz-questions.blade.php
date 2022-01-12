@@ -86,7 +86,7 @@
                             <div class="flex items-center border-b border-gray-200 pb-6 ">
                                <div class="flex items-start justify-between w-full ">
                                    <div class=" w-full">
-                                      
+                          
                                        <textarea name="question" placeholder="Start typing your question here..." class="rounded-md focus:outline-none text-sm bg-green-200 border-blue-400 font-medium leading-5 text-gray-800 w-full" id="" cols="30" rows="3"></textarea>
                                        @error('question')
                                         <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
@@ -137,4 +137,30 @@
            
 </div>
 
+        <script>
+          var number = 0
+          document.addEventListener("visibilitychange", function(){
+
+              if(document.hidden){
+                //true
+                var today = new Date();
+                console.log('hidden');
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var dateTime = date+' '+time;        console.log(dateTime);
+                // itong var dateTime yong e sesend papuntang controller
+                document.getElementById("date_time").value = dateTime 
+                number++;
+                $( "#submit" ).click(function() {
+                  console.log('here');
+                      // document.getElementById("date_time").value = dateTime ;
+                      // console.log(dateTime);
+                      const getDateTime = document.getElementById("date_time").value = dateTime;
+
+                       console.log(dateTime);
+                });
+              }
+
+            });
+      </script>
 </x-app-layout>

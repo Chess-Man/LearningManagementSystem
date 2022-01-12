@@ -76,6 +76,7 @@
                 @foreach($questions as $question)
                 <div>
                     
+                 
                     <div aria-label="group of cards" tabindex="0" style="width: 800px " class="focus:outline-none pt-4 w-full rounded-t mb-0 px-4 py-3 border-0 bg-white shadow">
                         <div class="lg:flex items-center justify-center w-full"  style="width: 800px ">
                             <div tabindex="0" aria-label="card 1" style="width: 800px " class="bg-blue-200 focus:outline-none lg:w-12/12 lg:mr-7 lg:mb-0 mb-7 bg-white p-6 shadow-md border-t-1  rounded">
@@ -97,14 +98,17 @@
                                                     <span class="text-sm "></span>
                                                     {{ $choices }}
                                                     </span>
-                                                    <span class="text-xs pl-48">
-                                                    @if($choices === $question->correct_answer)Correct answer @endif             
+                                                    <span class="text-xs pl-2">
+                                                    @if($choices === $question->correct_answer)(Correct answer) @endif             
                                                     </span>
                                                 </p>
                                             </label>
                                         @endforeach
-                                        <p>Hidden  2x </p>
+                                                             
                                     </div>   
+                                    @foreach($question->response as $response)
+                                            <p class=" bg-green-400 rounded-full  mt-2 py-2 px-4 width-32">Inactive {{$response->log}}X</p>
+                                    @endforeach
                             </div>
                         </div>        
                     </div>  

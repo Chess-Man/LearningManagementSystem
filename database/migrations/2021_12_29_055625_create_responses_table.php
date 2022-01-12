@@ -16,8 +16,8 @@ class CreateResponsesTable extends Migration
         Schema::create('responses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('answer')->nullable()->default('empty');
+            $table->string('log')->nullable()->default('0');
           
-
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

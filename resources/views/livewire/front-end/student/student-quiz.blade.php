@@ -126,12 +126,16 @@
                            <div class="px-2">
                            
                           <form wire:submit.prevent="@if( $count > 0 ) submit({{ $question->id }}) @endif">
-                           <div class="flex flex-col grid-cols-12">
+                           <div class="flex flex-col grid-cols-12" wire:ignore.self> 
+                             <!-- ///////////////// sampleeeee -->
+                              <input class="flex-inline"  wire:model.defer="number_of_times_hidden" type="hidden" value="" name="date_time" id="date_time" />
+                             <!-- ////////////////samplee -->
                               @if( $count > 0 )
                                 @foreach($questions[$next]->choices as $choices)
                                 <label class="inline-flex items-center mt-3 w-full">
-                               
-                             
+
+                                  
+                                 
                                   <input checked wire:model.defer="answer" checked type="radio" class=" h-5 w-5"  value="{{$choices}}">
                                     <span class="ml-2 text-gray-700"> 
 
@@ -145,13 +149,12 @@
 
                             </div>   
                             @if( $count > 0 )
-                            <button type="submit" class="mr-2 mt-4 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
+                            <button type="submit" id="submit" class="mr-2 mt-4 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
                                 Submit 
                             </button>
                             @endif
                           </form>
                          
-
                            </div>
                        </div>
                    
@@ -159,7 +162,6 @@
 
                </div>
            
-               
                @else
                 <!-- result -->
               
@@ -201,43 +203,32 @@
      <!-- test -->
   
      <script>
-          
           var number = 0
           document.addEventListener("visibilitychange", function(){
-              console.log('visibilitychange', document.hidden);
-               
+
               if(document.hidden){
                 //true
                 var today = new Date();
+                console.log('hidden');
                 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                var dateTime = date+' '+time;
-                console.log('ito yong data na e sasave sa database',dateTime);
+                var dateTime = date+' '+time;        console.log(dateTime);
+                // itong var dateTime yong e sesend papuntang controller
+                document.getElementById("date_time").value = dateTime 
                 number++;
-              
-                // $.ajaxSetup({
-                //     headers: {
-                //       'X-CSRF-TOKEN' : $("meta[name='csrf-token']").attr('content')
-                //     }
-                // });
-
-                // var data = { dateTime : dateTime };
-                // $.ajax({
-                //   url: "{{ route('student-quiz' , $test) }}",
-                //   method: 'POST', 
-                //   data:  data
-                  
-                //   success: function(result){
-                //     console.log("Valueadded");
-                //   }
-                // });
-
-              }else
-              {
-                //false
-                console.log('false' , number);
+                
               }
-              console.log(startTime);
+              $( "#submit" ).click(function() {
+                      // console.log('here');
+                      // document.getElementById("date_time").value = dateTime ;
+                      // console.log(dateTime);
+                      // const getDateTime = document.getElementById("date_time").value = dateTime;                   
+                      //  console.log(dateTime);
+                       @this.number_of_times_hidden = number
+                       num++ ; 
+                });
+           
             });
-        </script>
+          
+      </script>
 </div>

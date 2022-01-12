@@ -13,7 +13,7 @@ class Response extends Model
         'answer',
         'user_id',
         'question_id',
-        'question_number',
+        'log',
         
         
     ];

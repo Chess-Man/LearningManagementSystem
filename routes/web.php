@@ -66,6 +66,7 @@ Route::group(['middleware' => ['auth' , 'role:teacher|student']], function(){
     Route::get('/student/grade', App\Http\Livewire\FrontEnd\Student\ClassTaskGrade::class )->name('grade');
 
     Route::get('/subjects/quiz/{test}', App\Http\Livewire\FrontEnd\Student\StudentQuiz::class )->name('student-quiz');
+    
     Route::get('/student/progress', App\Http\Livewire\FrontEnd\Student\ClassTaskProgress::class )->name('student-progress');
 });
 //  front end

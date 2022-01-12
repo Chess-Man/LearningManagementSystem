@@ -564,6 +564,7 @@ class ComposerStaticInitcd1dc7f03e20726ccf193514c0a8d988
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Livewire\\AdminLinks\\Accounts' => __DIR__ . '/../..' . '/app/Http/Livewire/AdminLinks/Accounts.php',
         'App\\Http\\Livewire\\FrontEnd\\Accounts' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/Accounts.php',
+        'App\\Http\\Livewire\\FrontEnd\\ChangePassword' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/ChangePassword.php',
         'App\\Http\\Livewire\\FrontEnd\\Notification' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/Notification.php',
         'App\\Http\\Livewire\\FrontEnd\\Profile' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/Profile.php',
         'App\\Http\\Livewire\\FrontEnd\\Student\\ClassTaskGrade' => __DIR__ . '/../..' . '/app/Http/Livewire/FrontEnd/Student/ClassTaskGrade.php',

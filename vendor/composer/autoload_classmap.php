@@ -23,6 +23,7 @@ return array(
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Livewire\\AdminLinks\\Accounts' => $baseDir . '/app/Http/Livewire/AdminLinks/Accounts.php',
     'App\\Http\\Livewire\\FrontEnd\\Accounts' => $baseDir . '/app/Http/Livewire/FrontEnd/Accounts.php',
+    'App\\Http\\Livewire\\FrontEnd\\ChangePassword' => $baseDir . '/app/Http/Livewire/FrontEnd/ChangePassword.php',
     'App\\Http\\Livewire\\FrontEnd\\Notification' => $baseDir . '/app/Http/Livewire/FrontEnd/Notification.php',
     'App\\Http\\Livewire\\FrontEnd\\Profile' => $baseDir . '/app/Http/Livewire/FrontEnd/Profile.php',
     'App\\Http\\Livewire\\FrontEnd\\Student\\ClassTaskGrade' => $baseDir . '/app/Http/Livewire/FrontEnd/Student/ClassTaskGrade.php',

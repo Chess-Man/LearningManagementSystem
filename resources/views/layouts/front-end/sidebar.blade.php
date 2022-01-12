@@ -67,7 +67,7 @@
               <li class="items-center">
                 <a
                     href="{{ route('dashboard') }}"
-                  class="{{ request()->routeIs('dashboard') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }}text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                  class="{{ request()->routeIs('dashboard') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }}text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
                   <i class="fas fa-tv mr-2 text-sm text-blueGray-800"></i>
                   Dashboard
@@ -77,7 +77,7 @@
               <li class="items-center">
                 <a
                   href="{{ route('subjects-teacher' )}}"
-                  class="{{ request()->routeIs('subjects-teacher') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block"
+                  class="{{ request()->routeIs('subjects-teacher') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-xs uppercase py-3 font-bold block"
                 >
                   <i class="fas fa-book mr-2 text-sm text-blueGray-800"></i>
                   Subject
@@ -89,7 +89,7 @@
               <li class="items-center">
                 <a
                   href="{{ route('subjects-student') }}"
-                  class="{{ request()->routeIs('subjects-student') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                  class="{{ request()->routeIs('subjects-student') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
                 <i class="fas fa-book mr-2 text-sm text-blueGray-800"></i>
                   Subject
@@ -98,7 +98,7 @@
               <li class="items-center">
                 <a
                   href="{{ route('scores') }}"
-                  class="{{ request()->routeIs('scores') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                  class="{{ request()->routeIs('scores') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
                   <i class="fas fa-star mr-2 text-sm text-blueGray-800"></i>
                   
@@ -108,7 +108,7 @@
               <li class="items-center">
                 <a
                   href="{{ route('grade') }}"
-                  class="{{ request()->routeIs('grade') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                  class="{{ request()->routeIs('grade') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
                   <i class="fas fa-clipboard mr-2 text-sm text-blueGray-800"></i>
                   Grade
@@ -118,7 +118,7 @@
               <li class="items-center">
                 <a
                   href="{{ route('student-progress') }}"
-                  class="{{ request()->routeIs('student-progress') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                  class="{{ request()->routeIs('student-progress') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
                   <i class="fas fa-spinner mr-2 text-sm text-blueGray-800"></i>
                   Progress
@@ -129,7 +129,7 @@
               <li class="items-center">
                 <a
                   href="{{ route('accounts') }}"
-                  class="{{ request()->routeIs('accounts') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                  class="{{ request()->routeIs('accounts') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
                   <i
                     class="fas fa-map-marked mr-2 text-sm text-blueGray-800"
@@ -157,7 +157,7 @@
               <li class="items-center">
                 <a
                   href="{{ route('profile') }}"
-                  class="{{ request()->routeIs('profile') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  class="{{ request()->routeIs('profile') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                 >
                   <i
                     class="fas fa-user-circle text-blueGray-800 mr-2 text-sm"
@@ -170,7 +170,7 @@
               <li class="items-center">
                 <a
                   href="{{ route('notification') }}"
-                  class="{{ request()->routeIs('notification') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                  class="{{ request()->routeIs('notification') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                 >
                   <i
                     class="fas fa-bell mr-2 text-sm text-blueGray-800"
@@ -183,7 +183,7 @@
               <li class="items-center">
                 <a
                   href="{{ route('change-password') }}"
-                  class="{{ request()->routeIs('change-password') ? 'text-xs  text-pink-500 hover:text-pink-600 ' : '' }} text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  class="{{ request()->routeIs('change-password') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                 >
                   <i
                     class="fas fa-lock text-blueGray-800 mr-2 text-sm"

@@ -36,9 +36,7 @@
                       class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
                     >
                     
-                    <a href="" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-600">
-                        Return
-                    </a>
+                   
                     
                 </div>
                 </div>

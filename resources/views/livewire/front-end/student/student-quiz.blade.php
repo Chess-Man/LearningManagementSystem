@@ -4,7 +4,7 @@
         
         <!-- Header -->
         
-        <div class="relative bg-pink-600 md:pt-32 pb-32 pt-12">
+        <div class="relative bg-blue-900 md:pt-32 pb-32 pt-12">
           <div class="px-4 md:px-10 mx-auto w-full">
             <div>
              
@@ -47,9 +47,7 @@
                     
                       <div class="relative flex w-full flex-wrap items-stretch">
                    
-                    <!-- @if (Auth::user()->hasRole('teacher'))
-                    <button  class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded  mx-2 my-2 px-8 py-4">Add</button>
-                    @endif  -->
+                  
                 </div>
                 </div>
                 <!-- end -->
@@ -79,9 +77,7 @@
                             class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
                             >
                             
-                            <!-- <a href="" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-pink-600 hover:bg-pink-600">
-                                Return
-                            </a> -->
+                        
                             
                         </div>
                     </div>
@@ -182,9 +178,6 @@
                                    <div class="pl-3 w-full block">
                                        <p tabindex="0" class=" focus:outline-none text-xl font-medium leading-5 text-blueGray-800 pb-5">Result </p>
                                        <p tabindex="0" class=" focus:outline-none text-md font-medium leading-5 text-blueGray-800">Score:  {{$test_result->result}}/{{$count}} </p>
-                                       <button type="submit" class=" mt-4  items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
-                                          Done 
-                                      </button>
                                    </div>
                                 
                               </div>

@@ -37,7 +37,7 @@
                   
                     <div class="flex flex-wrap">
                      
-                      <div class="w-full lg:w-9/12 px-4">
+                      <div class="w-full lg:w-9/12 px-4 pt-4">
                         <div class="relative w-full mb-3">
                           <label
                             

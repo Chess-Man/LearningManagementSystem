@@ -33,12 +33,12 @@
                       <h3 class="text-sm text-blueGray-700">
                        Score: {{$result}}/{{$count}}
                       </h3>
-
+<!-- 
                       @if( $testResult != null)
                       <h3 class="mb-2 text-sm text-blueGray-700 bg-blue-800 rounded-full px-2 py-2 text-white">
                         Inactive {{ $testResult->log }}x
                       </h3>
-                      @endif
+                      @endif -->
                       </div>
                      
                     </div>
@@ -108,17 +108,36 @@
                                                     <span class="text-sm "></span>
                                                     {{ $choices }}
                                                     </span>
-                                                    <span class="text-xs pl-2">
-                                                    @if($choices === $question->correct_answer)(Correct answer) @endif             
+                                                    @if($choices === $question->correct_answer)
+                                                    <span class="text-xs p-1 ml-2 text-white bg-blue-900 rounded-full">
+                                                      Correct answer             
                                                     </span>
+                                                    @endif 
+                                                    
                                                 </p>
                                             </label>
                                          
                                         @endforeach
 
+                                        <div class="flex justify-between">
                                         @foreach ($question->response as $response)
-                                              <p class="mt-2 ml-4">Response: {{ $response->answer }} </p>
-                                        @endforeach                                                           
+                                            @if( $response->answer === $question->correct_answer )
+                                            <p class=" flex mt-2 text-green-600 ml-4">Response: {{ $response->answer }}<i class="ml-4 pt-1 fas fa-check"></i> </p>
+                                            @else
+                                            <p class=" flex mt-2 ml-4  text-red-600">Response: {{ $response->answer }} <i class="ml-4 pt-1 fas fa-times flex"></i> </p> 
+                                            @endif
+                                        @endforeach    
+
+                                        @foreach ($question->response as $response)
+                                            @if($response->log === null)
+                                              <p class="flex mt-2 ml-4 bg-green-600 text-white rounded-full px-4 py-1">Hidden 0 </p>
+                                            @else
+                                              <p class="flex mt-2 ml-4 bg-red-600 text-white rounded-full px-4 py-1">Hidden {{ $response->log }} </p>
+                                            @endif
+                                             
+                                        @endforeach   
+                                        </div>
+                                   
                                     </div>   
                                   
                             </div>

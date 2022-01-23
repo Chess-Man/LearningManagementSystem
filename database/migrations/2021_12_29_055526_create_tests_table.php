@@ -18,6 +18,7 @@ class CreateTestsTable extends Migration
             $table->string('quiz_name');
             $table->string('instruction')->nullable()->default('none');
             $table->string('deadline');
+            $table->string('duration');
             
 
             $table->integer('classes_id')->unsigned()->nullable();

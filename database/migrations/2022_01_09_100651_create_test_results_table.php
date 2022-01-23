@@ -16,7 +16,7 @@ class CreateTestResultsTable extends Migration
         Schema::create('test_results', function (Blueprint $table) {
             $table->increments('id');
             $table->string('result')->nullable()->default('NA');
-            $table->string('log')->nullable()->default('0');
+       
 
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

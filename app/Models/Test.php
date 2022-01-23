@@ -13,6 +13,7 @@ class Test extends Model
         'instruction',
         'duration' ,
         'deadline',
+       
     ];
 
     public function classes()

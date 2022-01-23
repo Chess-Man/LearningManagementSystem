@@ -59,7 +59,7 @@
             <h6
               class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
             >
-              Admin Layout Pages
+              Links
             </h6>
             <!-- Navigation -->
 
@@ -79,7 +79,7 @@
                   href="{{ route('subjects-teacher' )}}"
                   class="{{ request()->routeIs('subjects-teacher') ? 'text-xs  text-blue-500 hover:text-blue-600 ' : '' }} text-xs uppercase py-3 font-bold block"
                 >
-                  <i class="fas fa-book mr-2 text-sm text-blueGray-800"></i>
+                  <i class="fas fa-book mr-3 text-sm text-blueGray-800"></i>
                   Subject
                 </a>
               </li>

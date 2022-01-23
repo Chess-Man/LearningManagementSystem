@@ -35,6 +35,10 @@
         <!-- apex chart -->
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+        <!-- time Circles -->
+        <script type="text/javascript" src="{{ asset('time-circle/inc/TimeCircles.js') }} "></script>
+        <link href="{{ asset('time-circle/inc/TimeCircles.css') }} " rel="stylesheet">
+
         <title>LMS | GPC </title>
         <style>
             .sk-chase {

@@ -19,7 +19,7 @@ class CreateResponsesTable extends Migration
           
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->string('log')->nullable()->default('0');
             $table->integer('question_id')->unsigned()->nullable();
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->timestamps();

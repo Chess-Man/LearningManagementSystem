@@ -15,12 +15,13 @@ use \Carbon\Carbon;
 class SubjectQuiz extends Component
 {
     protected $listeners = ['deleteConfirmed' => 'deleteQuiz'];
-    public $quiz_name , $instruction , $deadline ; 
+    public $quiz_name , $instruction , $deadline , $duration; 
 
     public $show = false ;
     public $subject = null; 
     public $search;
     public $quizIdBeingRemoved;
+   
 
     public function render()
     {
@@ -57,6 +58,7 @@ class SubjectQuiz extends Component
         $validatedData = $this->validate([
             'quiz_name' => 'required',
             'deadline' => 'required',
+            'duration' => 'required',
         ]);
 
         $validatedData['instruction'] = $this->instruction;
@@ -91,20 +93,6 @@ class SubjectQuiz extends Component
 
         $this->hideForm();
         $this->dispatchBrowserEvent('showmessage', [ 'message' => 'Quiz added successfully!']);
-    }
-
-    public function edit(Test $quiz)
-    {
-
-        $this->dispatchBrowserEvent('showForm');
-        $this->quiz_name = $quiz->quiz_name;
-        $this->instruction = $quiz->instruction;
-        $this->show = 'update';
-    }
-
-    public function update()
-    {
-        dd('here');
     }
 
     public function delete($id)

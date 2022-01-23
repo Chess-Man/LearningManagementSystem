@@ -49,7 +49,8 @@
                                    <div class="pl-3 w-full">
                                        <p tabindex="0" class="focus:outline-none text-xl font-medium leading-5 text-gray-800">{{ $test->quiz_name}}</p>
                                        <p tabindex="0" class="pt-1 focus:outline-none text-sm font-medium @if($test->deadline < $current_date) text-red-600 @else text-blueGray-600 @endif">Deadline: {{ \Carbon\Carbon::parse($test->deadline )->format('d/m/Y g:i A')}}</p>
-                                   </div>
+                                       <p tabindex="0" class="pt-1 focus:outline-none text-sm font-medium @if($test->deadline < $current_date) text-red-600 @else text-blueGray-600 @endif">Duration: {{ $test->duration}} seconds</p>
+                                    </div>
                                    @if (Auth::user()->hasRole('teacher'))
                                    <a  href="{{ route('student-responses',  $test ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-600">Responses</a>
                                    <a  href="{{ route('question-teacher',  $test ) }}"  class="mr-2 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-600">Questions</a>
@@ -147,6 +148,17 @@
                               </span>
                               @enderror
                               </div>
+                              
+                              <div class="grid grid-cols-1 mx-7 mt-5">
+                              <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Duration</label>
+                              <input class="py-2 px-3 rounded-lg border-2 border-gray-300  mt-1 focus:outline-none focus:ring-2 focus:ring-gray-600  focus:border-transparent @error('duration') border-red-500 @enderror"  type="text" wire:model="duration" placeholder="Seconds"/>
+                              @error('duration')
+                              <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                {{ $message }}
+                              </span>
+                              @enderror
+                              </div>
+                              
              
                             <div class="flex items-center justify-between mt-9">
                                 <button wire:click="hideForm" role="button" aria-label="close button" onclick="popuphandler(false)" class="focus:ring-2 focus:ring-offset-2 focus:bg-gray-600 focus:ring-gray-600 focus:outline-none px-6 py-3 bg-gray-600 hover:bg-gray-500 shadow rounded text-sm text-white">Cancel</button>

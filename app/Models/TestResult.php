@@ -10,7 +10,6 @@ class TestResult extends Model
     use HasFactory;
     protected $fillable = [
         'result',
-        'log',
         'user_id',
         'test_id',
     ];

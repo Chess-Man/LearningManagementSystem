@@ -17,14 +17,14 @@ class StudentQuiz extends Component
     public $answer ;
     public $test_id ; 
     public $question_id ; 
-    public $next = 0 ;
+    public $next  ;
     public $count ;
     public $result = false ; 
     public $score = 0  ;
     public $data ;
     public $number_of_times_hidden;
+    public $time_remaining;
     
-
     public function mount(Test $test)
     {
         $this->test = $test ;
@@ -34,6 +34,7 @@ class StudentQuiz extends Component
         $test = $this->test ;
         $test_id = $test->id; 
         $test_deadline = $test->deadline ;
+        $duration = $test->duration ;
 
         $this->test_id = $test_id; 
     
@@ -95,13 +96,13 @@ class StudentQuiz extends Component
             $current_question = false ;
         }
 
-        return view('livewire.front-end.student.student-quiz', ['test_result'=> $test_result , 'question' => $current_question,  'test' => $test , 'count' => $count, 'result' => $this->result, 'next' => $this->next, 'questions' => $questions, 'answered_questions' => $answered_questions , 'test_deadline' => $test_deadline]);
+        // timer
+        return view('livewire.front-end.student.student-quiz', ['test_result'=> $test_result , 'question' => $current_question,  'test' => $test , 'count' => $count, 'result' => $this->result, 'next' => $this->next, 'questions' => $questions, 'answered_questions' => $answered_questions , 'test_deadline' => $test_deadline , 'duration' => $duration]);
     }
 
     public function submit($question_id )
     {
         // input
-    
         $next = $this->next+1;
        
         $this->question_id = $question_id;
@@ -122,41 +123,25 @@ class StudentQuiz extends Component
         {
             $this->result();
         }
+
+      
     
     }
 
     public function store()
     {
-        
-        $user = Auth::user();
-        $user_id = $user->id;
-        
-        $count_existence = Response::where('user_id', $user_id)
+
+            $user = Auth::user();
+            $user_id = $user->id;
+            
+            $count_existence = Response::where('user_id', $user_id)
                                    ->where('question_id', $this->question_id)
                                    ->count();
-
-        // nakalimutan ko para san 
-        // $choice = Response::where('user_id' , $user_id)
-        //                    ->where('question_id', $this->question_id)
-        //                    ->first();
-        // if($choice == null) 
-        // {
-
-        // }    
-        // else
-        // {
-        //     $answer = $choice->answer;
-        // }           
-
-            $validatedData = $this->validate([
-                'answer' => 'required',
-            ]);
 
             $question = Question::where('id' , $this->question_id)->first();
             $correct_answer = $question->correct_answer;
 
-            // dd($this->answer);
-            // dd($correct_answer);
+         
             if($this->answer == $correct_answer)
             {
                 $this->score++;
@@ -165,12 +150,17 @@ class StudentQuiz extends Component
             $response = Response::where('user_id' , $user);
             
             $response = new Response; 
+
+            if($this->answer == null)
+            {
+               $this->answer = 'No answer';
+            }
     
             $response = $response->create([
                 'answer' => $this->answer ,
                 'user_id' => $user_id ,
                 'question_id' => $this->question_id ,
-               
+                'log' => $this->number_of_times_hidden,
             ]);
             $response->save();
     }
@@ -184,7 +174,6 @@ class StudentQuiz extends Component
             'result' => $this->score,
             'user_id' => $user_id,
             'test_id' => $this->test_id,
-            'log' => $this->number_of_times_hidden,
         ]);
     }
 

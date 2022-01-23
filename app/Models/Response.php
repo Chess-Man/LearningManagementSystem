@@ -13,6 +13,7 @@ class Response extends Model
         'answer',
         'user_id',
         'question_id',
+        'log',
     ];
     public function question()
     {

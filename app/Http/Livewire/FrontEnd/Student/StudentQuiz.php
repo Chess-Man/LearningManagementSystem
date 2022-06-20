@@ -43,13 +43,13 @@ class StudentQuiz extends Component
         // result 
         $test_result = TestResult::where('user_id' , $user_id)->where('test_id' , $test_id)->first();
 
-
         $questions = Question::where('test_id' , $test_id)
         ->with([
             'response' => function ($q) use ($user_id) {
                 $q->where('user_id', $user_id);
             }
          ])
+        ->inRandomOrder()
         ->get();
 
         

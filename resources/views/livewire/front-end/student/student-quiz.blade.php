@@ -90,7 +90,12 @@
              @if( $question && !$result )
                <p class="flex font-semibold text-sm text-blueGray-70">Question {{$next+1}} of  {{$count}}</p>
                <!-- <p class="flex font-semibold text-sm text-blueGray-70">Deadline: {{ Carbon\carbon::parse($test_deadline)->format('d/m/Y g:i A') }}</p> -->
+<<<<<<< HEAD
                <p class="flex font-semibold text-sm text-blueGray-70" >Time Remaining :  <span id="countdowntimer"> {{ $duration }} </span> </p>
+=======
+               <div class="timer  flex h-24 font-semibold text-sm text-blueGray-70" data-timer="{{ $duration }}"></div>
+               
+>>>>>>> origin
              @endif
              </div>
              <!-- card -->
@@ -127,7 +132,7 @@
                            <div class="flex flex-col grid-cols-12" wire:ignore.self> 
                              <!-- hidden -->
                               <input class="flex-inline"  wire:model.defer="number_of_times_hidden" type="hidden" value="" name="date_time" id="date_time" />
-                              <input class="flex-inline"  wire:model.defer="time_remaining" type="hidden" value="" />
+                              
 
                               <!-- /hidden-->
                               @if( $count > 0 )
@@ -137,7 +142,11 @@
                                   
                                  
                                   <input checked wire:model.defer="answer" type="radio" class=" h-5 w-5"  value="{{$choices}}">
+<<<<<<< HEAD
                                     <span onchange="demo()" class="ml-2 text-gray-700 text-gray-700"> 
+=======
+                                    <span class="ml-2 text-gray-700 text-gray-700 "> 
+>>>>>>> origin
 
                                      {{$choices}}
 
@@ -150,10 +159,14 @@
                             </div>   
                             @if( $count > 0 )
                             <button type="submit" id="submit" class="mr-2 mt-4 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
+<<<<<<< HEAD
                            
                               Submit 
                               
                           
+=======
+                            Submit   
+>>>>>>> origin
                             </button>
                             @endif
                           </form>
@@ -245,6 +258,7 @@
            
             // });
              
+<<<<<<< HEAD
             // setInterval(function()  {
             //   var remaining_second = $('.timer').TimeCircles().getTime();
             //   var second = Math.round(remaining_second);
@@ -255,6 +269,18 @@
             //     document.getElementById("submit").click()
             //     location.reload();
             //   }
+=======
+            setInterval(function()  {
+              var remaining_second = $('.timer').TimeCircles().getTime();
+              var second = Math.round(remaining_second);
+              
+             
+              if(second < 1)
+              {
+                document.getElementById("submit").click()
+                location.reload();
+              }
+>>>>>>> origin
 
             //   $(".submit").click(function(){ 
             //     $(".timer").TimeCircles().restart(); 

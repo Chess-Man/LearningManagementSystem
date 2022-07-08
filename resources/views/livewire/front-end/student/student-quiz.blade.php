@@ -90,8 +90,7 @@
              @if( $question && !$result )
                <p class="flex font-semibold text-sm text-blueGray-70">Question {{$next+1}} of  {{$count}}</p>
                <!-- <p class="flex font-semibold text-sm text-blueGray-70">Deadline: {{ Carbon\carbon::parse($test_deadline)->format('d/m/Y g:i A') }}</p> -->
-               <div class="timer hidden flex h-24 font-semibold text-sm text-blueGray-70" data-timer="{{ $duration }}"></div>
-               <p class="flex font-semibold text-sm text-blueGray-70" >Time Remaining : {{$time_remaining}} </p>
+               <p class="flex font-semibold text-sm text-blueGray-70" >Time Remaining :  <span id="countdowntimer"> {{ $duration }} </span> </p>
              @endif
              </div>
              <!-- card -->
@@ -137,8 +136,8 @@
 
                                   
                                  
-                                  <input checked wire:model.defer="answer" @if($time_remaining < 1) disabled @endif  type="radio" class=" h-5 w-5"  value="{{$choices}}">
-                                    <span onchange="demo()" class="ml-2 text-gray-700 @if($time_remaining < 1) text-red-700 @else text-gray-700 @endif"> 
+                                  <input checked wire:model.defer="answer" type="radio" class=" h-5 w-5"  value="{{$choices}}">
+                                    <span onchange="demo()" class="ml-2 text-gray-700 text-gray-700"> 
 
                                      {{$choices}}
 
@@ -151,11 +150,9 @@
                             </div>   
                             @if( $count > 0 )
                             <button type="submit" id="submit" class="mr-2 mt-4 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-600">
-                            @if($time_remaining < 1) 
-                              Next
-                            @else
+                           
                               Submit 
-                            @endif    
+                              
                           
                             </button>
                             @endif
@@ -233,39 +230,52 @@
             });
 
             //Timer 
-            $(".timer").TimeCircles({
-              time: {
-                Days:{
-                  show: false
-                }, 
-                Hours:{
-                  show: false
-                },
+            // $(".timer").TimeCircles({
+            //   time: {
+            //     Days:{
+            //       show: false
+            //     }, 
+            //     Hours:{
+            //       show: false
+            //     },
               
-              },
-              count_past_zero: false,
-              start: true,
+            //   },
+            //   count_past_zero: false,
+            //   start: true,
            
-            });
+            // });
              
-            setInterval(function()  {
-              var remaining_second = $('.timer').TimeCircles().getTime();
-              var second = Math.round(remaining_second);
-              @this.time_remaining =  second ;
+            // setInterval(function()  {
+            //   var remaining_second = $('.timer').TimeCircles().getTime();
+            //   var second = Math.round(remaining_second);
+            //   @this.time_remaining =  second ;
              
-              if(remaining_second < 1)
-              {
-                document.getElementById("submit").click()
-                location.reload();
-              }
+            //   if(remaining_second < 1)
+            //   {
+            //     document.getElementById("submit").click()
+            //     location.reload();
+            //   }
 
-              $(".submit").click(function(){ 
-                $(".timer").TimeCircles().restart(); 
-              });
+            //   $(".submit").click(function(){ 
+            //     $(".timer").TimeCircles().restart(); 
+            //   });
  
-            }, 1000);
+            // }, 1000);
 
             // end timer
-          
+
+            // test-new-timer 
+            var duration = document.getElementById("countdowntimer").textContent;
+            var timeleft =  duration;
+            var downloadTimer = setInterval(function(){
+            timeleft--;
+            document.getElementById("countdowntimer").textContent = timeleft;
+              if(timeleft <= 0){
+                document.getElementById("submit").click()
+                location.reload();
+                clearInterval(downloadTimer);
+              }
+                
+            },1000);
       </script>
 </div>

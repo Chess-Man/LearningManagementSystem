@@ -24,7 +24,8 @@ class StudentQuiz extends Component
     public $data ;
     public $number_of_times_hidden;
     public $time_remaining;
-    
+    public $test_duration;
+
     public function mount(Test $test)
     {
         $this->test = $test ;
@@ -35,7 +36,7 @@ class StudentQuiz extends Component
         $test_id = $test->id; 
         $test_deadline = $test->deadline ;
         $duration = $test->duration ;
-
+        $this->test_duration  = $duration;
         $this->test_id = $test_id; 
     
         $user_id = Auth::id();
@@ -50,6 +51,7 @@ class StudentQuiz extends Component
                 $q->where('user_id', $user_id);
             }
          ])
+        ->inRandomOrder()
         ->get();
 
         
@@ -97,7 +99,7 @@ class StudentQuiz extends Component
         }
 
         // timer
-        return view('livewire.front-end.student.student-quiz', ['test_result'=> $test_result , 'question' => $current_question,  'test' => $test , 'count' => $count, 'result' => $this->result, 'next' => $this->next, 'questions' => $questions, 'answered_questions' => $answered_questions , 'test_deadline' => $test_deadline , 'duration' => $duration]);
+        return view('livewire.front-end.student.student-quiz', ['test_result'=> $test_result , 'question' => $current_question,  'test' => $test , 'count' => $count, 'result' => $this->result, 'next' => $this->next, 'questions' => $questions, 'answered_questions' => $answered_questions , 'test_deadline' => $test_deadline , 'duration' => $this->test_duration]);
     }
 
     public function submit($question_id )
